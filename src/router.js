@@ -7,7 +7,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/ebook'
+      redirect: '/ebook/Laws|2016_Book_ReconsideringConstitutionalFor'
     },
     {
       path: '/ebook',
@@ -15,7 +15,7 @@ export default new Router({
       children: [
         {
           path: ':fileName',
-          compoment: () => import('./components/ebook/EbookReader.vue')
+          component: () => import('./components/ebook/EbookReader.vue')
         }
       ]
     }

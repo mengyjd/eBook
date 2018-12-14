@@ -1,7 +1,12 @@
 @import "./reset";
+@import "./minix";
+@import "./transition";
 
-$fontSize: 37.5;
-
-@function px2rem($px) {
-  @return $px / $fontSize + rem;
+body {
+  border: 1px solid red;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
+
+
