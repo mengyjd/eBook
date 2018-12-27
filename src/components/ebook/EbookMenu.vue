@@ -36,6 +36,8 @@
     <ebook-menu-setting-theme/>
     <!--阅读进度条-->
     <ebook-menu-setting-progress/>
+    <!--目录-->
+    <ebook-slide/>
   </div>
 </template>
 
@@ -45,12 +47,14 @@
   import EbookMenuSettingFontPopup from './EbookMenuSettingFontPopup'
   import EbookMenuSettingTheme from './EbookMenuSettingTheme'
   import EbookMenuSettingProgress from './EbookMenuSettingProgress'
+  import EbookSlide from './EbookSlide'
 
   export default {
     mixins: [
       ebookMixin
     ],
     components: {
+      EbookSlide,
       EbookMenuSettingFont,
       EbookMenuSettingFontPopup,
       EbookMenuSettingTheme,
@@ -59,6 +63,9 @@
     methods: {
       showSetting (key) {
         this.setMenuSettingVisible(key)
+      },
+      hideTitleAndMenu() {
+        this.setMenuSettingVisible(-1) // 隐藏设置项
       }
     }
   }
@@ -87,5 +94,15 @@
 
   .hideBoxShadow {
     box-shadow: none;
+  }
+
+  .catalog-mask {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 150;
+    background-color: #919191;
   }
 </style>

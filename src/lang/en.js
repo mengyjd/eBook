@@ -119,10 +119,10 @@ const messages = {
     apply: 'The core technology of semantic analysis is provided by iFLY TEK'
   },
   book: {
-    pulldownAddMark: 'Pull down to add bookmark',
-    releaseAddMark: 'Release to add bookmark',
-    pulldownDeleteMark: 'Pull down to delete bookmark',
-    releaseDeleteMark: 'Release to delete bookmark',
+    pulldownAddMark: 'Pull down to add bookmarks',
+    releaseAddMark: 'Release to add bookmarks',
+    pulldownDeleteMark: 'Pull down to delete bookmarks',
+    releaseDeleteMark: 'Release to delete bookmarks',
     selectFont: 'Select Font',
     haveRead: 'Already read $1 minutes',
     themeDefault: 'Default',

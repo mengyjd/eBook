@@ -1,7 +1,7 @@
 <template>
   <transition name="slide-up">
     <div class="setting-wrapper"
-         v-show="menuSettingVisible === 4"
+         v-show="titleAndMenuVisible && menuSettingVisible === 4"
     >
       <div class="setting-font-size">
         <div class="preview">

@@ -1,7 +1,7 @@
 <template>
   <transition name="slide-up-popup">
     <div class="ebook-popup-list"
-         v-show="fontFamilyVisible"
+         v-show="fontFamilyVisible && titleAndMenuVisible"
     >
 
       <div class="ebook-popup-title">

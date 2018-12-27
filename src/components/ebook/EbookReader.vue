@@ -1,12 +1,16 @@
 <template>
   <div class="ebook-reader">
     <div id="read"></div>
+    <div class="ebook-reader-mask"
+         ref="ebookReadMask"
+    ></div>
   </div>
 </template>
 
 <script>
   import Epub from 'epubjs'
   import { ebookMixin } from '../../utils/mixin'
+  import { flatten } from '../../utils/book'
   import {
     getFontFamily,
     saveFontFamily,
@@ -14,7 +18,7 @@
     saveFontSize,
     getBookTheme,
     saveBookTheme,
-    getLocation,
+    getLocation, getBookmark
   } from '../../utils/localStorage'
 
   global.epub = Epub
@@ -25,32 +29,39 @@
     methods: {
       // 初始化手势
       initGesture () {
-        this.rendition.on('touchstart', event => {
-          this.touchStartX = event.changedTouches[0].clientX
-          this.touchStartTime = event.timeStamp
-        })
-        this.rendition.on('touchend', event => {
-          const offsetX = event.changedTouches[0].clientX - this.touchStartX // 手指滑动的偏移量
-          const time = event.timeStamp - this.touchStartTime // 手势滑动的时间
-          if (time < 500 && offsetX > 40) {
-            this.prevPage() // 右滑上一页
-            // 翻页时将标题栏和菜单栏隐藏
-            this.hideTitleAndMenu()
-          } else if (time < 500 && offsetX < -40) {
-            this.nextPage() // 左滑下一页
-            this.hideTitleAndMenu()
+        const ebookReadMask = this.$refs.ebookReadMask
+        ebookReadMask.addEventListener('click', (e) => {
+          const width = window.innerWidth
+          const offsetX = e.offsetX
+          if (offsetX > 0 && offsetX < width * 0.3) {
+            this.prevPage() // 点击右边上一页
+          } else if (offsetX > 0 && offsetX > width * 0.7) {
+            this.nextPage() // 点击左边下一页
           } else {
-            this.toggleTitleAndMenu() // 点击屏幕切换标题栏和菜单栏
+            this.toggleTitleAndMenu() // 点击中间切换菜单
           }
         })
-      },
-      // 翻页时隐藏标题栏和菜单栏
-      hideTitleAndMenu () {
-        this.setTitleAndMenuVisible(false) // 隐藏标题栏和菜单栏
-        this.setMenuSettingVisible(-1) // 隐藏设置项
-        this.setFontFamilyVisible(false) // 隐藏字体设置界面
+        ebookReadMask.addEventListener('touchstart', (e) => {
+          this.startX = e.changedTouches[0].clientX
+          this.startY = e.changedTouches[0].clientY
+        })
+        ebookReadMask.addEventListener('touchmove', (e) => {
+          this.setOffsetY(e.changedTouches[0].clientY - this.startY)
+          e.preventDefault()
+          e.stopPropagation()
+        })
+        ebookReadMask.addEventListener('touchend', (e) => {
+          const offsetX = e.changedTouches[0].clientX - this.startX
+          if (offsetX > 0 && offsetX > 40) {
+            this.prevPage()
+          } else if (offsetX < 0 && offsetX < -40) {
+            this.nextPage()
+          }
+          this.setOffsetY(0)
+        })
       },
       prevPage () {
+        this.hideTitleAndMenu()
         if (this.rendition) {
           this.rendition.prev().then(() => {
             this.refersLocation()
@@ -58,6 +69,7 @@
         }
       },
       nextPage () {
+        this.hideTitleAndMenu()
         if (this.rendition) {
           this.rendition.next().then(() => {
             this.refersLocation()
@@ -124,12 +136,46 @@
           ])
         })
       },
+      parseBook () {
+        this.book.loaded.cover.then(cover => {
+          this.book.archive.createUrl(cover).then(url => {
+            this.setCover(url)
+          })
+        })
+        this.book.loaded.metadata.then(metadata => {
+          this.setMetadata(metadata)
+        })
+        this.book.loaded.navigation.then(nav => {
+          let navItem = flatten(nav.toc)
+
+          function find (item, arr, level = 0) {
+            return !item.parent ? level : find(
+              arr.filter(parentItem => parentItem.id === item.parent)[0],
+              arr,
+              ++level
+            )
+          }
+
+          navItem.forEach(item => {
+            item.level = find(item, navItem)
+          })
+          this.setNavigation(navItem)
+        })
+      },
+      initBookmarks() {
+        this.setBookmarks(getBookmark(this.fileName))
+        if (!this.bookmarks) {
+          this.setBookmarks([])
+        }
+      },
       initEpub: function () {
         const url = process.env.VUE_APP_RES_URL + '/epub/' + this.fileName + '.epub'
         this.book = new Epub(url)
         this.setCurrentBook(this.book)
         this.initRendition()
         this.initGesture()
+        this.parseBook()
+        this.initBookmarks()
         this.book.ready.then(() => {
           // 对电子书进行分页
           return this.book.locations.generate(750 * (window.innerWidth / 375) * (getFontSize(this.filename / 16)))
@@ -150,5 +196,24 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import "../../assets/styles/global.scss";
+
+  .ebook-reader {
+    width: 100%;
+    height: 100%;
+    #read {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .ebook-reader-mask {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+    }
+  }
 </style>

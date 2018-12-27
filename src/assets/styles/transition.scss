@@ -7,7 +7,13 @@ $menuBarSettingHeight: 85; // 字号设置栏高度
 .slide-up-popup-enter-active,
 .slide-up-popup-leave-active,
 .slide-down-enter-active,
-.slide-down-leave-active {
+.slide-down-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active,
+.fade-enter-active,
+.fade-leave-active,
+.fade-slide-left-enter-active,
+.fade-slide-left-leave-active{
   transition: all .3s;
 }
 
@@ -26,5 +32,21 @@ $menuBarSettingHeight: 85; // 字号设置栏高度
 .slide-up-popup-enter,
 .slide-up-popup-leave-to {
   transform: translate3d(0, 100%, 0);
+}
+
+.slide-left-enter,
+.slide-left-leave-to {
+  transform: translate3d(-100%, 0, 0);
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-slide-left-enter,
+.fade-slide-left-leave-to {
+  transform: translate3d(-100%, 0, 0);
+  opacity: 0;
 }
 

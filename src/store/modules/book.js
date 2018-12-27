@@ -11,7 +11,12 @@ const book = {
     defaultTheme: 'default',
     progress: 0,
     section: 0,
-    readTime: 0
+    cover: null,
+    metadata: null,
+    navigation: null,
+    offsetY: 0,
+    isBookmark: false,
+    bookmarks: null
   },
   mutations: {
     'SET_FILENAME': (state, fileName) => {
@@ -47,8 +52,23 @@ const book = {
     'SET_SECTION': (state, section) => {
       state.section = section
     },
-    'SET_READ_TIME': (state, readTime) => {
-      state.readTime = readTime
+    'SET_COVER': (state, cover) => {
+      state.cover = cover
+    },
+    'SET_METADATA': (state, metadata) => {
+      state.metadata = metadata
+    },
+    'SET_NAVIGATION': (state, navigation) => {
+      state.navigation = navigation
+    },
+    'SET_OFFSET_Y': (state, offsetY) => {
+      state.offsetY = offsetY
+    },
+    'SET_IS_BOOKMARK': (state, isBookmark) => {
+      state.isBookmark = isBookmark
+    },
+    'SET_BOOKMARKS': (state, bookmarks) => {
+      state.bookmarks = bookmarks
     }
   }
 }

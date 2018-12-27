@@ -1,7 +1,7 @@
 <template>
   <transition name="slide-up">
     <div class="setting-theme-wrapper"
-         v-show="menuSettingVisible === 3"
+         v-show="titleAndMenuVisible && menuSettingVisible === 3"
     >
       <div class="setting-theme-item"
            v-for="(item, index) in themeList"

@@ -1,7 +1,7 @@
 <template>
   <transition name="slide-up">
     <div class="setting-progress-wrapper"
-         v-show="menuSettingVisible === 2"
+         v-show="titleAndMenuVisible && menuSettingVisible === 2"
     >
       <span class="read-time">{{ getReadTimeText() }}</span>
       <div class="read-progress-wrapper">
@@ -34,7 +34,6 @@
 
 <script>
   import { ebookMixin } from '../../utils/mixin'
-  import { getReadTime } from '../../utils/localStorage'
 
   export default {
     mixins: [
@@ -42,13 +41,13 @@
     ],
     computed: {
       getSectionName () {
-        if (this.section) {
-          const sectionInfo = this.currentBook.section(this.section)
-          if (sectionInfo && sectionInfo.href) {
-            return this.currentBook.navigation.get(sectionInfo.href).label
-          }
-        }
-        return ''
+        // if (this.section) {
+        //   const sectionInfo = this.currentBook.section(this.section)
+        //   if (sectionInfo && sectionInfo.href && this.currentBook && this.currentBook.navigation ) {
+        //     return this.currentBook.navigation.get(sectionInfo.href).label
+        //   }
+        // }
+        return this.section ? this.navigation[this.section].label : ''
       }
     },
     watch: {
@@ -58,17 +57,6 @@
       }
     },
     methods: {
-      getReadTimeText() {
-        return this.$t('book.haveRead').replace('$1', this.getReadTimeByMinute())
-      },
-      getReadTimeByMinute() {
-        let readTime = getReadTime(this.fileName)
-        if (!readTime) {
-          return 0
-        } else {
-          return Math.ceil(readTime / 60)
-        }
-      },
       // 松开进度条
       onProgressChange (progress) {
         this.setProgress(progress).then(() => {
