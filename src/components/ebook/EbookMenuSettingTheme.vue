@@ -9,8 +9,8 @@
            @click="setTheme(index)"
            :class="{ selected: item.name === defaultTheme }"
       >
-        <div class="preview"
-             :style="item.style.body"
+        <div class="theme-preview"
+             :style="{backgroundColor: item.style.body.background}"
              :class="{ selected: item.name === defaultTheme }"
         ></div>
         <span class="preview-text">{{item.alias}}</span>
@@ -65,7 +65,7 @@
         color: #000;
         font-weight: bold;
       }
-      .preview {
+      .theme-preview {
         height: px2rem(65);
         box-sizing: border-box;
         &.selected {

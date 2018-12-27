@@ -46,7 +46,8 @@
         return {
           position: 'fixed',
           right: '15px',
-          top: 0
+          top: 0,
+          zIndex: 10
         }
       }
     },

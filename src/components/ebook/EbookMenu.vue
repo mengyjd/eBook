@@ -84,7 +84,7 @@
     font-size: px2rem(20);
     background: white;
     box-shadow: 0 px2rem(-8) px2rem(8) rgba(0, 0, 0, .15);
-    z-index: 1;
+    z-index: 100;
 
     .icon-wrapper {
       flex: 0 0 px2rem(40);

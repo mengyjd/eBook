@@ -3,6 +3,13 @@
     <div id="read"></div>
     <div class="ebook-reader-mask"
          ref="ebookReadMask"
+         @click="initClick"
+         @touchstart="touchStart"
+         @touchmove="touchMove"
+         @touchend="touchEnd"
+         @mousedown.left="onMouseDown"
+         @mousemove.left="onMouseMove"
+         @mouseup.left="onMouseUp"
     ></div>
   </div>
 </template>
@@ -27,38 +34,71 @@
       ebookMixin
     ],
     methods: {
-      // 初始化手势
-      initGesture () {
-        const ebookReadMask = this.$refs.ebookReadMask
-        ebookReadMask.addEventListener('click', (e) => {
-          const width = window.innerWidth
-          const offsetX = e.offsetX
-          if (offsetX > 0 && offsetX < width * 0.3) {
-            this.prevPage() // 点击右边上一页
-          } else if (offsetX > 0 && offsetX > width * 0.7) {
-            this.nextPage() // 点击左边下一页
-          } else {
-            this.toggleTitleAndMenu() // 点击中间切换菜单
-          }
-        })
-        ebookReadMask.addEventListener('touchstart', (e) => {
-          this.startX = e.changedTouches[0].clientX
-          this.startY = e.changedTouches[0].clientY
-        })
-        ebookReadMask.addEventListener('touchmove', (e) => {
-          this.setOffsetY(e.changedTouches[0].clientY - this.startY)
-          e.preventDefault()
-          e.stopPropagation()
-        })
-        ebookReadMask.addEventListener('touchend', (e) => {
-          const offsetX = e.changedTouches[0].clientX - this.startX
-          if (offsetX > 0 && offsetX > 40) {
-            this.prevPage()
-          } else if (offsetX < 0 && offsetX < -40) {
-            this.nextPage()
-          }
+      onMouseDown(e) {
+        this.mouseStartTime = e.timeStamp
+        this.mouseState = 1
+        this.startY = e.clientY
+        e.preventDefault()
+        e.stopPropagation()
+      },
+      onMouseMove(e) {
+        if (this.mouseState === 1) {
+          this.mouseState = 2
+        } else if (this.mouseState === 2) {
+          // 计算Y轴偏移量并保存到vuex中
+          this.setOffsetY(e.clientY - this.startY)
+        }
+        e.preventDefault()
+        e.stopPropagation()
+      },
+      onMouseUp(e) {
+        if (this.mouseState === 2) {
+          this.mouseState = 3
           this.setOffsetY(0)
-        })
+        } else {
+          this.mouseState = 4
+        }
+        const clickTime = e.timeStamp - this.mouseStartTime
+        console.log(clickTime)
+        if (clickTime < 150) {
+          this.mouseState = 4
+        }
+        e.preventDefault()
+        e.stopPropagation()
+      },
+      initClick(e) {
+        if (this.mouseState && (this.mouseState === 2 || this.mouseState === 3)) {
+          return
+        }
+        const width = window.innerWidth
+        const offsetX = e.offsetX
+        if (offsetX > 0 && offsetX < width * 0.3) {
+          this.prevPage() // 点击右边上一页
+        } else if (offsetX > 0 && offsetX > width * 0.7) {
+          this.nextPage() // 点击左边下一页
+        } else {
+          this.toggleTitleAndMenu() // 点击中间切换菜单
+        }
+      },
+      touchStart(e) {
+        this.startX = e.changedTouches[0].clientX
+        this.startY = e.changedTouches[0].clientY
+      },
+      touchMove(e) {
+        // 计算Y轴偏移量并保存到vuex中
+        this.setOffsetY(e.changedTouches[0].clientY - this.startY)
+        e.preventDefault()
+        e.stopPropagation()
+      },
+      touchEnd(e) {
+        // 计算X轴偏移量
+        const offsetX = e.changedTouches[0].clientX - this.startX
+        if (offsetX > 0 && offsetX > 40) {
+          this.prevPage()
+        } else if (offsetX < 0 && offsetX < -40) {
+          this.nextPage()
+        }
+        this.setOffsetY(0)
       },
       prevPage () {
         this.hideTitleAndMenu()
@@ -118,6 +158,8 @@
         this.rendition = this.book.renderTo('read', {
           width: innerWidth,
           height: innerHeight
+          // method: 'default' // 兼容微信
+          // flow: 'scrolled' // 上下滑动翻页
         })
         const location = getLocation(this.fileName)
         this.display(location, () => {
@@ -173,7 +215,6 @@
         this.book = new Epub(url)
         this.setCurrentBook(this.book)
         this.initRendition()
-        this.initGesture()
         this.parseBook()
         this.initBookmarks()
         this.book.ready.then(() => {

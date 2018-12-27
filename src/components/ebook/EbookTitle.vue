@@ -44,7 +44,7 @@
     position: absolute;
     width: 100%;
     height: px2rem(48);
-    z-index: 1;
+    z-index: 100;
     font-size: px2rem(20);
     background-color: white;
     display: flex;

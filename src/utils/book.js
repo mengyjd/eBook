@@ -1,4 +1,5 @@
 import { getReadTime } from './localStorage'
+import { realPx } from './utils'
 
 export const FONT_SIZE_LIST = [
   { fontSize: 12 },
@@ -25,8 +26,10 @@ export function themeList (vue) {
       name: 'Default',
       style: {
         body: {
-          'color': '#4c5059',
-          'background': '#cecece'
+          color: '#4c5059',
+          background: '#cecece',
+          padding: '40px 20px !important',
+          boxSizing: 'border-box'
         }
       }
     },
@@ -35,8 +38,10 @@ export function themeList (vue) {
       name: 'Grace',
       style: {
         body: {
-          'color': '#5c5b56',
-          'background': '#c6c2b6'
+          color: '#5c5b56',
+          background: '#c6c2b6',
+          padding: '40px 20px !important',
+          boxSizing: 'border-box'
         }
       }
     },
@@ -45,8 +50,10 @@ export function themeList (vue) {
       name: 'Eye',
       style: {
         body: {
-          'color': '#404c42',
-          background: '#a9c1a9'
+          color: '#304c42',
+          background: '#a9c1a9',
+          padding: '40px 20px !important',
+          boxSizing: 'border-box'
         }
       }
     },
@@ -55,8 +62,10 @@ export function themeList (vue) {
       name: 'Night',
       style: {
         body: {
-          'color': '#cecece',
-          'background': '#000000'
+          color: '#cecece',
+          background: '#000000',
+          padding: '40px 20px !important',
+          boxSizing: 'border-box'
         }
       }
     }

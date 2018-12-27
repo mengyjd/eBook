@@ -28,8 +28,12 @@
         <img :src="cover" class="slide-contents-book-img">
       </div>
       <div class="slide-contents-book-info-wrapper">
-        <div class="slide-contents-book-title">{{metadata.title}}</div>
-        <div class="slide-contents-book-author">{{metadata.creator}}</div>
+        <div class="slide-contents-book-title">
+          <span class="slide-contents-book-title-text">{{metadata.title}}</span>
+        </div>
+        <div class="slide-contents-book-author">
+          <span class="slide-contents-book-author">{{metadata.creator}}</span>
+        </div>
       </div>
       <div class="slide-contents-book-progress-wrapper">
         <div class="slide-contents-book-progress">
@@ -208,15 +212,21 @@
 
         .slide-contents-book-title {
           font-size: px2rem(14);
-          width: px2rem(153.75);
           line-height: px2rem(16);
-          @include ellipsis2(2, keep-all);
+          @include left;
+          .slide-contents-book-title-text {
+            @include ellipsis2(2, break-all);
+          }
         }
 
         .slide-contents-book-author {
           font-size: px2rem(12);
-          @include ellipsis;
+          @include left;
           margin-top: px2rem(7);
+          .slide-contents-book-author {
+            line-height: px2rem(18);
+            @include ellipsis2(1, break-all);
+          }
         }
       }
 
@@ -224,19 +234,9 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-
-        .slide-contents-book-progress {
-          .progress {
-            font-size: px2rem(14);
-          }
-
-          .progress-text {
-            font-size: px2rem(12);
-          }
-        }
+        font-size: px2rem(12);
 
         .slide-contents-book-time {
-          font-size: px2rem(12);
           width: px2rem(80);
           margin-top: px2rem(8);
         }
@@ -249,6 +249,7 @@
         margin: 0 px2rem(15);
         padding: px2rem(15) 0;
         box-sizing: border-box;
+        font-size: px2rem(14);
         border-bottom: px2rem(1) solid #b8b9bb;
 
         &.selected {
@@ -257,13 +258,8 @@
 
         .list-item-title {
           flex: 1;
-          font-size: px2rem(14);
           line-height: px2rem(18);
           @include ellipsis;
-        }
-
-        .list-item-page {
-          font-size: px2rem(14);
         }
       }
     }

@@ -25,7 +25,6 @@
 
 <script>
   import Scroll from '../common/Scroll'
-  import { getBookmark } from '../../utils/localStorage'
   import { ebookMixin } from '../../utils/mixin'
 
   export default {
