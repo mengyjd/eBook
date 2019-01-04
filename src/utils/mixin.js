@@ -21,7 +21,9 @@ export const ebookMixin = {
       'navigation',
       'offsetY',
       'isBookmark',
-      'bookmarks'
+      'bookmarks',
+      'totPage',
+      'paginate'
     ]),
     themeList () {
       return themeList(this)
@@ -48,7 +50,9 @@ export const ebookMixin = {
       'setNavigation',
       'setOffsetY',
       'setIsBookmark',
-      'setBookmarks'
+      'setBookmarks',
+      'setTotPage',
+      'setPaginate'
     ]),
     initGlobalStyle(theme) {
       addCss(`${process.env.VUE_APP_RES_URL}/themes/${theme.toLowerCase()}_theme.css`)
@@ -70,6 +74,11 @@ export const ebookMixin = {
           }
         } else {
           this.setIsBookmark(false)
+        }
+
+        const currentPage = currentLocation.start.location
+        if (currentPage && currentPage > 0) {
+          this.setPaginate(`${currentPage} / ${this.totPage}`)
         }
       }
     },
@@ -95,5 +104,18 @@ export const ebookMixin = {
     getReadTimeText() {
       return this.$t('book.haveRead').replace('$1', getReadTimeByMinute(this.fileName))
     }
+  }
+}
+
+export const storeHomeMixin = {
+  computed: {
+    ...mapGetters([
+      'offsetY'
+    ])
+  },
+  methods: {
+    ...mapActions([
+      'setOffsetY'
+    ])
   }
 }

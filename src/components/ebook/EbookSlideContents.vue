@@ -2,6 +2,7 @@
   <div class="ebook-slide-contents"
        v-if="titleAndMenuVisible && menuSettingVisible === 1"
   >
+    <!--搜索框-->
     <div class="slide-contents-search-wrapper">
       <div class="search-input-wrapper">
         <div class="icon-wrapper">
@@ -21,6 +22,7 @@
       >{{$t('book.cancel')}}
       </div>
     </div>
+    <!--图书信息-->
     <div class="slide-contents-book-wrapper"
          v-show="!searchVisible"
     >
@@ -43,6 +45,7 @@
         <div class="slide-contents-book-time">{{ getReadTimeText() }}</div>
       </div>
     </div>
+    <!--目录-->
     <scroll class="slide-contents-list"
             :top="156"
             :bottom="48"
@@ -58,9 +61,10 @@
         <span class="list-item-title"
               :style="contentItemStyle(item)"
         >{{ item.label }}</span>
-        <span class="list-item-page"></span>
+        <span class="list-item-page">{{item.page}}</span>
       </div>
     </scroll>
+    <!--搜索结果-->
     <scroll class="slide-search-list"
             :top="66"
             :bottom="48"
@@ -260,6 +264,13 @@
           flex: 1;
           line-height: px2rem(18);
           @include ellipsis;
+          margin-right: 10px;
+        }
+
+        .list-item-page {
+          @include right;
+          flex: 0 0 px2rem(30);
+          font-size: px2rem(10);
         }
       }
     }

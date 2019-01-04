@@ -6,11 +6,23 @@ body {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  border: 1px solid red;
 }
 
 #app {
   position: fixed;
   background-color: #7d8188;
+}
+
+.icon {
+  font-size: px2rem(16);
+  color: #666;
+}
+
+.title {
+  font-size: px2rem(16);
+  font-weight: bold;
+  color: #666;
 }
 
 

@@ -59,7 +59,6 @@
           this.mouseState = 4
         }
         const clickTime = e.timeStamp - this.mouseStartTime
-        console.log(clickTime)
         if (clickTime < 150) {
           this.mouseState = 4
         }
@@ -219,8 +218,32 @@
         this.initBookmarks()
         this.book.ready.then(() => {
           // 对电子书进行分页
-          return this.book.locations.generate(750 * (window.innerWidth / 375) * (getFontSize(this.filename / 16)))
-        }).then(() => {
+          return this.book.locations.generate(750 * (window.innerWidth / 375) * (getFontSize(this.fileName) / 16))
+        }).then((locations) => {
+          this.navigation.forEach(nav => {
+            nav.pagelist = []
+          })
+          locations.forEach(item => {
+            const loc = item.match(/\[(.*)\]!/)[1]
+            this.navigation.forEach(nav => {
+              if (nav.href) {
+                const href = nav.href.match(/(.*)\.html/)[1]
+                if (loc === href) {
+                  nav.pagelist.push(item)
+                }
+              }
+            })
+            let currentPage = 1
+            this.navigation.forEach((nav, index) => {
+              if (index === 0) {
+                nav.page = currentPage
+              } else {
+                nav.page = currentPage
+              }
+              currentPage += nav.pagelist.length + 1
+            })
+          })
+          this.setTotPage(locations.length)
           // 分页完成后设置电子书状态available为true
           this.setBookAvailable(true)
           this.refersLocation()

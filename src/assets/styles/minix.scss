@@ -1,4 +1,5 @@
 $fontSize: 37.5;
+$animationTime: .2s;
 
 @function px2rem($px) {
   @return ($px / $fontSize) + rem
@@ -8,6 +9,19 @@ $fontSize: 37.5;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@mixin right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+}
+
+@mixin left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 @mixin ellipsis {
@@ -25,10 +39,4 @@ $fontSize: 37.5;
   word-break: $wordBreak;
 }
 
-@mixin right {
-  justify-content: end;
-}
 
-@mixin left {
-  justify-content: flex-start;
-}

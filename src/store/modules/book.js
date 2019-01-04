@@ -16,7 +16,9 @@ const book = {
     navigation: null,
     offsetY: 0,
     isBookmark: false,
-    bookmarks: null
+    bookmarks: null,
+    totPage: 0,
+    paginate: ''
   },
   mutations: {
     'SET_FILENAME': (state, fileName) => {
@@ -69,6 +71,12 @@ const book = {
     },
     'SET_BOOKMARKS': (state, bookmarks) => {
       state.bookmarks = bookmarks
+    },
+    'SET_TOT_PAGE': (state, totPage) => {
+      state.totPage = totPage
+    },
+    'SET_PAGINATE': (state, paginate) => {
+      state.paginate = paginate
     }
   }
 }

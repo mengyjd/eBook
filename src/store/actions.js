@@ -49,6 +49,12 @@ const actions = {
   },
   setBookmarks: ({ commit }, bookmarks) => {
     return commit('SET_BOOKMARKS', bookmarks)
+  },
+  setTotPage: ({ commit }, totPage) => {
+    return commit('SET_TOT_PAGE', totPage)
+  },
+  setPaginate: ({ commit }, paginate) => {
+    return commit('SET_PAGINATE', paginate)
   }
 }
 

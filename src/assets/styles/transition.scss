@@ -13,7 +13,9 @@ $menuBarSettingHeight: 85; // 字号设置栏高度
 .fade-enter-active,
 .fade-leave-active,
 .fade-slide-left-enter-active,
-.fade-slide-left-leave-active{
+.fade-slide-left-leave-active,
+.title-move-enter-active,
+.title-move-leave-active {
   transition: all .3s;
 }
 
@@ -48,5 +50,11 @@ $menuBarSettingHeight: 85; // 字号设置栏高度
 .fade-slide-left-leave-to {
   transform: translate3d(-100%, 0, 0);
   opacity: 0;
+}
+
+.title-move-enter,
+.title-move-leave-to {
+  opacity: 0;
+  transform: translate3d(0, 20%, 0);
 }
 
