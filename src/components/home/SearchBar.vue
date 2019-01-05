@@ -25,6 +25,7 @@
     <div class="search-input-wrapper"
          :class="{'hide-title': !titleVisible}"
     >
+      <div class="search-blank" :class="{'hide-title': !titleVisible}"></div>
       <div class="search-bg">
         <div class="icon-search-wrapper">
           <span class="icon-search"></span>
@@ -136,19 +137,28 @@
       height: px2rem(62);
       box-sizing: border-box;
       transition: all $animationTime;
+      display: flex;
 
       &.hide-title {
         top: 0;
-        margin-left: 25px;
-        width: calc(100% - 25px);
+      }
+
+      .search-blank {
+        width: 0;
+        height: 100%;
+        transition: all $animationTime;
+        &.hide-title {
+          width: px2rem(35);
+        }
       }
 
       .search-bg {
         display: flex;
-        width: 100%;
+        flex: 1;
         height: 100%;
         border-radius: px2rem(20);
         background-color: #f4f4f4;
+        transition: all $animationTime;
 
         .icon-search-wrapper {
           font-size: px2rem(18);
