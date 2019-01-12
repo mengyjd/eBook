@@ -17,7 +17,9 @@ const book = {
   isBookmark: state => state.book.isBookmark,
   bookmarks: state => state.book.bookmarks,
   totPage: state => state.book.totPage,
-  paginate: state => state.book.paginate
+  paginate: state => state.book.paginate,
+  hotSearchPageOffsetY: state => state.store.hotSearchPageOffsetY,
+  flapCardVisible: state => state.store.flapCardVisible
 }
 
 export default book

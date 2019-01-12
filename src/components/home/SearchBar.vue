@@ -1,55 +1,73 @@
 <template>
-  <div class="search-bar"
-       :class="{'hide-title': !titleVisible, 'shadow': shadowVisible}"
-  >
-    <!--标题栏-->
-    <transition name="title-move">
-      <div class="search-title-wrapper"
-           v-show="titleVisible"
-      >
-        <div class="icon-text-wrapper icon-wrapper">
-          <span class="icon-text title">{{$t('home.title')}}</span>
-        </div>
-        <div class="icon-shake-wrapper icon-wrapper">
-          <span class="icon-shake icon"></span>
-        </div>
-      </div>
-    </transition>
-    <!--返回按钮-->
-    <div class="icon-back-wrapper icon-wrapper"
-         :class="{'hide-title': !titleVisible}"
+  <div>
+    <!--搜索栏-->
+    <div class="search-bar"
+         :class="{'hide-title': !titleVisible, 'shadow': shadowVisible}"
     >
-      <span class="icon-back icon"></span>
-    </div>
-    <!--搜索框-->
-    <div class="search-input-wrapper"
-         :class="{'hide-title': !titleVisible}"
-    >
-      <div class="search-blank" :class="{'hide-title': !titleVisible}"></div>
-      <div class="search-bg">
-        <div class="icon-search-wrapper">
-          <span class="icon-search"></span>
-        </div>
-        <input type="text"
-               class="search-input"
-               :placeholder="$t('home.hint')"
-               v-model="searchText"
+      <!--标题栏-->
+      <transition name="title-move">
+        <div class="search-title-wrapper"
+             v-show="titleVisible"
         >
+          <div class="icon-text-wrapper icon-wrapper">
+            <span class="icon-text title">{{$t('home.title')}}</span>
+          </div>
+          <div class="icon-shake-wrapper icon-wrapper"
+               @click="showFlapCard"
+          >
+            <span class="icon-shake icon"></span>
+          </div>
+        </div>
+      </transition>
+      <!--返回按钮-->
+      <div class="icon-back-wrapper icon-wrapper"
+           :class="{'hide-title': !titleVisible}"
+           @click="onBack"
+      >
+        <span class="icon-back icon"></span>
+      </div>
+      <!--搜索框-->
+      <div class="search-input-wrapper"
+           :class="{'hide-title': !titleVisible}"
+      >
+        <div class="search-blank" :class="{'hide-title': !titleVisible}"></div>
+        <div class="search-bg">
+          <div class="icon-search-wrapper">
+            <span class="icon-search"></span>
+          </div>
+          <input type="text"
+                 class="search-input"
+                 @focus="showHotSearchVisible"
+                 :placeholder="$t('home.hint')"
+                 v-model="searchText"
+          >
+        </div>
       </div>
     </div>
+    <!--热门搜索页-->
+    <transition name="fade-slide-up">
+      <hot-search-list v-show="hotSearchPageVisible"
+                       ref="hotSearchList"
+      ></hot-search-list>
+    </transition>
   </div>
 </template>
 
 <script>
   import { storeHomeMixin } from '../../utils/mixin'
+  import HotSearchList from '../home/HotSearchList'
 
   export default {
     mixins: [storeHomeMixin],
+    components: {
+      HotSearchList
+    },
     data () {
       return {
         searchText: '',
         titleVisible: true,
-        shadowVisible: false
+        shadowVisible: false,
+        hotSearchPageVisible: false
       }
     },
     watch: {
@@ -61,19 +79,50 @@
           this.showTitle()
           this.hideShadow()
         }
+      },
+      hotSearchPageOffsetY(offsetY) {
+        if (offsetY > 0) {
+          this.showShadow()
+        } else {
+          this.hideShadow()
+        }
       }
     },
     methods: {
+      showFlapCard() {
+        this.setFlapCardVisible(true)
+      },
+      onBack () {
+        this.hideHotSearchPageVisible()
+        if (this.offsetY > 0) {
+          this.hideTitle()
+          this.showShadow()
+        } else {
+          this.showTitle()
+          this.hideShadow()
+        }
+      },
+      hideHotSearchPageVisible() {
+        this.hotSearchPageVisible = false
+      },
+      showHotSearchVisible() {
+        this.hotSearchPageVisible = true
+        this.hideTitle()
+        this.hideShadow() // 初始状态隐藏阴影
+        this.$nextTick(() => {
+          this.$refs.hotSearchList.reset()
+        })
+      },
       hideTitle () {
         this.titleVisible = false
       },
       showTitle () {
         this.titleVisible = true
       },
-      hideShadow() {
+      hideShadow () {
         this.shadowVisible = false
       },
-      showShadow() {
+      showShadow () {
         this.shadowVisible = true
       }
     }
@@ -91,8 +140,9 @@
     &.hide-title {
       height: px2rem(62)
     }
+
     &.shadow {
-      box-shadow: 0 px2rem(4) px2rem(4) rgba(131, 131, 131, .5);
+      box-shadow: 0 px2rem(2) px2rem(4) rgba(131, 131, 131, .3);
     }
 
     .search-title-wrapper {
@@ -120,6 +170,7 @@
       position: absolute;
       left: px2rem(10);
       top: 0;
+      z-index: 150;
       height: px2rem(48);
       @include center;
       transition: all $animationTime;
@@ -147,6 +198,7 @@
         width: 0;
         height: 100%;
         transition: all $animationTime;
+
         &.hide-title {
           width: px2rem(35);
         }

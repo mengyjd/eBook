@@ -168,7 +168,7 @@
           this.initGlobalStyle(this.defaultTheme)
         })
         // 引入nginx服务器上的web字体
-        this.rendition.hooks.content.register(contents => {
+        this.rendition.hooks.text.register(contents => {
           Promise.all([
             contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/webFonts/daysOne.css`),
             contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/webFonts/cabin.css`),

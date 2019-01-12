@@ -55,6 +55,12 @@ const actions = {
   },
   setPaginate: ({ commit }, paginate) => {
     return commit('SET_PAGINATE', paginate)
+  },
+  setHotSearchPageOffsetY: ({ commit }, hotSearchPageOffsetY) => {
+    return commit('SET_HOT_SEARCH_PAGE_OFFSETY', hotSearchPageOffsetY)
+  },
+  setFlapCardVisible: ({ commit }, flapCardVisible) => {
+    return commit('SET_FLAP_CARD_VISIBLE', flapCardVisible)
   }
 }
 

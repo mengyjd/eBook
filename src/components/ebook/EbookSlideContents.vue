@@ -106,7 +106,7 @@
             this.searchList = list
             this.searchList.map(item => {
               item.excerpt = item.excerpt.replace(this.searchText,
-                '<span class="content-search-text">' + this.searchText + '</span>'
+                '<span class="text-search-text">' + this.searchText + '</span>'
               )
               return item
             })

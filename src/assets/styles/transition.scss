@@ -1,5 +1,6 @@
 $menuBarHeight: 48; // 菜单栏高度
 $menuBarSettingHeight: 85; // 字号设置栏高度
+$animationTime: .3s;
 
 //动画持续时间
 .slide-up-enter-active,
@@ -15,8 +16,10 @@ $menuBarSettingHeight: 85; // 字号设置栏高度
 .fade-slide-left-enter-active,
 .fade-slide-left-leave-active,
 .title-move-enter-active,
-.title-move-leave-active {
-  transition: all .3s;
+.title-move-leave-active,
+.fade-slide-up-enter-active,
+.fade-slide-up-leave-active {
+  transition: all $animationTime;
 }
 
 // 向上滑入,向下滑出过渡
@@ -37,24 +40,28 @@ $menuBarSettingHeight: 85; // 字号设置栏高度
 }
 
 .slide-left-enter,
-.slide-left-leave-to {
+.slide-left-leave-to,
+.fade-slide-left-enter,
+.fade-slide-left-leave-to {
   transform: translate3d(-100%, 0, 0);
 }
 
 .fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-
+.fade-leave-to,
 .fade-slide-left-enter,
-.fade-slide-left-leave-to {
-  transform: translate3d(-100%, 0, 0);
+.fade-slide-left-leave-to,
+.title-move-enter,
+.title-move-leave-to,
+.fade-slide-up-enter,
+.fade-slide-up-leave-to {
   opacity: 0;
 }
 
 .title-move-enter,
-.title-move-leave-to {
-  opacity: 0;
+.title-move-leave-to,
+.fade-slide-up-enter,
+.fade-slide-up-leave-to {
   transform: translate3d(0, 20%, 0);
 }
+
 

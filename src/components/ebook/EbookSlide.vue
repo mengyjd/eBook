@@ -53,7 +53,7 @@
     data () {
       return {
         currentTab: 1,
-        content: EbookSlideContents,
+        text: EbookSlideContents,
         bookmark: EbookSlideBookmark
       }
     },
