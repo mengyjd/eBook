@@ -51,7 +51,7 @@ export const flapCardList = [
     rotateDegree: 0
   }
 ]
-// 获取分类名称
+// 根据分类id获取分类名称
 export const categoryName = {
   1: 'ComputerScience',
   2: 'SocialSciences',
@@ -71,6 +71,7 @@ export const categoryName = {
   16: 'Mathematics',
   17: 'MedicineAndPublicHealth',
   18: 'Philosophy',
+  19: 'Physics',
   20: 'PoliticalScienceAndInternationalRelations',
   21: 'Psychology',
   22: 'Statistics'
@@ -78,6 +79,6 @@ export const categoryName = {
 
 // 将分类名称根据语言翻译
 export function getCategoryText (text, vue) {
-  text = text.substring(0, 1).toLowerCase() + text.substring(1)
+    text = text.substring(0, 1).toLowerCase() + text.substring(1)
   return vue.$t(`category.${text}`)
 }

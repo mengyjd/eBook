@@ -407,8 +407,9 @@
         }
 
         .title {
-          font-size: px2rem(21);
+          font-size: px2rem(20);
           @include ellipsis2(2, word-wrap);
+          color: #000;
         }
 
         .author {
@@ -418,9 +419,9 @@
         }
 
         .category {
-          font-size: px2rem(13);
+          font-size: px2rem(14);
           @include ellipsis();
-          color: #666;
+          color: #999;
         }
       }
 

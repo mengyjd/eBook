@@ -6,49 +6,23 @@
             :top="scrollTop"
             ref="scroll"
     >
-      <div>第一行第一行第一行</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>11111111111111111111111111111111111111111</div>
-      <div>最后最后最后</div>
+      <div class="banner-wrapper">
+        <div class="banner-img" :style="{backgroundImage: `url(${bannerSrc})`}"></div>
+      </div>
+      <!--猜你喜欢-->
+      <guess-you-like :data="guessYouLike"></guess-you-like>
+      <!--热门推荐-->
+      <hot-recommend class="block" :data="hotRecommend"></hot-recommend>
+      <!--精选-->
+      <featured class="block" :data="featured"></featured>
+      <!--分类推荐-->
+      <div class="block"
+           v-for="(data, index) in categoryList" :key="index"
+      >
+        <category-book :data="data"></category-book>
+      </div>
+      <!--分类-->
+      <categorys class="block" :data="categories"></categorys>
     </scroll>
   </div>
 </template>
@@ -59,18 +33,34 @@
   import { storeHomeMixin } from '../../utils/mixin'
   import FlapCard from '../../components/home/FlapCard'
   import { home } from '../../api/store'
+  import GuessYouLike from '../../components/home/GuessYouLike'
+  import HotRecommend from '../../components/home/HotRecommend'
+  import Featured from '../../components/home/Featured'
+  import CategoryBook from '../../components/home/CategoryBook'
+  import Categorys from '../../components/home/Categorys'
 
   export default {
     mixins: [storeHomeMixin],
     components: {
+      Categorys,
+      HotRecommend,
+      GuessYouLike,
       FlapCard,
       SearchBar,
-      Scroll
+      Scroll,
+      Featured,
+      CategoryBook
     },
     data () {
       return {
         scrollTop: 94,
-        randomBook: null
+        bannerSrc: null,
+        randomBook: null,
+        guessYouLike: null,
+        hotRecommend: null,
+        featured: null,
+        categoryList: null,
+        categories: null
       }
     },
     methods: {
@@ -88,8 +78,15 @@
       home().then((res) => {
         if (res && res.status === 200) {
           const data = res.data
+          console.log(data)
           const randomIndex = Math.floor(Math.random() * data.random.length)
           this.randomBook = data.random[randomIndex]
+          this.bannerSrc = data.banner
+          this.guessYouLike = data.guessYouLike
+          this.hotRecommend = data.recommend
+          this.featured = data.featured
+          this.categoryList = data.categoryList
+          this.categories = data.categories
         }
       })
     }
@@ -103,5 +100,19 @@
     width: 100%;
     height: 100%;
     background-color: #fff;
+  }
+  .banner-wrapper {
+    width: 100%;
+    padding: 0 px2rem(10);
+    box-sizing: border-box;
+    margin-top: px2rem(5);
+    .banner-img {
+      width: 100%;
+      height: px2rem(150);
+      background-size: 100% 100%;
+    }
+  }
+  .block {
+    margin-bottom: px2rem(15);
   }
 </style>

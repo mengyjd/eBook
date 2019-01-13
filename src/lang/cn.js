@@ -15,7 +15,7 @@ const messages = {
     readers: '$1人同时在读',
     featured: '精选',
     category: '分类',
-    books: '本书',
+    books: '$1本书',
     readNow: '立即阅读',
     allBook: '共 $1 本图书',
     searchPeoples: '$1万人搜索'

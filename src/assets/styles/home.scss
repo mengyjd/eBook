@@ -1,0 +1,23 @@
+@import "./minix";
+
+.title-big-max {
+  font-size: px2rem(20);
+  @include ellipsis2(2, word-wrap);
+  color: #000;
+}
+.title-big {
+  font-size: px2rem(18);
+  @include ellipsis();
+  color: #000;
+}
+.title-medium {
+  font-size: px2rem(16);
+  @include ellipsis();
+  color: #444;
+}
+
+.title-small {
+  font-size: px2rem(12);
+  @include ellipsis();
+  color: #999;
+}

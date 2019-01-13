@@ -1,6 +1,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import { themeList, addCss, getReadTimeByMinute } from './book'
 import { getBookmark, saveLocation } from './localStorage'
+import { categoryName, getCategoryText } from './store'
 
 export const ebookMixin = {
   computed: {
@@ -54,7 +55,7 @@ export const ebookMixin = {
       'setTotPage',
       'setPaginate'
     ]),
-    initGlobalStyle(theme) {
+    initGlobalStyle (theme) {
       addCss(`${process.env.VUE_APP_RES_URL}/themes/${theme.toLowerCase()}_theme.css`)
     },
     refersLocation () {
@@ -82,7 +83,7 @@ export const ebookMixin = {
         }
       }
     },
-    display(target, cb) {
+    display (target, cb) {
       if (target) {
         this.currentBook.rendition.display(target).then(() => {
           this.refersLocation()
@@ -101,7 +102,7 @@ export const ebookMixin = {
       this.setMenuSettingVisible(-1) // 隐藏设置项
       this.setFontFamilyVisible(false) // 隐藏字体设置界面
     },
-    getReadTimeText() {
+    getReadTimeText () {
       return this.$t('book.haveRead').replace('$1', getReadTimeByMinute(this.fileName))
     }
   }
@@ -120,6 +121,9 @@ export const storeHomeMixin = {
       'setOffsetY',
       'setHotSearchPageOffsetY',
       'setFlapCardVisible'
-    ])
+    ]),
+    getTranslateCategoryTextFromId (id) {
+      return getCategoryText(categoryName[id], this)
+    }
   }
 }

@@ -4,10 +4,17 @@ $fontSize: 37.5;
   @return ($px / $fontSize) + rem
 }
 
-@mixin absCenter() {
+@mixin absCenter {
   position: absolute;
   left: 0;
   right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+@mixin absColumnCenter {
+  position: absolute;
   top: 0;
   bottom: 0;
   margin: auto;
