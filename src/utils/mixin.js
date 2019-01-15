@@ -126,7 +126,6 @@ export const storeHomeMixin = {
       return getCategoryText(categoryName[id], this)
     },
     showDetail(book) {
-      console.log(book)
       this.$router.push({
         path: '/store/detail',
         query: {

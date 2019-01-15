@@ -186,6 +186,7 @@
         })
       },
       parseBook () {
+        // 获取电子书的封面
         this.book.loaded.cover.then(cover => {
           this.book.archive.createUrl(cover).then(url => {
             this.setCover(url)
@@ -194,6 +195,7 @@
         this.book.loaded.metadata.then(metadata => {
           this.setMetadata(metadata)
         })
+        // 将电子书树状结构的目录变成一维数组
         this.book.loaded.navigation.then(nav => {
           let navItem = flatten(nav.toc)
 
@@ -228,33 +230,43 @@
           // 对电子书进行分页
           return this.book.locations.generate(750 * (window.innerWidth / 375) * (getFontSize(this.fileName) / 16))
         }).then((locations) => {
-          this.navigation.forEach(nav => {
-            nav.pagelist = []
-          })
-          locations.forEach(item => {
-            const loc = item.match(/\[(.*)\]!/)[1]
-            this.navigation.forEach(nav => {
-              if (nav.href) {
-                const href = nav.href.match(/(.*)\.html/)[1]
-                if (loc === href) {
-                  nav.pagelist.push(item)
-                }
-              }
-            })
-            let currentPage = 1
-            this.navigation.forEach((nav, index) => {
-              if (index === 0) {
-                nav.page = currentPage
-              } else {
-                nav.page = currentPage
-              }
-              currentPage += nav.pagelist.length + 1
-            })
-          })
+          // 对目录进行分页
+          this.initMenuPageNum(locations)
           this.setTotPage(locations.length)
           // 分页完成后设置电子书状态available为true
           this.setBookAvailable(true)
           this.refersLocation()
+        })
+      },
+      initMenuPageNum(locations) {
+        // 为每一个章节添加pageList属性并初始化为数组
+        this.navigation.forEach(nav => {
+          nav.pagelist = []
+        })
+        locations.forEach(item => {
+          const loc = item.match(/\[(.*)\]!/)[1]
+          this.navigation.forEach(nav => {
+            if (nav.href) {
+              let href
+              if (nav.href.match(/(.*)\.html/)) {
+                href = nav.href.match(/(.*)\.html/)[1]
+              } else if (nav.href.match(/(.*)\.xhtml/)) {
+                href = nav.href.match(/(.*)\.xhtml/)[1].replace('html/', 'A')
+              }
+              if (loc === href) {
+                nav.pagelist.push(item)
+              }
+            }
+          })
+          let currentPage = 1
+          this.navigation.forEach((nav, index) => {
+            if (index === 0) {
+              nav.page = currentPage
+            } else {
+              nav.page = currentPage
+            }
+            currentPage += nav.pagelist.length + 1
+          })
         })
       }
     },

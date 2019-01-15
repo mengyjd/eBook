@@ -1,7 +1,7 @@
 <template>
     <div class="ebook-footer">
       <span class="current-time">{{currentTime}}</span>
-      <span class="footer-progress-text">{{progress}}%</span>
+      <span class="footer-progress-text">{{bookAvailable ? `${progress}%` : `${$t('book.loading')}`}}</span>
     </div>
 </template>
 
