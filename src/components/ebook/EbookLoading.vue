@@ -1,6 +1,6 @@
 <template>
-  <div class="ebook-loading">
-    <div class="ebook-loading-wrapper">
+  <div class="ebook-loading-animation">
+    <div class="ebook-loading-animation-wrapper">
       <!--左右的三条线-->
       <div class="ebook-loading-item"
            v-for="(item, index) in line"
@@ -115,7 +115,7 @@
 <style lang="scss" scoped>
   @import "../../assets/styles/global";
 
-  .ebook-loading {
+  .ebook-loading-animation {
     position: relative;
     z-index: 200;
     width: px2rem(63);
@@ -124,7 +124,7 @@
     border-radius: px2rem(4);
     border: px2rem(2) solid white;
 
-    .ebook-loading-wrapper {
+    .ebook-loading-animation-wrapper {
       display: flex;
       width: 100%;
       height: 100%;

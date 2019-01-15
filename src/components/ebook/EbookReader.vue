@@ -1,6 +1,11 @@
 <template>
   <div class="ebook-reader">
     <div id="read"></div>
+    <transition name="fade">
+      <div class="loading-wrapper" v-show="!bookDisplayed">
+        <ebook-loading></ebook-loading>
+      </div>
+    </transition>
     <div class="ebook-reader-mask"
          ref="ebookReadMask"
          @click="initClick"
@@ -16,6 +21,7 @@
 
 <script>
   import Epub from 'epubjs'
+  import EbookLoading from './EbookLoading'
   import { ebookMixin } from '../../utils/mixin'
   import { flatten } from '../../utils/book'
   import {
@@ -33,6 +39,15 @@
     mixins: [
       ebookMixin
     ],
+    data () {
+      return {
+        bookDisplayed: false,
+        currentTheme: null
+      }
+    },
+    components: {
+      EbookLoading
+    },
     methods: {
       onMouseDown (e) {
         this.mouseStartTime = e.timeStamp
@@ -124,16 +139,19 @@
         }
       },
       initTheme () {
-        let theme = getBookTheme(this.fileName)
-        if (!theme) {
-          theme = this.themeList[0].name
+        let themeName = getBookTheme(this.fileName)
+        if (!themeName) {
+          themeName = this.themeList[0].name
           saveBookTheme(this.fileName, 'Default')
         }
-        this.setDefaultTheme(theme)
+        this.setDefaultTheme(themeName)
         this.themeList.forEach(theme => {
           this.rendition.themes.register(theme.name, theme.style)
+          if (themeName === theme.name) {
+            this.currentTheme = theme
+          }
         })
-        this.rendition.themes.select(theme)
+        this.rendition.themes.select(themeName)
       },
       initFontFamily () {
         let font = getFontFamily(this.fileName)
@@ -162,18 +180,17 @@
         })
         let location
         if (this.$route.query.href) {
-          // 从链接中获取location
-          location = this.$route.query.href
+          location = this.$route.query.href // 从链接中获取location
         } else {
-          // 从localStorage中获取location
-          location = getLocation(this.fileName)
+          location = getLocation(this.fileName) // 从localStorage中获取location
         }
         // 显示location
         this.display(location, () => {
+          this.initTheme()
           this.initFontFamily()
           this.initFontSize()
-          this.initTheme()
           this.initGlobalStyle(this.defaultTheme)
+          this.bookDisplayed = true
         })
         // 引入nginx服务器上的web字体
         this.rendition.hooks.content.register(contents => {
@@ -271,6 +288,10 @@
       }
     },
     mounted () {
+      // this.initTheme()
+      // this.initFontFamily()
+      // this.initFontSize()
+      // this.initGlobalStyle(this.defaultTheme)
       // const fileName = this.$route.params.fileName.split('|').join('/')
       this.setFileName(this.$route.params.fileName.split('|').join('/'))
         .then(() => {
@@ -299,5 +320,12 @@
       height: 100%;
       background-color: transparent;
     }
+  }
+  .loading-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    @include center;
+    z-index: 1000;
   }
 </style>
