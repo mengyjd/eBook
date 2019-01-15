@@ -124,6 +124,16 @@ export const storeHomeMixin = {
     ]),
     getTranslateCategoryTextFromId (id) {
       return getCategoryText(categoryName[id], this)
+    },
+    showDetail(book) {
+      console.log(book)
+      this.$router.push({
+        path: '/store/detail',
+        query: {
+          fileName: book.fileName,
+          category: book.categoryText
+        }
+      })
     }
   }
 }

@@ -64,7 +64,7 @@
       showSetting (key) {
         this.setMenuSettingVisible(key)
       },
-      hideTitleAndMenu() {
+      hideTitleAndMenu () {
         this.setMenuSettingVisible(-1) // 隐藏设置项
       }
     }

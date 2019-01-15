@@ -34,14 +34,14 @@
       ebookMixin
     ],
     methods: {
-      onMouseDown(e) {
+      onMouseDown (e) {
         this.mouseStartTime = e.timeStamp
         this.mouseState = 1
         this.startY = e.clientY
         e.preventDefault()
         e.stopPropagation()
       },
-      onMouseMove(e) {
+      onMouseMove (e) {
         if (this.mouseState === 1) {
           this.mouseState = 2
         } else if (this.mouseState === 2) {
@@ -51,7 +51,7 @@
         e.preventDefault()
         e.stopPropagation()
       },
-      onMouseUp(e) {
+      onMouseUp (e) {
         if (this.mouseState === 2) {
           this.mouseState = 3
           this.setOffsetY(0)
@@ -65,7 +65,7 @@
         e.preventDefault()
         e.stopPropagation()
       },
-      initClick(e) {
+      initClick (e) {
         if (this.mouseState && (this.mouseState === 2 || this.mouseState === 3)) {
           return
         }
@@ -79,17 +79,17 @@
           this.toggleTitleAndMenu() // 点击中间切换菜单
         }
       },
-      touchStart(e) {
+      touchStart (e) {
         this.startX = e.changedTouches[0].clientX
         this.startY = e.changedTouches[0].clientY
       },
-      touchMove(e) {
+      touchMove (e) {
         // 计算Y轴偏移量并保存到vuex中
         this.setOffsetY(e.changedTouches[0].clientY - this.startY)
         e.preventDefault()
         e.stopPropagation()
       },
-      touchEnd(e) {
+      touchEnd (e) {
         // 计算X轴偏移量
         const offsetX = e.changedTouches[0].clientX - this.startX
         if (offsetX > 0 && offsetX > 40) {
@@ -160,7 +160,15 @@
           // method: 'default' // 兼容微信
           // flow: 'scrolled' // 上下滑动翻页
         })
-        const location = getLocation(this.fileName)
+        let location
+        if (this.$route.query.href) {
+          // 从链接中获取location
+          location = this.$route.query.href
+        } else {
+          // 从localStorage中获取location
+          location = getLocation(this.fileName)
+        }
+        // 显示location
         this.display(location, () => {
           this.initFontFamily()
           this.initFontSize()
@@ -168,7 +176,7 @@
           this.initGlobalStyle(this.defaultTheme)
         })
         // 引入nginx服务器上的web字体
-        this.rendition.hooks.text.register(contents => {
+        this.rendition.hooks.content.register(contents => {
           Promise.all([
             contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/webFonts/daysOne.css`),
             contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/webFonts/cabin.css`),
@@ -203,7 +211,7 @@
           this.setNavigation(navItem)
         })
       },
-      initBookmarks() {
+      initBookmarks () {
         this.setBookmarks(getBookmark(this.fileName))
         if (!this.bookmarks) {
           this.setBookmarks([])

@@ -40,7 +40,7 @@
     }
     .btn-text {
       font-size: px2rem(15);
-      color: #409eff;
+      color: $color-blue;
     }
   }
 </style>

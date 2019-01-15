@@ -8,6 +8,7 @@
       <div class="recommend-books">
         <div class="book-item"
              v-for="(book, index) in data" :key="index"
+             @click="showDetail(book)"
         >
           <div class="book-img-wrapper">
             <img class="img" :src="book.cover">
@@ -24,8 +25,10 @@
 
 <script>
   import TitleView from './Title'
+  import { storeHomeMixin } from '../../utils/mixin'
 
   export default {
+    mixins: [storeHomeMixin],
     components: {
       TitleView
     },

@@ -78,7 +78,6 @@
       home().then((res) => {
         if (res && res.status === 200) {
           const data = res.data
-          console.log(data)
           const randomIndex = Math.floor(Math.random() * data.random.length)
           this.randomBook = data.random[randomIndex]
           this.bannerSrc = data.banner

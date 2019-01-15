@@ -7,6 +7,7 @@
     <div class="category-list">
       <div class="category-item"
            v-for="(book, index) in data" :key="index"
+           @click="showDetail(book)"
       >
         <div class="item-wrapper">
           <div class="text-wrapper">

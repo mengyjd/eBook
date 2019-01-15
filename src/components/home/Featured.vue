@@ -7,6 +7,7 @@
     <div class="featured-books-wrapper">
       <div class="featured-book-item"
            v-for="(book, index) in data" :key="index"
+           @click="showDetail(book)"
       >
         <div class="book-img-wrapper">
           <img class="img" :src="book.cover" alt="">
@@ -24,8 +25,10 @@
 <script>
   import TitleView from './Title'
   import { getCategoryText } from '../../utils/store'
+  import { storeHomeMixin } from '../../utils/mixin'
 
   export default {
+    mixins: [storeHomeMixin],
     components: {
       TitleView
     },
