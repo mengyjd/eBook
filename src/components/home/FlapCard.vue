@@ -62,7 +62,7 @@
 
 <script>
   import { storeHomeMixin } from '../../utils/mixin'
-  import { flapCardList, getCategoryText } from '../../utils/store'
+  import { flapCardList, getTranslateCategoryText } from '../../utils/store'
 
   export default {
     mixins: [storeHomeMixin],
@@ -248,7 +248,7 @@
       },
       // 获取翻译后的分类名称
       getCategory (categoryText) {
-        return getCategoryText(categoryText, this)
+        return getTranslateCategoryText(categoryText, this)
       },
       // 显示图书详情
       showBookDetail () {

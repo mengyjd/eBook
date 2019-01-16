@@ -10,11 +10,17 @@
         <div class="banner-img" :style="{backgroundImage: `url(${bannerSrc})`}"></div>
       </div>
       <!--猜你喜欢-->
-      <guess-you-like :data="guessYouLike"></guess-you-like>
+      <guess-you-like :data="guessYouLike"
+                      @changeYouLike="changeYouLike"
+      ></guess-you-like>
       <!--热门推荐-->
       <hot-recommend class="block" :data="hotRecommend"></hot-recommend>
       <!--精选-->
-      <featured class="block" :data="featured"></featured>
+      <featured class="block"
+                :data="featured"
+                :titleText="$t('home.featured')"
+                :btn-text="$t('home.seeAll')"
+      ></featured>
       <!--分类推荐-->
       <div class="block"
            v-for="(data, index) in categoryList" :key="index"
@@ -72,6 +78,11 @@
           this.scrollTop = 94
         }
         this.$refs.scroll.refresh()
+      },
+      changeYouLike() {
+        // home().then(res => {
+        //   this.guessYouLike = res.data.guessYouLike
+        // })
       }
     },
     mounted () {

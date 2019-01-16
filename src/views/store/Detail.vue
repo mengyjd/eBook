@@ -1,7 +1,7 @@
 <template>
   <div class="detail-wrapper">
     <detail-title :offsetY="bookInfoOffsetY"></detail-title>
-    <scroll :top="50"
+    <scroll :top="45"
             :bottom="45"
             @onScroll="onScroll"
     >
@@ -29,6 +29,7 @@
       </div>
       <div class="menu-wrapper">
         <div class="title-big">{{$t('detail.navigation')}}</div>
+        <div class="loading-text" v-if="!menuList.length">{{$t('book.loading')}}</div>
         <div class="content">
           <div class="menu-item"
                v-for="(item, index) in menuList" :key="index"
@@ -39,6 +40,7 @@
       </div>
       <div class="preview-wrapper">
         <div class="title-big preview-title">{{$t('detail.trial')}}</div>
+        <div class="loading-text preview-loading" v-if="!menuList.length">{{$t('book.loading')}}</div>
         <div class="preview"
              id="preview"
              ref="preview"
@@ -58,7 +60,7 @@
   import BookInfo from '../../components/detail/BookInfo'
   import Scroll from '../../components/common/Scroll'
   import { detail } from '../../api/store'
-  import { getCategoryText } from '../../utils/store'
+  import { getTranslateCategoryText } from '../../utils/store'
   import Epub from 'epubjs'
 
   global.ePub = Epub
@@ -79,7 +81,7 @@
     },
     methods: {
       getCategory (categoryText) {
-        return getCategoryText(categoryText, this)
+        return getTranslateCategoryText(categoryText, this)
       },
       onScroll (offsetY) {
         this.bookInfoOffsetY = offsetY
@@ -231,5 +233,11 @@
     .tab-btn {
       @include center;
     }
+  }
+  .loading-text {
+    font-size: px2rem(16);
+  }
+  .preview-loading {
+    margin: px2rem(15);
   }
 </style>

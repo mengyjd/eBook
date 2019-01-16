@@ -31,6 +31,10 @@ export default new Router({
         {
           path: 'detail',
           component: () => import('./views/store/Detail.vue')
+        },
+        {
+          path: 'list',
+          component: () => import('./views/store/BookList.vue')
         }
       ]
     }

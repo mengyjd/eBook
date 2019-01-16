@@ -5,6 +5,9 @@
     <div class="icon-wrapper" @click="back">
       <span class="icon-back"></span>
     </div>
+    <div class="text-wrapper">
+      <span class="text">{{text}}</span>
+    </div>
     <div class="icon-wrapper">
       <span class="icon-shelf"></span>
     </div>
@@ -14,7 +17,11 @@
 <script>
   export default {
     props: {
-      offsetY: Number
+      offsetY: Number,
+      text: {
+        type: String,
+        default: ''
+      }
     },
     data () {
       return {
@@ -39,7 +46,7 @@
 
   .title {
     width: 100%;
-    height: px2rem(50);
+    height: px2rem(45);
     display: flex;
     justify-content: space-between;
     padding: 0 px2rem(15);
@@ -47,6 +54,10 @@
     align-items: center;
     &.shadow {
       box-shadow: 0 px2rem(2) px2rem(2) rgba(0, 0, 0, .2);
+    }
+
+    .text-wrapper {
+      font-weight: normal;
     }
 
     .icon-wrapper {

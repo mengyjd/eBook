@@ -1,7 +1,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import { themeList, addCss, getReadTimeByMinute } from './book'
 import { getBookmark, saveLocation } from './localStorage'
-import { categoryName, getCategoryText } from './store'
+import { categoryName, getTranslateCategoryText } from './store'
 
 export const ebookMixin = {
   computed: {
@@ -123,7 +123,7 @@ export const storeHomeMixin = {
       'setFlapCardVisible'
     ]),
     getTranslateCategoryTextFromId (id) {
-      return getCategoryText(categoryName[id], this)
+      return getTranslateCategoryText(categoryName[id], this)
     },
     showDetail(book) {
       this.$router.push({

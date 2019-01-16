@@ -16,3 +16,10 @@ export function detail (fileName) {
     }
   })
 }
+
+export function list () {
+  return axios({
+    method: 'get',
+    url: `${process.env.VUE_APP_BOOK_URL}/book/list`
+  })
+}

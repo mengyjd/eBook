@@ -3,7 +3,7 @@
     <div class="category-book">
       <title-view :title-text="getTranslateCategoryTextFromId(data.category)"
                   :btn-text="$t('home.seeAll')"
-                  @onclickBtn="onclickSeeAll"
+                  @onclickBtn="showBookCategory"
       ></title-view>
       <div class="category-books">
         <div class="book-item"
@@ -26,6 +26,7 @@
 <script>
   import TitleView from './Title'
   import { storeHomeMixin } from '../../utils/mixin'
+  import { categoryName } from '../../utils/store'
 
   export default {
     mixins: [storeHomeMixin],
@@ -36,8 +37,13 @@
       data: Object
     },
     methods: {
-      onclickSeeAll () {
-        console.log(this.data)
+      showBookCategory () {
+        this.$router.push({
+          path: '/store/list',
+          query: {
+            categoryText: categoryName[this.data.category]
+          }
+        })
       }
     }
   }

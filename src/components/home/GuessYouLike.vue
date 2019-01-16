@@ -25,6 +25,7 @@
 <script>
   import TitleView from './Title'
   import { storeHomeMixin } from '../../utils/mixin'
+  import { home } from '../../api/store'
 
   export default {
     mixins: [storeHomeMixin],
@@ -56,7 +57,6 @@
       },
       onclickChange () {
         this.getYouLikeList(this.data)
-        console.log(this.youLikeList)
       },
       getYouLikeList (arr) {
         this.youLikeList = []
@@ -65,6 +65,7 @@
           this.index++
           if (this.index === this.data.length) {
             this.index = 0
+            this.$emit('changeYouLike')
           }
         }
       }
@@ -93,8 +94,10 @@
     font-size: 12px;
     padding-bottom: px2rem(15);
     box-sizing: border-box;
+
     .book-img-wrapper {
       flex: 0 0 20%;
+
       .img {
         width: px2rem(70);
       }
@@ -103,6 +106,7 @@
     .book-info-wrapper {
       flex: 1;
       @include ellipsis;
+
       .book-info {
         margin: 0 0 px2rem(10) px2rem(10);
       }

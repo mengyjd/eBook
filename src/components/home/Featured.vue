@@ -1,8 +1,9 @@
 <template>
   <div class="featured-wrapper">
-    <title-view :title-text="$t('home.featured')"
-                :btn-text="$t('home.seeAll')"
+    <title-view :title-text="titleText"
+                :btn-text="btnText"
                 @onclickBtn="onclickSeeAll"
+                v-if="data && data.length > 0"
     ></title-view>
     <div class="featured-books-wrapper">
       <div class="featured-book-item"
@@ -24,7 +25,7 @@
 
 <script>
   import TitleView from './Title'
-  import { getCategoryText } from '../../utils/store'
+  import { getTranslateCategoryText } from '../../utils/store'
   import { storeHomeMixin } from '../../utils/mixin'
 
   export default {
@@ -33,15 +34,21 @@
       TitleView
     },
     props: {
-      data: Array
+      data: Array,
+      titleText: {
+        type: String,
+        default: ''
+      },
+      btnText: {
+        type: String,
+        default: ''
+      }
     },
     methods: {
       onclickSeeAll () {
-        console.log('see all')
-        console.log(this.data)
       },
       getCategory (categoryText) {
-        return getCategoryText(categoryText, this)
+        return getTranslateCategoryText(categoryText, this)
       }
     }
   }

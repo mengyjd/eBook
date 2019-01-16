@@ -40,6 +40,7 @@
                  @focus="showHotSearchVisible"
                  :placeholder="$t('home.hint')"
                  v-model="searchText"
+                 @keyup.enter.exact="search"
           >
         </div>
       </div>
@@ -89,6 +90,15 @@
       }
     },
     methods: {
+      search() {
+        this.$router.push({
+          path: '/store/list',
+          query: {
+            keywords: this.searchText
+          }
+        })
+        this.searchText = ''
+      },
       showFlapCard() {
         this.setFlapCardVisible(true)
       },

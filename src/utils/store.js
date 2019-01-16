@@ -78,7 +78,7 @@ export const categoryName = {
 }
 
 // 将分类名称根据语言翻译
-export function getCategoryText (text, vue) {
+export function getTranslateCategoryText (text, vue) {
     text = text.substring(0, 1).toLowerCase() + text.substring(1)
   return vue.$t(`category.${text}`)
 }
