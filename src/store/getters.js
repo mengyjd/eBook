@@ -19,7 +19,11 @@ const book = {
   totPage: state => state.book.totPage,
   paginate: state => state.book.paginate,
   hotSearchPageOffsetY: state => state.store.hotSearchPageOffsetY,
-  flapCardVisible: state => state.store.flapCardVisible
+  flapCardVisible: state => state.store.flapCardVisible,
+  isEditModel: state => state.store.isEditModel,
+  shelfList: state => state.store.shelfList,
+  shelfSelected: state => state.store.shelfSelected,
+  shelfTitleVisible: state => state.store.shelfTitleVisible
 }
 
 export default book

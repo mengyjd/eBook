@@ -31,7 +31,7 @@
     </div>
     <!--关闭按钮-->
     <div class="flap-card-close">
-      <div class="icon-close-wrapper"
+      <div class="clear-search-text-wrapper"
            @click="closeFlapCard"
       >
         <span class="icon-close"></span>
@@ -351,7 +351,7 @@
     width: 100%;
     @include center;
 
-    .icon-close-wrapper {
+    .clear-search-text-wrapper {
       @include center;
       width: px2rem(45);
       height: px2rem(45);

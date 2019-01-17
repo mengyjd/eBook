@@ -4,6 +4,10 @@ $fontSize: 37.5;
   @return ($px / $fontSize) + rem
 }
 
+@mixin minBoxShadow {
+  box-shadow: 0 px2rem(2) px2rem(2) rgba(0, 0, 0, .2);
+}
+
 @mixin absCenter {
   position: absolute;
   left: 0;
@@ -22,6 +26,13 @@ $fontSize: 37.5;
 
 @mixin center {
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin columnCenter {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }

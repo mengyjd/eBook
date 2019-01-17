@@ -103,7 +103,13 @@
         this.setFlapCardVisible(true)
       },
       onBack () {
-        this.hideHotSearchPageVisible()
+        if (this.hotSearchPageVisible) {
+          this.hideHotSearchPageVisible()
+        } else {
+          this.$router.push({
+            path: '/store/shelf'
+          })
+        }
         if (this.offsetY > 0) {
           this.hideTitle()
           this.showShadow()

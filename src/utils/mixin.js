@@ -136,3 +136,22 @@ export const storeHomeMixin = {
     }
   }
 }
+
+export const storeShelfMixin = {
+  computed: {
+    ...mapGetters([
+      'isEditModel',
+      'shelfList',
+      'shelfSelected',
+      'shelfTitleVisible'
+    ])
+  },
+  methods: {
+    ...mapActions([
+      'setIsEditModel',
+      'setShelfList',
+      'setShelfSelected',
+      'setShelfTitleVisible'
+    ])
+  }
+}
