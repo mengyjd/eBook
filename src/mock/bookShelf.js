@@ -1,3 +1,125 @@
 module.exports = {
-  bookList: []
+  bookList: [
+    {
+      'type': 1,
+      'id': 37,
+      'fileName': '2018_Book_BiofuelsAndSustainability',
+      'cover': 'http://47.99.166.157/book/res/img/Environment/978-4-431-54895-9_CoverFigure.jpg',
+      'title': 'Biofuels and Sustainability',
+      'author': 'Kazuhiko Takeuchi',
+      'publisher': 'Springer Japan',
+      'bookId': '2018_Book_BiofuelsAndSustainability',
+      'category': 6,
+      'categoryText': 'Environment',
+      'language': 'en',
+      'selected': false,
+      'private': true,
+      'cache': true,
+      'haveRead': 0
+    },
+    {
+      'type': 1,
+      'id': 38,
+      'fileName': '2018_Book_DesigningSustainableTechnologi',
+      'cover': 'http://47.99.166.157/book/res/img/Environment/978-3-319-66981-6_CoverFigure.jpg',
+      'title': 'Designing Sustainable Technologies, Products and Policies',
+      'author': 'Enrico Benetto',
+      'publisher': 'Springer International Publishing',
+      'bookId': '2018_Book_DesigningSustainableTechnologi',
+      'category': 6,
+      'categoryText': 'Environment',
+      'language': 'en',
+      'selected': false,
+      'private': false,
+      'cache': false,
+      'haveRead': 0
+    },
+    {
+      'type': 1,
+      'id': 62,
+      'fileName': '2018_Book_Bioeconomy',
+      'cover': 'http://47.99.166.157/book/res/img/LifeSciences/978-3-319-68152-8_CoverFigure.jpg',
+      'title': 'Bioeconomy',
+      'author': 'Iris Lewandowski',
+      'publisher': 'Springer International Publishing',
+      'bookId': '2018_Book_Bioeconomy',
+      'category': 10,
+      'categoryText': 'LifeSciences',
+      'language': 'en',
+      'selected': false,
+      'private': false,
+      'cache': false,
+      'haveRead': 0
+    },
+    {
+      'type': 1,
+      'id': 87,
+      'fileName': '2018_Book_ADemographicPerspectiveOnGende',
+      'cover': 'http://47.99.166.157/book/res/img/SocialSciences/978-3-319-72356-3_CoverFigure.jpg',
+      'title': 'A Demographic Perspective on Gender, Family and Health in Europe',
+      'author': 'Gabriele Doblhammer',
+      'publisher': 'Springer International Publishing',
+      'bookId': '2018_Book_ADemographicPerspectiveOnGende',
+      'category': 2,
+      'categoryText': 'SocialSciences',
+      'language': 'en',
+      'selected': false,
+      'private': false,
+      'cache': false,
+      'haveRead': 0
+    },
+    {
+      type: 2,
+      categoryText: 'test',
+      categoryList: [
+        {
+          'id': 41,
+          'fileName': '2018_Book_NewVision2050',
+          'cover': 'http://47.99.166.157/book/res/img/Environment/978-4-431-56623-6_CoverFigure.jpg',
+          'title': 'New Vision 2050',
+          'author': 'Hiroshi Komiyama',
+          'publisher': 'Springer Japan',
+          'bookId': '2018_Book_NewVision2050',
+          'category': 6,
+          'categoryText': 'Environment',
+          'language': 'en',
+          'selected': false,
+          'private': false,
+          'cache': false,
+          'haveRead': 0
+        }, {
+          'id': 42,
+          'fileName': '2018_Book_TechnologiesForDevelopment',
+          'cover': 'http://47.99.166.157/book/res/img/Environment/978-3-319-91068-0_CoverFigure.jpg',
+          'title': 'Technologies for Development',
+          'author': 'Silvia Hostettler',
+          'publisher': 'Springer International Publishing',
+          'bookId': '2018_Book_TechnologiesForDevelopment',
+          'category': 6,
+          'categoryText': 'Environment',
+          'language': 'en',
+          'selected': false,
+          'private': false,
+          'cache': false,
+          'haveRead': 0
+        },
+        {
+          'id': 62,
+          'fileName': '2018_Book_Bioeconomy',
+          'cover': 'http://47.99.166.157/book/res/img/LifeSciences/978-3-319-68152-8_CoverFigure.jpg',
+          'title': 'Bioeconomy',
+          'author': 'Iris Lewandowski',
+          'publisher': 'Springer International Publishing',
+          'bookId': '2018_Book_Bioeconomy',
+          'category': 10,
+          'categoryText': 'LifeSciences',
+          'language': 'en',
+          'selected': false,
+          'private': false,
+          'cache': false,
+          'haveRead': 0
+        }
+      ]
+    }
+  ]
 }

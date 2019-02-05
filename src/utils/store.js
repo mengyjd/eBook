@@ -1,3 +1,21 @@
+export function gotoStoreHome (vue) {
+  vue.$router.push({
+    path: '/store/home'
+  })
+}
+
+export function addShelfList (list) {
+  list.push({
+    id: -1,
+    type: 3
+  })
+  return list
+}
+
+export function removeShelf (list) {
+  list.filter(item => item.type !== 3)
+}
+
 // 随机推荐功能中卡片翻转动画的css属性
 export const flapCardList = [
   {

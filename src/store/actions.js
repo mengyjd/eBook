@@ -73,6 +73,12 @@ const actions = {
   },
   setShelfTitleVisible: ({ commit }, shelfTitleVisible) => {
     return commit('SET_SHELF_TITLE_VISIBLE', shelfTitleVisible)
+  },
+  setIsOpenPrivate: ({ commit }, isPrivate) => {
+    return commit('SET_PRIVATE', isPrivate)
+  },
+  setIsOpenCache: ({ commit }, isCache) => {
+    return commit('SET_CACHE', isCache)
   }
 }
 

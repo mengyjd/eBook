@@ -4,17 +4,17 @@
          :class="{'show-shadow': ifShowShadow}"
     >
       <div class="shelf-title-text-wrapper">
-        <span class="shelf-title-text">{{$t('shelf.title')}}</span>
+        <span class="shelf-title-text">{{ title }}</span>
         <span class="shelf-sub-title-text"
               v-show="isEditModel">{{selectText}}</span>
       </div>
       <div class="shelf-title-btn-wrapper shelf-title-left"
            @click="onClickClearCache">
-        <span class="shelf-title-btn-text">{{$t('shelf.clearCache')}}</span>
+        <span class="shelf-title-btn-text">{{ leftText }}</span>
       </div>
       <div class="shelf-title-btn-wrapper shelf-title-right"
            @click="onClickEdit">
-        <span class="shelf-title-btn-text">{{$t('shelf.edit')}}</span>
+        <span class="shelf-title-btn-text">{{ rightText }}</span>
       </div>
     </div>
   </transition>
@@ -26,11 +26,16 @@
   export default {
     mixins: [storeShelfMixin],
     props: {
-      offsetY: Number
+      offsetY: Number,
+      leftText: String,
+      title: {
+        default: '书架'
+      }
     },
     data () {
       return {
-        ifShowShadow: false
+        ifShowShadow: false,
+        rightText: '编辑'
       }
     },
     watch: {
@@ -55,6 +60,15 @@
         console.log('clear cache')
       },
       onClickEdit () {
+        // 点击取消时
+        // 清空选中状态
+        if (!this.isEditModel) {
+          this.shelfList.forEach(book => {
+            book.selected = false
+          })
+          this.setShelfSelected([])
+        }
+        this.rightText = this.isEditModel ? this.$t('shelf.edit') : this.$t('shelf.cancel')
         this.setIsEditModel(!this.isEditModel)
       }
     }

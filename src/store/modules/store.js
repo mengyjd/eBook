@@ -3,11 +3,19 @@ const store = {
     hotSearchPageOffsetY: 0,
     flapCardVisible: false,
     isEditModel: false,
-    shelfList: [],
-    shelfSelected: [],
-    shelfTitleVisible: true
+    shelfList: [], // 书架图书列表
+    shelfSelected: [], // 书架选中的图书列表
+    shelfTitleVisible: true,
+    isPrivate: true,
+    isCache: true
   },
   mutations: {
+    'SET_PRIVATE': (state, isPrivate) => {
+      state.isPrivate = isPrivate
+    },
+    'SET_CACHE': (state, isCache) => {
+      state.isCache = isCache
+    },
     'SET_HOT_SEARCH_PAGE_OFFSETY': (state, hotSearchPageOffsetY) => {
       state.hotSearchPageOffsetY = hotSearchPageOffsetY
     },

@@ -39,6 +39,10 @@ export default new Router({
         {
           path: 'list',
           component: () => import('./views/store/BookList.vue')
+        },
+        {
+          path: 'folder',
+          component: () => import('./views/store/Folder.vue')
         }
       ]
     }
