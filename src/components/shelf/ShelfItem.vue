@@ -48,7 +48,6 @@
         // 处于编辑模式时,点击封面
         if (this.isEditModel) {
           this.changeBookSelectState()
-          this.changeShelfTabState()
         } else {
           // 非编辑模式, 直接点击书籍时
           if (this.book.type === 1) {
@@ -76,29 +75,6 @@
             book => book.id !== this.book.id
           ))
         }
-      },
-      // 判断选中的书籍
-      // 是否开启私密阅读 以及 是否开启缓存
-      changeShelfTabState() {
-        this.setIsOpenPrivate(false) // 默认为false
-        this.setIsOpenCache(false) // 默认为false
-        // 如果处于编辑模式并且选中的书籍为0
-        // 则显示开启私密阅读图标
-        if (this.shelfSelected.length === 0) {
-          this.setIsOpenPrivate(true)
-          this.setIsOpenCache(true)
-        }
-        // 遍历选中的书籍
-        this.shelfSelected.forEach(book => {
-          // 如果有一本书不是私密阅读,则显示开启私密阅读状态
-          if (!book.private) {
-            this.setIsOpenPrivate(true)
-          }
-          // 如果有一本书不没有缓存,则显示开启缓存状态
-          if (!book.cache) {
-            this.setIsOpenCache(true)
-          }
-        })
       }
     }
   }

@@ -143,9 +143,7 @@ export const storeShelfMixin = {
       'isEditModel',
       'shelfList',
       'shelfSelected',
-      'shelfTitleVisible',
-      'isPrivate',
-      'isCache'
+      'shelfTitleVisible'
     ])
   },
   methods: {
@@ -153,9 +151,7 @@ export const storeShelfMixin = {
       'setIsEditModel',
       'setShelfList',
       'setShelfSelected',
-      'setShelfTitleVisible',
-      'setIsOpenPrivate',
-      'setIsOpenCache'
+      'setShelfTitleVisible'
     ])
   }
 }

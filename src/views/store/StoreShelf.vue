@@ -16,6 +16,7 @@
       <shelf-list class="shelf-list"/>
     </scroll>
     <shelf-footer/>
+    <!--<popup></popup>-->
   </div>
 </template>
 
@@ -28,6 +29,7 @@
   import { storeShelfMixin } from '../../utils/mixin'
   import { shelf } from '../../api/store'
   import { addShelfList } from '../../utils/store'
+  import { getBookShelf } from '../../utils/localStorage'
 
   export default {
     mixins: [storeShelfMixin],
@@ -61,9 +63,14 @@
       }
     },
     mounted () {
-      shelf().then(res => {
-        this.setShelfList(addShelfList(res.data.bookList))
-      })
+      const shelfList = getBookShelf()
+      if (shelfList) {
+        this.setShelfList(shelfList)
+      } else {
+        shelf().then(res => {
+          this.setShelfList(addShelfList(res.data.bookList))
+        })
+      }
     }
   }
 </script>

@@ -41,6 +41,13 @@
     watch: {
       offsetY(offsetY) {
         this.ifShowShadow = offsetY !== 0
+      },
+      isEditModel(isEdit) {
+        if (isEdit) {
+          this.rightText = this.$t('shelf.cancel')
+        } else {
+          this.rightText = this.$t('shelf.edit')
+        }
       }
     },
     computed: {
@@ -68,7 +75,7 @@
           })
           this.setShelfSelected([])
         }
-        this.rightText = this.isEditModel ? this.$t('shelf.edit') : this.$t('shelf.cancel')
+        // this.rightText = this.isEditModel ? this.$t('shelf.edit') : this.$t('shelf.cancel')
         this.setIsEditModel(!this.isEditModel)
       }
     }
