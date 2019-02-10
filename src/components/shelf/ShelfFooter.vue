@@ -18,8 +18,9 @@
 
 <script>
   import { storeShelfMixin } from '../../utils/mixin'
-  import { saveBookShelf } from '../../utils/localStorage'
-  import { setLocalForage } from '../../utils/localforage'
+  import { removeLocalStorage, saveBookShelf } from '../../utils/localStorage'
+  import { removeLocalForage, setLocalForage } from '../../utils/localforage'
+  import { download } from '../../api/store'
 
   export default {
     mixins: [storeShelfMixin],
@@ -159,29 +160,37 @@
         })
         this.onComplete()
       },
-      openCache () {
-        this.createSampleToast(this.$t('shelf.setDownloadSuccess')).show()
-        this.downloadSelectedBook()
-        this.shelfSelected.forEach(book => {
-          book.cache = true
-        })
+      async openCache () {
+        // 点击开启离线时将popup隐藏
         this.onComplete()
+        await this.downloadSelectedBook()
+        this.createSampleToast(this.$t('shelf.setDownloadSuccess')).show()
       },
       deleteCache () {
         this.createSampleToast(this.$t('shelf.removeDownloadSuccess')).show()
         this.shelfSelected.forEach(book => {
-          book.cache = false
+          removeLocalForage(
+            book.fileName,
+            () => {
+              book.cache = false
+              this.createSampleToast(this.$t('shelf.removeDownloadSuccess'))
+            },
+            () => {
+              this.createSampleToast('删除失败')
+            }
+          )
         })
         this.onComplete()
       },
       removeSelectedBook () {
+        // this.deleteCache()
         this.shelfSelected.forEach(selectedBook => {
-          this.setShelfList(this.shelfList.filter(book => book !== selectedBook))
+          removeLocalStorage(`${selectedBook.categoryText}/${selectedBook.fileName}-info`)
+          this.setShelfList(this.shelfList.filter(book => book.id !== selectedBook.id))
         })
-        this.onComplete()
         this.setShelfSelected([])
+        this.onComplete()
       },
-      // 隐藏popup
       hidePopup () {
         this.popupMenu.hide()
       },
@@ -216,7 +225,47 @@
             break
         }
       },
-      downloadSelectedBook () {
+      async downloadSelectedBook () {
+        // 遍历选中的书籍
+        for (let i = 0; i < this.shelfSelected.length; i++) {
+          if (!this.shelfSelected[i].cache) {
+            // 对于没有下载的书籍调用下载书籍方法
+            await this.downloadBook(this.shelfSelected[i])
+              .then(book => {
+                book.cache = true // 下载成功时将cache改为true
+                saveBookShelf(this.shelfList) // 更新书籍状态
+              }).catch(() => {
+                // 当下载出错时弹出提示
+                this.createSampleToast(this.$t('shelf.setDownloadError'))
+              })
+          }
+        }
+      },
+      // 下载电子书
+      downloadBook (book) {
+        // 创建一个toast
+        let text = ''
+        const toast = this.createSampleToast(text).show()
+        return new Promise((resolve, reject) => {
+          download(
+            book,
+            progressEvent => {
+              /**
+               * 更新下载进度
+               */
+              toast.continueShow()
+              const progress = Math.floor(progressEvent.loaded / progressEvent.total * 100) + '%'
+              let text = this.$t('shelf.progressDownload')
+                .replace('$1', `《${book.title}》(${progress})`)
+              toast.updateText(text)
+            },
+            res => {
+              toast.remove() // 下载完成移除toast
+              resolve(book)
+            },
+            reject
+          )
+        })
       }
     }
   }

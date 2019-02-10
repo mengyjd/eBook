@@ -3,7 +3,7 @@
     <div class="toast-wrapper"
          v-show="isShow"
          ref="toast">
-      <div class="toast-text" v-html="text"></div>
+      <div class="toast-text" v-html="showText"></div>
     </div>
   </transition>
 </template>
@@ -20,11 +20,13 @@
     },
     data () {
       return {
-        isShow: true
+        isShow: true,
+        showText: ''
       }
     },
     methods: {
       show () {
+        this.updateText(this.text)
         this.isShow = true
         clearTimeout(this.task)
         this.task = null
@@ -34,6 +36,14 @@
       },
       hide () {
         this.isShow = false
+      },
+      continueShow() {
+        this.show()
+        clearTimeout(this.task)
+        this.task = null
+      },
+      updateText(newText) {
+        this.showText = newText
       }
     }
   }

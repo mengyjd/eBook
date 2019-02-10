@@ -51,15 +51,17 @@
         } else {
           // 非编辑模式, 直接点击书籍时
           if (this.book.type === 1) {
-            // item是书籍时, 直接跳转到详情页
-            this.showDetail(this.book)
+            // item是书籍时, 直接进入阅读界面
+            this.$router.push({
+              path: `/ebook/${this.book.categoryText}|${this.book.fileName}`
+            })
           } else if (this.book.type === 2) {
             // item是文件夹时
             this.$router.push({
               path: '/store/folder'
             })
           } else if (this.book.type === 3) {
-            // // item是添加按钮时, 跳转到书城首页
+            // item是添加按钮时, 跳转到书城首页
             gotoStoreHome(this)
           }
         }
