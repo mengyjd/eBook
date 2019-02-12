@@ -12,7 +12,7 @@
   export default {
     name: 'toast',
     props: {
-      text: String,
+      text: [String, Number],
       timeout: {
         default: 1500,
         type: Number
@@ -20,7 +20,7 @@
     },
     data () {
       return {
-        isShow: true,
+        isShow: false,
         showText: ''
       }
     },

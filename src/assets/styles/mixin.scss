@@ -65,4 +65,12 @@ $fontSize: 37.5;
   word-break: $wordBreak;
 }
 
+@mixin scroll {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
 

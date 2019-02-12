@@ -33,6 +33,7 @@
     saveBookTheme,
     getLocation, getBookmark
   } from '../../utils/localStorage'
+  import { getLocalForage } from '../../utils/localforage'
 
   global.epub = Epub
   export default {
@@ -236,8 +237,7 @@
           this.setBookmarks([])
         }
       },
-      initEpub: function () {
-        const url = process.env.VUE_APP_RES_URL + '/epub/' + this.fileName + '.epub'
+      initEpub (url) {
         this.book = new Epub(url)
         this.setCurrentBook(this.book)
         this.initRendition()
@@ -255,7 +255,7 @@
           this.refersLocation()
         })
       },
-      initMenuPageNum(locations) {
+      initMenuPageNum (locations) {
         // 为每一个章节添加pageList属性并初始化为数组
         this.navigation.forEach(nav => {
           nav.pagelist = []
@@ -288,15 +288,24 @@
       }
     },
     mounted () {
-      // this.initTheme()
-      // this.initFontFamily()
-      // this.initFontSize()
-      // this.initGlobalStyle(this.defaultTheme)
-      // const fileName = this.$route.params.fileName.split('|').join('/')
-      this.setFileName(this.$route.params.fileName.split('|').join('/'))
-        .then(() => {
-          this.initEpub()
-        })
+      const books = this.$route.params.fileName.split('|')
+      const fileName = books[1]
+      // 从indexDB中获取blob类型的离线电子书
+      getLocalForage(fileName, book => {
+        if (book) {
+          this.setFileName(books.join('/'))
+            .then(() => {
+              this.initEpub(book)
+            })
+        } else {
+          this.setFileName(books.join('/'))
+            .then(() => {
+              // 获取在线电子书
+              const url = process.env.VUE_APP_RES_URL + '/epub/' + this.fileName + '.epub'
+              this.initEpub(url)
+            })
+        }
+      })
     }
   }
 </script>
@@ -307,11 +316,13 @@
   .ebook-reader {
     width: 100%;
     height: 100%;
+
     #read {
       position: absolute;
       top: 0;
       left: 0;
     }
+
     .ebook-reader-mask {
       position: absolute;
       top: 0;
@@ -321,6 +332,7 @@
       background-color: transparent;
     }
   }
+
   .loading-wrapper {
     position: absolute;
     width: 100%;

@@ -41,8 +41,8 @@ export default new Router({
           component: () => import('./views/store/BookList.vue')
         },
         {
-          path: 'folder',
-          component: () => import('./views/store/Folder.vue')
+          path: 'group',
+          component: () => import('./views/store/ShelfGroup.vue')
         }
       ]
     }

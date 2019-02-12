@@ -19,7 +19,7 @@
 <script>
   import { storeShelfMixin } from '../../utils/mixin'
   import { removeLocalStorage, saveBookShelf } from '../../utils/localStorage'
-  import { removeLocalForage, setLocalForage } from '../../utils/localforage'
+  import { removeLocalForage } from '../../utils/localforage'
   import { download } from '../../api/store'
 
   export default {
@@ -70,7 +70,8 @@
     },
     data () {
       return {
-        popupMenu: null
+        popupMenu: null,
+        dialog: null
       }
     },
     methods: {
@@ -129,6 +130,15 @@
           ]
         }).show()
       },
+      showShelfDialog() {
+        const groupNames = []
+        this.shelfList.forEach(book => {
+          if (book.type === 2) {
+            groupNames.push(book.categoryText)
+          }
+        })
+        this.dialog = this.createShelfDialog(groupNames).show()
+      },
       showRemoveShelfBook () {
         this.popupMenu = this.createPopup({
           title: this.shelfSelected.length === 1
@@ -147,14 +157,14 @@
         }).show()
       },
       openPrivate () {
-        this.createSampleToast(this.$t('shelf.setPrivateSuccess')).show()
+        this.createSampleToast(this.$t('shelf.setPrivateSuccess'))
         this.shelfSelected.forEach(book => {
           book.private = true
         })
         this.onComplete()
       },
       closePrivate () {
-        this.createSampleToast(this.$t('shelf.closePrivateSuccess')).show()
+        this.createSampleToast(this.$t('shelf.closePrivateSuccess'))
         this.shelfSelected.forEach(book => {
           book.private = false
         })
@@ -164,7 +174,7 @@
         // 点击开启离线时将popup隐藏
         this.onComplete()
         await this.downloadSelectedBook()
-        this.createSampleToast(this.$t('shelf.setDownloadSuccess')).show()
+        this.createSampleToast(this.$t('shelf.setDownloadSuccess'))
       },
       deleteCache () {
         this.createSampleToast(this.$t('shelf.removeDownloadSuccess')).show()
@@ -182,8 +192,9 @@
         })
         this.onComplete()
       },
+      // 将选中的书籍移出书架
       removeSelectedBook () {
-        // this.deleteCache()
+        this.deleteCache()
         this.shelfSelected.forEach(selectedBook => {
           removeLocalStorage(`${selectedBook.categoryText}/${selectedBook.fileName}-info`)
           this.setShelfList(this.shelfList.filter(book => book.id !== selectedBook.id))
@@ -202,11 +213,6 @@
       onClickTab (index) {
         // 如果点击tab时没有选中书籍, 则什么也不做
         if (this.shelfSelected.length === 0) {
-          setLocalForage('name12',
-            'tom12',
-            value => {
-              console.log(value)
-            })
           return
         }
         switch (index) {
@@ -217,6 +223,7 @@
             this.showCache()
             break
           case 3:
+            this.showShelfDialog()
             break
           case 4:
             this.showRemoveShelfBook()
@@ -245,7 +252,7 @@
       downloadBook (book) {
         // 创建一个toast
         let text = ''
-        const toast = this.createSampleToast(text).show()
+        const toast = this.createSampleToast(text)
         return new Promise((resolve, reject) => {
           download(
             book,

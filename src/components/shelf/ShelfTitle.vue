@@ -22,6 +22,9 @@
 
 <script>
   import { storeShelfMixin } from '../../utils/mixin'
+  import { shelf } from '../../api/store'
+  import { addShelfList } from '../../utils/store'
+  import { saveBookShelf } from '../../utils/localStorage'
 
   export default {
     mixins: [storeShelfMixin],
@@ -64,7 +67,14 @@
     },
     methods: {
       onClickClearCache () {
-        console.log('clear cache')
+        shelf().then(res => {
+          this.setShelfList(addShelfList(res.data.bookList))
+            .then(() => {
+              console.log('获取的数据:',this.shelfList )
+              saveBookShelf(this.shelfList)
+              this.createSampleToast('已清除缓存')
+            })
+        })
       },
       onClickEdit () {
         // 点击取消时
@@ -75,7 +85,6 @@
           })
           this.setShelfSelected([])
         }
-        // this.rightText = this.isEditModel ? this.$t('shelf.edit') : this.$t('shelf.cancel')
         this.setIsEditModel(!this.isEditModel)
       }
     }

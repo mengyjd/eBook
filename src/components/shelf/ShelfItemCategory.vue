@@ -1,12 +1,12 @@
 <template>
   <div class="shelf-item-category">
     <div class="books">
-      <img v-for="(item, index) in data.categoryList" :key="index"
-           :src="item.cover"
+      <img v-for="(book, index) in data.itemList" :key="index"
+           :src="book.cover"
            alt=""
       >
     </div>
-    <span class="category-text">{{ data.categoryText }}</span>
+    <span class="category-text">{{ data.title }}</span>
   </div>
 </template>
 

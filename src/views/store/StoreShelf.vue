@@ -16,7 +16,6 @@
       <shelf-list class="shelf-list"/>
     </scroll>
     <shelf-footer/>
-    <!--<popup></popup>-->
   </div>
 </template>
 
@@ -71,6 +70,7 @@
           this.setShelfList(addShelfList(res.data.bookList))
         })
       }
+      console.log(shelfList)
     }
   }
 </script>
