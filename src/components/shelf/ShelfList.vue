@@ -4,7 +4,7 @@
       name="list"
       tag="div"
       id="shelf-list">
-      <div v-for="item in shelfList" :key="item.id"
+      <div v-for="item in data" :key="item.id"
            class="shelf-list-item-wrapper">
         <shelf-item :book="item" :style="{ height: shelfHeight }"></shelf-item>
       </div>
@@ -18,6 +18,9 @@
 
   export default {
     mixins: [storeShelfMixin],
+    props: {
+      data: Array
+    },
     computed: {
       shelfHeight () {
         return ((window.innerWidth - 110) / 3) / (250 / 350) + 'px'
@@ -34,7 +37,7 @@
 
   .shelf-list {
     width: 100%;
-    padding: px2rem(20) px2rem(10);
+    padding: 0 px2rem(10);
     box-sizing: border-box;
 
     #shelf-list {
@@ -51,7 +54,7 @@
         box-sizing: border-box;
         transition: all .5s;
         &.list-leave-active {
-          position: absolute;
+          display: none;
         }
       }
     }

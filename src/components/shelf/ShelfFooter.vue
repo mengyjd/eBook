@@ -70,8 +70,7 @@
     },
     data () {
       return {
-        popupMenu: null,
-        dialog: null
+        popupMenu: null
       }
     },
     methods: {
@@ -131,13 +130,7 @@
         }).show()
       },
       showShelfDialog() {
-        const groupNames = []
-        this.shelfList.forEach(book => {
-          if (book.type === 2) {
-            groupNames.push(book.categoryText)
-          }
-        })
-        this.dialog = this.createShelfDialog(groupNames).show()
+        this.createShelfDialog().show()
       },
       showRemoveShelfBook () {
         this.popupMenu = this.createPopup({

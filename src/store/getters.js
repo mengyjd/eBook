@@ -23,7 +23,9 @@ const book = {
   isEditModel: state => state.store.isEditModel,
   shelfList: state => state.store.shelfList,
   shelfSelected: state => state.store.shelfSelected,
-  shelfTitleVisible: state => state.store.shelfTitleVisible
+  shelfTitleVisible: state => state.store.shelfTitleVisible,
+  currentType: state => state.store.currentType,
+  shelfGroup: state => state.store.shelfGroup
 }
 
 export default book

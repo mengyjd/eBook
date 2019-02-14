@@ -73,6 +73,12 @@ const actions = {
   },
   setShelfTitleVisible: ({ commit }, shelfTitleVisible) => {
     return commit('SET_SHELF_TITLE_VISIBLE', shelfTitleVisible)
+  },
+  setCurrentType: ({ commit }, currentType) => {
+    return commit('SET_CURRENT_TYPE', currentType)
+  },
+  setShelfGroup: ({ commit }, shelfGroup) => {
+    return commit('SET_SHELF_GROUP', shelfGroup)
   }
 }
 

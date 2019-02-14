@@ -2,26 +2,26 @@
   <div class="shelf-wrapper">
     <shelf-title
       :offsetY="offsetY"
-      :title="$t('shelf.title')"
+      :title="shelfGroup ? shelfGroup.title : ''"
       :left-text="$t('shelf.clearCache')"/>
     <scroll
       :top="0"
       :bottom="scrollBottom"
       class="shelf-scroll-wrapper"
       @onScroll="onScroll"
-      ref="scroll">
-      <shelf-search
-        :offsetY="offsetY"
-        @onClickCancel="onClickCancel"/>
-      <shelf-list class="shelf-list" :data="shelfList"/>
+      ref="scroll"
+      v-if="shelfGroup && shelfGroup.itemList.length > 0">
+      <shelf-list class="shelf-list" :data="shelfGroup.itemList" v-if="shelfGroup"/>
     </scroll>
+    <div class="group-none-wrapper" v-else>
+      <span class="group-none-text">{{$t('shelf.groupNone')}}</span>
+    </div>
     <shelf-footer/>
   </div>
 </template>
 
 <script>
   import ShelfTitle from '../../components/shelf/ShelfTitle'
-  import ShelfSearch from '../../components/shelf/ShelfSearch'
   import ShelfList from '../../components/shelf/ShelfList'
   import ShelfFooter from '../../components/shelf/ShelfFooter'
   import Scroll from '../../components/common/Scroll'
@@ -32,7 +32,6 @@
     components: {
       Scroll,
       ShelfTitle,
-      ShelfSearch,
       ShelfList,
       ShelfFooter
     },
@@ -43,11 +42,13 @@
       }
     },
     watch: {
-      isEditModel(isEdit) {
+      isEditModel (isEdit) {
         this.scrollBottom = isEdit ? 48 : 0
-        this.$nextTick(() => {
-          this.$refs.scroll.refresh()
-        })
+        if (this.shelfGroup && this.shelfGroup.itemList.length > 0) {
+          this.$nextTick(() => {
+            this.$refs.scroll.refresh()
+          })
+        }
       }
     },
     methods: {
@@ -59,9 +60,8 @@
       }
     },
     mounted () {
-      this.setCurrentType(1)
-      this.getShelfList()
-      this.initShelfState()
+      this.setCurrentType(2)
+      this.getShelfGroupList(this.$route.query.title)
     }
   }
 </script>
@@ -85,10 +85,16 @@
 
       .shelf-list {
         position: absolute;
-        top: px2rem(94);
+        top: px2rem(42);
         left: 0;
         z-index: 150;
       }
+    }
+    .group-none-wrapper {
+      width: 100%;
+      height: 100%;
+      @include center;
+      font-size: px2rem(16);
     }
   }
 </style>

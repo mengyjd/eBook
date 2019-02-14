@@ -58,7 +58,10 @@
           } else if (this.book.type === 2) {
             // item是文件夹时
             this.$router.push({
-              path: '/store/folder'
+              path: '/store/group',
+              query: {
+                title: this.book.title
+              }
             })
           } else if (this.book.type === 3) {
             // item是添加按钮时, 跳转到书城首页
@@ -89,6 +92,7 @@
     position: relative;
     width: 100%;
     height: 100%;
+    background: #fff;
 
     .icon-selected {
       position: absolute;

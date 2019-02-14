@@ -36,7 +36,7 @@ module.exports = {
     },
     {
       'type': 1,
-      'id': 62,
+      'id': 99,
       'fileName': '2018_Book_Bioeconomy',
       'cover': 'http://47.99.166.157/book/res/img/LifeSciences/978-3-319-68152-8_CoverFigure.jpg',
       'title': 'Bioeconomy',
@@ -77,6 +77,7 @@ module.exports = {
       itemList: [
         {
           'id': 41,
+          'type': 1,
           'fileName': '2018_Book_NewVision2050',
           'cover': 'http://47.99.166.157/book/res/img/Environment/978-4-431-56623-6_CoverFigure.jpg',
           'title': 'New Vision 2050',
@@ -92,6 +93,7 @@ module.exports = {
           'haveRead': 0
         }, {
           'id': 42,
+          'type': 1,
           'fileName': '2018_Book_TechnologiesForDevelopment',
           'cover': 'http://47.99.166.157/book/res/img/Environment/978-3-319-91068-0_CoverFigure.jpg',
           'title': 'Technologies for Development',
@@ -108,6 +110,7 @@ module.exports = {
         },
         {
           'id': 62,
+          'type': 1,
           'fileName': '2018_Book_Bioeconomy',
           'cover': 'http://47.99.166.157/book/res/img/LifeSciences/978-3-319-68152-8_CoverFigure.jpg',
           'title': 'Bioeconomy',
@@ -132,6 +135,7 @@ module.exports = {
       itemList: [
         {
           'id': 197,
+          'type': 1,
           'fileName': '2016_Book_NewHorizonsForAData-DrivenEcon',
           'cover': 'http://47.99.166.157/book/res/img/ComputerScience/2016_Book_NewHorizonsForAData-DrivenEcon.jpeg',
           'title': 'New Horizons for a Data-Driven Economy',
@@ -145,12 +149,12 @@ module.exports = {
           'private': false,
           'cache': false,
           'haveRead': 0,
-          'type': 3,
           'result': '《Living with Disfigurement》',
           'percent': '97%'
         },
         {
           'id': 15,
+          'type': 1,
           'fileName': '2018_Book_HandbookOfMathematicalGeoscien',
           'cover': 'http://47.99.166.157/book/res/img/EarthSciences/978-3-319-78999-6_CoverFigure.jpg',
           'title': 'Handbook of Mathematical Geosciences',
@@ -164,7 +168,6 @@ module.exports = {
           'private': false,
           'cache': false,
           'haveRead': 0,
-          'type': 2,
           'result': '《Programming Languages》'
         }
       ]

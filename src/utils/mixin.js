@@ -1,7 +1,8 @@
 import { mapGetters, mapActions } from 'vuex'
 import { themeList, addCss, getReadTimeByMinute } from './book'
-import { getBookmark, saveLocation } from './localStorage'
-import { categoryName, getTranslateCategoryText } from './store'
+import { getBookmark, getBookShelf, saveBookShelf, saveLocation } from './localStorage'
+import { addShelfList, categoryName, getTranslateCategoryText } from './store'
+import { shelf } from '../api/store'
 
 export const ebookMixin = {
   computed: {
@@ -125,7 +126,7 @@ export const storeHomeMixin = {
     getTranslateCategoryTextFromId (id) {
       return getTranslateCategoryText(categoryName[id], this)
     },
-    showDetail(book) {
+    showDetail (book) {
       this.$router.push({
         path: '/store/detail',
         query: {
@@ -143,7 +144,9 @@ export const storeShelfMixin = {
       'isEditModel',
       'shelfList',
       'shelfSelected',
-      'shelfTitleVisible'
+      'shelfTitleVisible',
+      'currentType',
+      'shelfGroup'
     ])
   },
   methods: {
@@ -151,7 +154,73 @@ export const storeShelfMixin = {
       'setIsEditModel',
       'setShelfList',
       'setShelfSelected',
-      'setShelfTitleVisible'
-    ])
+      'setShelfTitleVisible',
+      'setCurrentType',
+      'setShelfGroup'
+    ]),
+    // 获取书架页面数据
+    getShelfList () {
+      let shelfList = getBookShelf()
+      if (!shelfList) {
+        // 如果本地没有缓存则从网络请求
+        shelf().then(res => {
+          if (res.status === 200 && res.data && res.data.bookList) {
+            shelfList = addShelfList(res.data.bookList)
+            saveBookShelf(shelfList)
+          }
+        })
+      }
+      return this.setShelfList(shelfList)
+    },
+    // 获取分组页面的数据
+    getShelfGroupList (title) {
+      this.getShelfList().then(() => {
+        const shelfGroup = this.shelfList.filter(book => {
+          return book.type === 2 && book.title === title
+        })[0]
+        this.setShelfGroup(shelfGroup)
+      })
+    },
+    // 将图书移出分组
+    moveOutGroup (cb) {
+      // 将选中的图书从当前分组中删除
+      const shelfList = this.shelfList.map(item => {
+        if (item.type === 2 && item.itemList) {
+          item.itemList = item.itemList.filter(book => !book.selected)
+        }
+        return item
+      })
+      this.setShelfList(shelfList).then(() => {
+        // 将选中的图书添加到书架(this.setShelfList)中
+        let list = this.removeShelfItemAdd(this.shelfList) // 先将书架中的添加按钮移除
+        list = list.concat(this.shelfSelected) // 再将选择的书籍添加到书架尾部
+        list = this.appendShelfItemAdd(list) // 最后将添加按钮恢复
+        this.setShelfList(list).then(() => {
+          // 移出分组完成后的操作
+          if (cb) cb()
+        })
+      })
+    },
+    removeShelfItemAdd (list) {
+      return list.filter(item => item.type !== 3)
+    },
+    appendShelfItemAdd (list) {
+      list.push({
+        id: -1,
+        type: 3
+      })
+      return list
+    },
+    initShelfState() {
+      this.setIsEditModel(false)
+      this.clearSelectedBooks()
+      saveBookShelf(this.shelfList)
+    },
+    clearSelectedBooks() {
+      this.shelfSelected.forEach(book => {
+        book.selected = false
+      })
+      this.setShelfSelected([]) // 将vuex中选择的book数组置空
+    }
   }
 }

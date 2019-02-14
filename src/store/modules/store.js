@@ -5,9 +5,17 @@ const store = {
     isEditModel: false,
     shelfList: [], // 书架图书列表
     shelfSelected: [], // 书架选中的图书列表
-    shelfTitleVisible: true
+    shelfTitleVisible: true,
+    currentType: 1, // 1:书架页面, 2:分组页面,
+    shelfGroup: null // 书架分组页面的数据
   },
   mutations: {
+    'SET_SHELF_GROUP': (state, shelfGroup) => {
+      state.shelfGroup = shelfGroup
+    },
+    'SET_CURRENT_TYPE': (state, currentType) => {
+      state.currentType = currentType
+    },
     'SET_HOT_SEARCH_PAGE_OFFSETY': (state, hotSearchPageOffsetY) => {
       state.hotSearchPageOffsetY = hotSearchPageOffsetY
     },

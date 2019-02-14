@@ -12,17 +12,20 @@ Vue.createAPI(ShelfDialog, true)
 
 Vue.mixin({
   methods: {
-    createToast(setting) {
+    createToast (settings) {
       return this.$createToast({
-        $props: setting
+        $props: settings
       })
     },
-    createPopup(setting) {
+    /**
+     * @param settings Object
+     */
+    createPopup (settings) {
       return this.$createPopup({
-        $props: setting
+        $props: settings
       })
     },
-    createSampleToast(text) {
+    createSampleToast (text) {
       const toast = this.createToast({
         text: text
       })
@@ -30,11 +33,9 @@ Vue.mixin({
       toast.updateText(text)
       return toast
     },
-    createShelfDialog(groupName) {
+    createShelfDialog (settings) {
       return this.$createShelfDialog({
-        $props: {
-          groupName
-        }
+        $props: settings
       })
     }
   }

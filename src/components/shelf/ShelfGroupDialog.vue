@@ -6,9 +6,12 @@
         :class="{'add-group': group.edit ? group.edit === 1 : false}"
         v-for="group in groupList" :key="group.title"
         @click="onGroupClick(group)"
-        v-if="(group.edit === 2 && isInGroup) || group.edit !== 2 || !group.edit"
+        v-if="(group.edit === 2 && currentType === 2) || group.edit !== 2 || !group.edit"
       >
-        <span class="item">{{ group.title }}</span>
+        <div class="item">
+          <span class="group-title">{{ group.title }}</span>
+          <div class="icon-check" v-if="shelfGroup && shelfGroup.title === group.title && currentType === 2"></div>
+        </div>
       </div>
     </div>
     <div class="dialog-new-group-wrapper" v-else>
@@ -54,8 +57,14 @@
     data () {
       return {
         isNewGroup: false,
-        isInGroup: false,
         inputGroupName: ''
+      }
+    },
+    props: {
+      dialogTitle: String,
+      showNewGroup: {
+        type: Boolean,
+        default: false
       }
     },
     computed: {
@@ -63,7 +72,11 @@
         return this.inputGroupName.length > 0
       },
       title () {
-        return this.isNewGroup ? this.$t('shelf.newGroup') : this.$t('shelf.moveBook')
+        if (this.dialogTitle) {
+          return this.dialogTitle
+        } else {
+          return this.isNewGroup ? this.$t('shelf.newGroup') : this.$t('shelf.moveBook')
+        }
       },
       defaultCategoryList () {
         return [
@@ -83,8 +96,18 @@
         return [...this.defaultCategoryList, ...this.groupCategoryList]
       }
     },
+    watch: {
+      isNewGroup(boolean) {
+        if (boolean) {
+          // 每次进入新建分组界面时为input获取焦点
+          this.$nextTick(() => {
+            this.$refs.input.focus()
+          })
+        }
+      }
+    },
     methods: {
-      clearInput() {
+      clearInput () {
         this.inputGroupName = ''
       },
       // 点击分组
@@ -92,28 +115,33 @@
         if (group.edit && group.edit === 1) {
           // 点击新建分组
           this.isNewGroup = true
-          // input获取焦点
-          this.$nextTick(() => {
-            this.$refs.input.focus()
-          })
         } else if (group.edit && group.edit === 2) {
           // 点击移出分组
-          this.moveOutGroup()
+          this.moveOutGroup(() => {
+            this.onComplete()
+            this.createSampleToast(this.$t('shelf.moveBookOutSuccess')) // 弹出操作成功的提示信息
+          })
         } else {
           // 点击分组项
           this.moveToGroup(group)
         }
       },
       moveToGroup (group) {
-        this.setShelfList(this.shelfList
-          .filter(book => this.shelfSelected.indexOf(book) < 0))
+        this.setShelfList(this.shelfList.filter(book => {
+          if (book.itemList) {
+            // 移动分组中的图书
+            book.itemList = book.itemList.filter(subBook => this.shelfSelected.indexOf(subBook) < 0)
+          }
+          return this.shelfSelected.indexOf(book) < 0
+        }))
           .then(() => {
-            group.itemList = group.itemList.concat(this.shelfSelected)
+            if (group && group.itemList) {
+              group.itemList = group.itemList.concat(this.shelfSelected)
+            }
+            this.createSampleToast(this.$t('shelf.moveBookInSuccess')
+              .replace('$1', group.title))
             this.onComplete()
           })
-      },
-      moveOutGroup () {
-
       },
       // 创建性分组
       createNewGroup () {
@@ -122,7 +150,13 @@
           return
         }
         if (this.isDuplicateGroupName()) {
-          this.createSampleToast('分组已存在')
+          this.createSampleToast(this.$t('shelf.groupExisted'))
+          return
+        }
+        // 如果showNewGroup=true, 表示要重命名分组
+        if (this.showNewGroup) {
+          this.shelfGroup.title = this.inputGroupName
+          this.onComplete()
           return
         }
         this.isDuplicateGroupName()
@@ -145,16 +179,6 @@
           group => group.title !== this.inputGroupName
         )
       },
-      removeShelfItemAdd (list) {
-        return list.filter(item => item.type !== 3)
-      },
-      appendShelfItemAdd (list) {
-        list.push({
-          id: -1,
-          type: 3
-        })
-        return list
-      },
       onClickCancel () {
         if (this.isNewGroup) {
           // 如果是新建分组界面
@@ -171,16 +195,22 @@
       },
       hide () {
         this.$refs.dialog.hide()
+        setTimeout(() => {
+          this.isNewGroup = false // 退出新建分组模式
+        }, 300)
       },
       show () {
+        this.isNewGroup = this.showNewGroup
         this.$refs.dialog.show()
+      },
+      changeInputContent(text) {
+        this.inputGroupName = text
       },
       // 操作完成后将组建初始化
       onComplete () {
         this.hide() // 隐藏dialog
         this.setIsEditModel(false) // 退出编辑模式
-        this.setShelfSelected([]) // 将vuex中选择的book数组置空
-        this.isNewGroup = false // 退出新建分组模式
+        this.clearSelectedBooks()
         saveBookShelf(this.shelfList) // 将书架中的图书保存到本地
         this.inputGroupName = '' // 清空输入框中的文字
       }
@@ -205,6 +235,15 @@
 
       &.add-group {
         color: #4aabff
+      }
+
+      .item {
+        display: flex;
+        justify-content: space-between;
+
+        .icon-check {
+          color: #409eff;
+        }
       }
     }
   }
