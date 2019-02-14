@@ -1,11 +1,27 @@
 <template>
   <div class="store">
-    <router-view></router-view>
+    <transition :name="slideDirection">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
 <script>
-  export default {}
+  export default {
+    data () {
+      return {
+        slideDirection: ''
+      }
+    },
+    beforeRouteUpdate(to, from, next) {
+      if (to.meta.key > from.meta.key) {
+        this.slideDirection = 'slide-left'
+      } else {
+        this.slideDirection = 'slide-right'
+      }
+      next()
+    }
+  }
 </script>
 
 <style lang="scss" scoped>

@@ -28,8 +28,7 @@
       </div>
       <!--搜索框-->
       <div class="search-input-wrapper"
-           :class="{'hide-title': !titleVisible}"
-      >
+           :class="{'hide-title': !titleVisible}">
         <div class="search-blank" :class="{'hide-title': !titleVisible}"></div>
         <div class="search-bg">
           <div class="icon-search-wrapper">

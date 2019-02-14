@@ -11,6 +11,8 @@ $animationTime: .3s;
 .slide-down-leave-active,
 .slide-left-enter-active,
 .slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active,
 .fade-enter-active,
 .fade-leave-active,
 .fade-slide-left-enter-active,
@@ -44,6 +46,12 @@ $animationTime: .3s;
 .fade-slide-left-enter,
 .fade-slide-left-leave-to {
   transform: translate3d(-100%, 0, 0);
+}
+
+//向右滑出
+.slide-right-enter,
+.slide-right-leave-to {
+  transform: translate3d(100%, 0, 0);
 }
 
 .fade-enter,

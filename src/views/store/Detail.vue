@@ -141,7 +141,7 @@
       showToast (msg) {
       },
       // 点击目录时跳转到对应章节
-      toBook(item) {
+      toBook (item) {
         const fileName = this.$route.query.fileName
         const category = this.$route.query.category
         this.$router.push({
@@ -166,6 +166,11 @@
     font-size: px2rem(24);
     font-weight: bold;
     margin-bottom: px2rem(20);
+  }
+
+  .detail-wrapper {
+    width: 100%;
+    height: 100%;
   }
 
   .book-copyright {
@@ -197,14 +202,17 @@
       }
     }
   }
+
   .menu-wrapper {
     padding: px2rem(10) px2rem(15);
     margin-bottom: px2rem(15);
     box-sizing: border-box;
     font-size: px2rem(16);
+
     .content {
       .menu-item {
         border-bottom: 1px solid #eee;
+
         .text {
           @include ellipsis();
           padding: px2rem(15) 0;
@@ -213,9 +221,11 @@
       }
     }
   }
+
   .preview-title {
     margin: px2rem(5) 0 px2rem(-5) px2rem(15);
   }
+
   .tab-wrapper {
     position: absolute;
     bottom: 0;
@@ -230,13 +240,16 @@
     color: $color-blue;
     z-index: 1500;
     box-shadow: 0 px2rem(-2) px2rem(2) rgba(0, 0, 0, .2);
+
     .tab-btn {
       @include center;
     }
   }
+
   .loading-text {
     font-size: px2rem(16);
   }
+
   .preview-loading {
     margin: px2rem(15);
   }

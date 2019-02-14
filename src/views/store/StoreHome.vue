@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import SearchBar from '@/components/home/SearchBar'
+  import SearchBar from '../../components/home/SearchBar'
   import Scroll from '@/components/common/Scroll'
   import { storeHomeMixin } from '../../utils/mixin'
   import FlapCard from '../../components/home/FlapCard'
