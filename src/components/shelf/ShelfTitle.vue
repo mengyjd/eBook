@@ -93,7 +93,6 @@
         shelf().then(res => {
           this.setShelfList(addShelfList(res.data.bookList))
             .then(() => {
-              console.log('获取的数据:', this.shelfList)
               saveBookShelf(this.shelfList)
               this.createSampleToast('已清除缓存')
             })
@@ -164,7 +163,9 @@
             return book
           })).then(() => {
             this.moveOutGroup(() => {
-              this.deleteGroupBooksComplete()
+              this.addBooksToShelfList(this.shelfSelected, this.shelfList, () => {
+                this.deleteGroupBooksComplete()
+              })
             })
           })
         } else {
@@ -172,7 +173,7 @@
         }
       },
       deleteGroupBooksComplete() {
-        // 该分组内没有图书, 将此分组从书架中删除
+        // 将此分组从书架中删除
         this.setShelfList(this.shelfList.filter(
           book => book.id !== this.shelfGroup.id))
           .then(() => {

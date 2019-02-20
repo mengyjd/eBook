@@ -25,7 +25,6 @@
 <script>
   import TitleView from './Title'
   import { storeHomeMixin } from '../../utils/mixin'
-  import { home } from '../../api/store'
 
   export default {
     mixins: [storeHomeMixin],

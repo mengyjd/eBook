@@ -52,7 +52,7 @@
           <div class="category book-info">{{getCategory(randomBook.categoryText)}}</div>
         </div>
         <div class="read-btn"
-             @click.stop="showBookDetail()"
+             @click.stop="goToDetail(randomBook)"
         >{{$t('home.readNow')}}
         </div>
       </div>
@@ -251,12 +251,10 @@
         return getTranslateCategoryText(categoryText, this)
       },
       // 显示图书详情
-      showBookDetail () {
-        console.log('showBookDetail')
+      goToDetail (randomBook) {
+        this.showDetail(randomBook)
+        this.closeFlapCard()
       }
-    },
-    mounted () {
-
     }
   }
 </script>

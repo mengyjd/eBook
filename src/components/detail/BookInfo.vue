@@ -16,7 +16,10 @@
 <script>
   export default {
     props: {
-      cover: String,
+      cover: {
+        type: String,
+        default: ''
+      },
       fileName: String,
       author: String,
       desc: String

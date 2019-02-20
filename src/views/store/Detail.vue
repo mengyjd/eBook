@@ -5,7 +5,7 @@
             :bottom="45"
             @onScroll="onScroll"
     >
-      <book-info :cover="data ? data.cover : '-'"
+      <book-info :cover="data ? data.cover : ''"
                  :fileName="data ? data.title : '-'"
                  :author="data ? data.author : '-'"
                  :desc="desc"
@@ -27,6 +27,7 @@
           </div>
         </div>
       </div>
+      <!--目录-->
       <div class="menu-wrapper">
         <div class="title-big">{{$t('detail.navigation')}}</div>
         <div class="loading-text" v-if="!menuList.length">{{$t('book.loading')}}</div>
@@ -38,6 +39,7 @@
           </div>
         </div>
       </div>
+      <!--试读-->
       <div class="preview-wrapper">
         <div class="title-big preview-title">{{$t('detail.trial')}}</div>
         <div class="loading-text preview-loading" v-if="!menuList.length">{{$t('book.loading')}}</div>
@@ -48,9 +50,10 @@
       </div>
     </scroll>
     <div class="tab-wrapper">
-      <span class="tab-btn">{{$t('detail.read')}}</span>
+      <span class="tab-btn"
+            @click="showEbookRead">{{$t('detail.read')}}</span>
       <span class="tab-btn">{{$t('detail.listen')}}</span>
-      <span class="tab-btn">{{$t('detail.addOrRemoveShelf')}}</span>
+      <span class="tab-btn" @click="onAddOrRemoveFromShelf">{{addOrRemoveFromShelf}}</span>
     </div>
   </div>
 </template>
@@ -60,11 +63,13 @@
   import BookInfo from '../../components/detail/BookInfo'
   import Scroll from '../../components/common/Scroll'
   import { detail } from '../../api/store'
-  import { getTranslateCategoryText } from '../../utils/store'
+  import { getTranslateCategoryText, gotoEbookRead } from '../../utils/store'
   import Epub from 'epubjs'
+  import { storeShelfMixin } from '../../utils/mixin'
 
   global.ePub = Epub
   export default {
+    mixins: [storeShelfMixin],
     components: {
       Scroll,
       DetailTitle,
@@ -79,7 +84,24 @@
         metadata: null
       }
     },
+    computed: {
+      isInBookShelf () {
+        if (this.data && this.shelfList) {
+          const flatShelfList = this.flatten(this.shelfList)
+          const book = flatShelfList.filter(book => book.fileName === this.data.fileName)
+          return book && book.length > 0
+        } else {
+          return false
+        }
+      },
+      addOrRemoveFromShelf () {
+        return this.isInBookShelf ? this.$t('detail.removeShelf') : this.$t('detail.addShelf')
+      }
+    },
     methods: {
+      showEbookRead () {
+        gotoEbookRead(this.data, this)
+      },
       getCategory (categoryText) {
         return getTranslateCategoryText(categoryText, this)
       },
@@ -97,10 +119,10 @@
               if (rootFile.startsWith('/')) {
                 rootFile = rootFile.substring(1, rootFile.length)
               }
-              this.opf = `${process.env.VUE_APP_EPUB_OPF_URL}/${fileName}/${rootFile}`
+              this.opf = `${process.env.VUE_APP_EPUB_OPF_URL}/${data.categoryText}/${fileName}/${rootFile}`
               this.parseBook(this.opf)
             } else {
-              this.showToast(res.data.msg)
+              this.createSampleToast(res.data.msg)
             }
           })
         }
@@ -115,11 +137,11 @@
           this.menuList = nav.toc
           if (this.navigation.toc && this.navigation.toc.length > 1) {
             this.display(this.navigation.toc[1].href)
-              .then(section => {
-                const reg = new RegExp('<.+?>', 'g')
-                const text = section.output.replace(reg, '').replace(/\s\s/g, '')
-                this.desc = text.substring(0, 100)
-              })
+              // .then(section => {
+              //   const reg = new RegExp('<.+?>', 'g')
+              //   const text = section.output.replace(reg, '').replace(/\s\s/g, '')
+              //   this.desc = text.substring(0, 100)
+              // })
           }
         })
       },
@@ -138,12 +160,10 @@
           }
         }
       },
-      showToast (msg) {
-      },
       // 点击目录时跳转到对应章节
       toBook (item) {
         const fileName = this.$route.query.fileName
-        const category = this.$route.query.category
+        const category = this.$route.query.categoryText
         this.$router.push({
           path: `/ebook/${category}|${fileName}`,
           query: {
@@ -151,10 +171,34 @@
           }
         })
         // this.currentBook.rendition.display(target)
+      },
+      flatten (arr) {
+        const shelfList = arr.map(book => {
+          if (book.itemList) {
+            return this.flatten(book.itemList)
+          } else {
+            return book
+          }
+        })
+        return [].concat(...shelfList)
+      },
+      // 加入或移出书架
+      onAddOrRemoveFromShelf() {
+        if (this.isInBookShelf) {
+          // 如果已经在书架中, 从书架中移除
+          this.removeSelectedBook([this.data])
+        } else {
+          // 如果不在书架中, 添加到书架
+          this.data.type = 1
+          this.addBooksToShelfList([this.data], this.shelfList)
+        }
       }
     },
     mounted () {
       this.init()
+      if (!this.shelfList || this.shelfList.length === 0) {
+        this.getShelfList()
+      }
     }
   }
 </script>

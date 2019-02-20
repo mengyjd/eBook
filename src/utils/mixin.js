@@ -1,8 +1,9 @@
 import { mapGetters, mapActions } from 'vuex'
 import { themeList, addCss, getReadTimeByMinute } from './book'
-import { getBookmark, getBookShelf, saveBookShelf, saveLocation } from './localStorage'
+import { getBookmark, getBookShelf, removeLocalStorage, saveBookShelf, saveLocation } from './localStorage'
 import { addShelfList, categoryName, getTranslateCategoryText } from './store'
 import { shelf } from '../api/store'
+import { removeLocalForage } from './localforage'
 
 export const ebookMixin = {
   computed: {
@@ -131,7 +132,7 @@ export const storeHomeMixin = {
         path: '/store/detail',
         query: {
           fileName: book.fileName,
-          category: book.categoryText
+          categoryText: book.categoryText
         }
       })
     }
@@ -191,19 +192,24 @@ export const storeShelfMixin = {
         return item
       })
       this.setShelfList(shelfList).then(() => {
-        // 将选中的图书添加到书架(this.setShelfList)中
-        let list = this.removeShelfItemAdd(this.shelfList) // 先将书架中的添加按钮移除
-        list = list.concat(this.shelfSelected) // 再将选择的书籍添加到书架尾部
-        list = this.appendShelfItemAdd(list) // 最后将添加按钮恢复
-        this.setShelfList(list).then(() => {
-          // 移出分组完成后的操作
-          if (cb) cb()
-        })
+        if (cb) cb()
       })
     },
+    // 添加书籍到书架
+    addBooksToShelfList (books, shelfList, cb) {
+      shelfList = this.removeShelfItemAdd(shelfList)
+      shelfList = shelfList.concat(books)
+      shelfList = this.appendShelfItemAdd(shelfList)
+      this.setShelfList(shelfList).then(() => {
+        saveBookShelf(this.shelfList)
+        if (cb) cb()
+      })
+    },
+    // 删除书架中的添加按钮
     removeShelfItemAdd (list) {
       return list.filter(item => item.type !== 3)
     },
+    // 为书架增加添加按钮
     appendShelfItemAdd (list) {
       list.push({
         id: -1,
@@ -211,16 +217,49 @@ export const storeShelfMixin = {
       })
       return list
     },
-    initShelfState() {
+    initShelfState () {
       this.setIsEditModel(false)
       this.clearSelectedBooks()
       saveBookShelf(this.shelfList)
     },
-    clearSelectedBooks() {
+    clearSelectedBooks () {
       this.shelfSelected.forEach(book => {
         book.selected = false
       })
       this.setShelfSelected([]) // 将vuex中选择的book数组置空
+    },
+    // 将选中的书籍移出书架
+    removeSelectedBook (selectedBooks, cb) {
+      let shelfList
+      selectedBooks.forEach(selectBook => {
+        removeLocalStorage(`${selectBook.categoryText}/${selectBook.fileName}-info`)
+        shelfList = this.shelfList.filter(shelfBook => {
+          if (shelfBook.itemList) {
+            shelfBook.itemList = shelfBook.itemList.filter(subBook => selectBook.fileName !== subBook.fileName)
+          }
+          return selectBook.fileName !== shelfBook.fileName
+        })
+      })
+      this.setShelfList(shelfList).then(() => {
+        saveBookShelf(this.shelfList)
+        if (cb) cb()
+      })
+      this.deleteCache(selectedBooks)
+    },
+    deleteCache (selectedBooks) {
+      selectedBooks.forEach(book => {
+        removeLocalForage(
+          book.fileName,
+          () => {
+            book.cache = false
+            saveBookShelf(this.shelfList)
+            this.createSampleToast(this.$t('shelf.removeDownloadSuccess'))
+          },
+          () => {
+            this.createSampleToast('删除失败')
+          }
+        )
+      })
     }
   }
 }

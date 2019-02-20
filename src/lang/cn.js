@@ -108,8 +108,8 @@ const messages = {
     loading: '加载中...',
     read: '阅读',
     listen: '听书',
-    addOrRemoveShelf: '加入书架',
-    isAddedToShelf: '已加入书架'
+    addShelf: '加入书架',
+    removeShelf: '移出书架'
   },
   speak: {
     voice: '语音朗读',

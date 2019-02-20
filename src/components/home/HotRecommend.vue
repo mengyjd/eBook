@@ -39,7 +39,7 @@
     },
     methods: {
       onclickSeeAll () {
-        console.log('see all')
+        // console.log('see all')
       },
       getHaveRead (readers) {
         return this.$t('home.readers').replace('$1', readers)

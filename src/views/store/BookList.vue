@@ -43,8 +43,18 @@
         return num
       }
     },
+    methods: {
+      getCategoryText (key) {
+        return `${getTranslateCategoryText(key, this)}(${this.list[key].length})`
+      },
+      getTitleText () {
+        return this.$t('home.allBook').replace('$1', this.totalNum)
+      }
+    },
     created () {
-      this.titleText = getTranslateCategoryText(this.$route.query.categoryText, this)
+      if (this.$route.query.categoryText) {
+        this.titleText = getTranslateCategoryText(this.$route.query.categoryText, this)
+      }
       list().then(res => {
         this.list = res.data.data
         const categoryText = this.$route.query.categoryText
@@ -60,14 +70,6 @@
           })
         }
       })
-    },
-    methods: {
-      getCategoryText (key) {
-        return `${getTranslateCategoryText(key, this)}(${this.list[key].length})`
-      },
-      getTitleText () {
-        return this.$t('home.allBook').replace('$1', this.totalNum)
-      }
     }
   }
 </script>

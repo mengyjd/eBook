@@ -18,8 +18,7 @@
 
 <script>
   import { storeShelfMixin } from '../../utils/mixin'
-  import { removeLocalStorage, saveBookShelf } from '../../utils/localStorage'
-  import { removeLocalForage } from '../../utils/localforage'
+  import { saveBookShelf } from '../../utils/localStorage'
   import { download } from '../../api/store'
 
   export default {
@@ -121,7 +120,10 @@
                 : this.$t('shelf.delete'),
               click: this.isCache
                 ? this.openCache
-                : this.deleteCache
+                : () => {
+                  this.deleteCache(this.shelfSelected)
+                  this.onComplete()
+                }
             }, {
               text: this.$t('shelf.cancel'),
               click: this.hidePopup
@@ -129,7 +131,7 @@
           ]
         }).show()
       },
-      showShelfDialog() {
+      showShelfDialog () {
         this.createShelfDialog().show()
       },
       showRemoveShelfBook () {
@@ -141,7 +143,7 @@
             {
               text: this.$t('shelf.removeBook'),
               type: 'danger',
-              click: this.removeSelectedBook
+              click: this.confirmDelete
             }, {
               text: this.$t('shelf.cancel'),
               click: this.hidePopup
@@ -169,29 +171,8 @@
         await this.downloadSelectedBook()
         this.createSampleToast(this.$t('shelf.setDownloadSuccess'))
       },
-      deleteCache () {
-        this.createSampleToast(this.$t('shelf.removeDownloadSuccess')).show()
-        this.shelfSelected.forEach(book => {
-          removeLocalForage(
-            book.fileName,
-            () => {
-              book.cache = false
-              this.createSampleToast(this.$t('shelf.removeDownloadSuccess'))
-            },
-            () => {
-              this.createSampleToast('删除失败')
-            }
-          )
-        })
-        this.onComplete()
-      },
-      // 将选中的书籍移出书架
-      removeSelectedBook () {
-        this.deleteCache()
-        this.shelfSelected.forEach(selectedBook => {
-          removeLocalStorage(`${selectedBook.categoryText}/${selectedBook.fileName}-info`)
-          this.setShelfList(this.shelfList.filter(book => book.id !== selectedBook.id))
-        })
+      confirmDelete() {
+        this.removeSelectedBook(this.shelfSelected)
         this.setShelfSelected([])
         this.onComplete()
       },
@@ -199,7 +180,8 @@
         this.popupMenu.hide()
       },
       onComplete () {
-        this.popupMenu.hide() // 隐藏popup
+        this.hidePopup() // 隐藏popup
+        this.clearSelectedBooks() // 清空选中的书籍
         this.setIsEditModel(false) // 退出编辑状态
         saveBookShelf(this.shelfList) // 将书架中的书籍数组保存到本地
       },

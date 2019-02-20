@@ -36,7 +36,7 @@ export function home () {
 export function detail (fileName) {
   return axios({
     method: 'get',
-    url: `${process.env.VUE_APP_BOOK_URL}/book/detail`,
+    url: `${process.env.VUE_APP_BASE_URL}/book/detail`,
     params: {
       fileName: fileName
     }
@@ -46,7 +46,7 @@ export function detail (fileName) {
 export function list () {
   return axios({
     method: 'get',
-    url: `${process.env.VUE_APP_BOOK_URL}/book/list`
+    url: `${process.env.VUE_APP_BASE_URL}/book/list`
   })
 }
 

@@ -35,7 +35,7 @@
 
 <script>
   import SearchBar from '../../components/home/SearchBar'
-  import Scroll from '@/components/common/Scroll'
+  import Scroll from '../../components/common/Scroll'
   import { storeHomeMixin } from '../../utils/mixin'
   import FlapCard from '../../components/home/FlapCard'
   import { home } from '../../api/store'
@@ -60,7 +60,7 @@
     data () {
       return {
         scrollTop: 94,
-        bannerSrc: null,
+        bannerSrc: '',
         randomBook: null,
         guessYouLike: null,
         hotRecommend: null,
@@ -77,7 +77,7 @@
         } else {
           this.scrollTop = 94
         }
-        this.$refs.scroll.refresh()
+        // this.$refs.scroll.refresh()
       },
       changeYouLike() {
         // home().then(res => {

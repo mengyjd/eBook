@@ -16,7 +16,7 @@ export function getLocalForage (key, successcb, errorcb) {
   })
 }
 
-export function removeLocalForage(key, successcb, errorcb) {
+export function removeLocalForage (key, successcb, errorcb) {
   localforage.removeItem(key, successcb, errorcb).then(value => {
     if (successcb) successcb(value)
   }).catch(err => {
@@ -24,7 +24,7 @@ export function removeLocalForage(key, successcb, errorcb) {
   })
 }
 
-export function clearLocalForage(successcb, errorcb) {
+export function clearLocalForage (successcb, errorcb) {
   localforage.clear().then(() => {
     if (successcb) successcb()
   }).catch(err => {
@@ -32,7 +32,7 @@ export function clearLocalForage(successcb, errorcb) {
   })
 }
 
-export function lengthLocalForage(successcb, errorcb) {
+export function lengthLocalForage (successcb, errorcb) {
   localforage.length().then(numberOfKeys => {
     if (successcb) successcb(numberOfKeys)
   }).catch(err => {
@@ -40,7 +40,7 @@ export function lengthLocalForage(successcb, errorcb) {
   })
 }
 
-export function keyLocalForage(keyIndex, successcb, errorcb) {
+export function keyLocalForage (keyIndex, successcb, errorcb) {
   localforage.key(keyIndex).then(keyName => {
     if (successcb) successcb(keyName)
   }).catch(err => {
@@ -48,7 +48,7 @@ export function keyLocalForage(keyIndex, successcb, errorcb) {
   })
 }
 
-export function keysLocalForage(successcb, errorcb) {
+export function keysLocalForage (successcb, errorcb) {
   localforage.keys().then(keys => {
     if (successcb) successcb(keys)
   }).catch(err => {
@@ -56,12 +56,14 @@ export function keysLocalForage(successcb, errorcb) {
   })
 }
 
-export function iteratorLocalForage() {
-  localforage.iterate(function(value, key, iterationNumber) {
-    console.log([key, value])
-  }).then(function() {
-    console.log('Iteration has completed')
-  }).catch(function(err) {
-    console.log(err)
+export function iteratorLocalForage () {
+  localforage.iterate(function (value, key, iterationNumber) {
+    // console.log([key, value])
+  }).then(function () {
+    // console.log('Iteration has completed')
+  }).catch(function (err) {
+    if (err) {
+    }
+    // console.log(err)
   })
 }

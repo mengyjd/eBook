@@ -4,6 +4,12 @@ export function gotoStoreHome (vue) {
   })
 }
 
+export function gotoEbookRead (book, vue) {
+  vue.$router.push({
+    path: `/ebook/${book.categoryText}|${book.fileName}`
+  })
+}
+
 export function addShelfList (list) {
   list.push({
     id: -1,

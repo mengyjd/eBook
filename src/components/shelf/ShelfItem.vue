@@ -20,7 +20,7 @@
   import Category from './ShelfItemCategory'
   import Add from './ShelfItemAdd'
   import { storeHomeMixin, storeShelfMixin } from '../../utils/mixin'
-  import { gotoStoreHome } from '../../utils/store'
+  import { gotoEbookRead, gotoStoreHome } from '../../utils/store'
 
   export default {
     mixins: [storeHomeMixin, storeShelfMixin],
@@ -52,9 +52,7 @@
           // 非编辑模式, 直接点击书籍时
           if (this.book.type === 1) {
             // item是书籍时, 直接进入阅读界面
-            this.$router.push({
-              path: `/ebook/${this.book.categoryText}|${this.book.fileName}`
-            })
+            gotoEbookRead(this.book, this)
           } else if (this.book.type === 2) {
             // item是文件夹时
             this.$router.push({

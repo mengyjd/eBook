@@ -23,7 +23,6 @@
   import Epub from 'epubjs'
   import EbookLoading from './EbookLoading'
   import { ebookMixin } from '../../utils/mixin'
-  import { flatten } from '../../utils/book'
   import {
     getFontFamily,
     saveFontFamily,
@@ -34,6 +33,7 @@
     getLocation, getBookmark
   } from '../../utils/localStorage'
   import { getLocalForage } from '../../utils/localforage'
+  import { flatten } from '../../utils/book'
 
   global.epub = Epub
   export default {
@@ -301,7 +301,7 @@
           this.setFileName(books.join('/'))
             .then(() => {
               // 获取在线电子书
-              const url = process.env.VUE_APP_RES_URL + '/epub/' + this.fileName + '.epub'
+              const url = process.env.VUE_APP_EPUB_URL + '/' + this.fileName + '.epub'
               this.initEpub(url)
             })
         }

@@ -117,9 +117,13 @@
           this.isNewGroup = true
         } else if (group.edit && group.edit === 2) {
           // 点击移出分组
+          // 将选中的书籍从当前分组中删除
           this.moveOutGroup(() => {
-            this.onComplete()
-            this.createSampleToast(this.$t('shelf.moveBookOutSuccess')) // 弹出操作成功的提示信息
+            // 将选中的书籍添加到书架中
+            this.addBooksToShelfList(this.shelfSelected, this.shelfList, () => {
+              this.onComplete()
+              this.createSampleToast(this.$t('shelf.moveBookOutSuccess')) // 弹出操作成功的提示信息
+            })
           })
         } else {
           // 点击分组项

@@ -1,4 +1,4 @@
-function mock(app, url, data) {
+function mock (app, url, data) {
   app.get(url, (req, res) => {
     res.json(data)
   })
@@ -12,11 +12,19 @@ const bookCategoryList = require('./src/mock/bookCategoryList')
 module.exports = {
   baseUrl: process.env.NODE_ENV === 'production' ? './' : '/',
   devServer: {
+    port: 8091,
     before (app) {
       mock(app, '/book/home', bookHomeData)
       mock(app, '/book/shelf', bookShelf)
       mock(app, '/book/flat-list', bookFlatList)
       mock(app, '/book/list', bookCategoryList)
+    }
+  },
+  configureWebpack: {
+    performance: {
+      hints: 'warning',
+      maxAssetSize: 524288 * 10,
+      maxEntrypointSize: 524288 * 10
     }
   }
 }

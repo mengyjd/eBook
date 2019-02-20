@@ -71,7 +71,6 @@ module.exports = {
     {
       id: 'test',
       type: 2,
-      test: 'test',
       title: 'test',
       selected: false,
       itemList: [

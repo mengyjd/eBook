@@ -122,6 +122,7 @@
         background: -webkit-linear-gradient(#999, #999) no-repeat, #ddd;
         background-size: 0 100%;
         flex: 1;
+        outline: none;
 
         &::-webkit-slider-thumb {
           -webkit-appearance: none;
