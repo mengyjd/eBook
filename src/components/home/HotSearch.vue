@@ -2,12 +2,13 @@
   <div class="hot-search">
     <div class="title">
       <span class="label">{{label}}</span>
-      <span class="btn">{{btnText}}</span>
+      <span class="btn" @click="onClickBtn">{{btnText}}</span>
     </div>
     <div class="content-wrapper">
       <div class="search-content"
            v-for="(item, index) in searchList"
            :key="index"
+           @click="clickSearchItem(item)"
       >
         <div class="icon-wrapper">
           <span :class="getClass(item.type)"
@@ -27,7 +28,11 @@
 </template>
 
 <script>
+  import { gotoDetail } from '../../utils/store'
+  import { storeHomeMixin } from '../../utils/mixin'
+
   export default {
+    mixins: [storeHomeMixin],
     props: {
       label: {
         type: String
@@ -49,6 +54,18 @@
       },
       getSearchPeopleNum (num) {
         return this.$t('home.searchPeoples').replace('$1', (num / 10000).toFixed(1))
+      },
+      onClickBtn () {
+        this.$emit('onClickBtn')
+      },
+      clickSearchItem (item) {
+        if (item.type === 'book') {
+          // 如果点击的搜索类型为书籍，直接跳转到书籍详情页
+          gotoDetail(item, this)
+        } else {
+          // 如果点击的类型是文字，则直接用该文字进行搜索
+          this.searchBook(item.text)
+        }
       }
     }
   }
@@ -79,8 +96,10 @@
         width: 100%;
         height: px2rem(35);
         display: flex;
-        padding: px2rem(10) px2rem(20);
+        padding: 0 px2rem(15);
         align-items: center;
+        box-sizing: border-box;
+        margin: px2rem(15) 0;
 
         .icon-wrapper {
           margin-right: px2rem(10);
@@ -92,7 +111,8 @@
           .search-text {
             flex: 1;
             font-size: px2rem(14);
-            line-height: px2rem(16);
+            line-height: px2rem(18);
+            @include ellipsis2(1, boreak-all);
           }
 
           .search-peopleNum {

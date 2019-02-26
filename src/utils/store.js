@@ -10,6 +10,16 @@ export function gotoEbookRead (book, vue) {
   })
 }
 
+export function gotoDetail (book, vue) {
+  vue.$router.push({
+    path: '/store/detail',
+    query: {
+      fileName: book.fileName,
+      categoryText: book.categoryText
+    }
+  })
+}
+
 export function addShelfList (list) {
   list.push({
     id: -1,

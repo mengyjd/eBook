@@ -8,10 +8,10 @@
       <div class="category-books">
         <div class="book-item"
              v-for="(book, index) in data.list" :key="index"
-             @click="showDetail(book)"
+             @click="showBookDetail(book)"
         >
           <div class="book-img-wrapper">
-            <img class="img" :src="book.cover">
+            <img class="img" :src="book.cover" alt="">
           </div>
           <div class="book-content">
             <div class="book-info title-medium">{{book.title}}</div>

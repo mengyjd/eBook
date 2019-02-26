@@ -91,3 +91,27 @@ export function getBookmark (fileName) {
 export function saveBookmark (fileName, bookmark) {
   setBookObject(fileName, 'bookmarks', bookmark)
 }
+
+export function getSearchHistory () {
+  return getLocalStorage('searchHistory')
+}
+
+export function saveSearchHistory (text) {
+  let searchHistoryItem = {
+    type: 'text',
+    text
+  }
+  let searchHistoryList = getSearchHistory()
+  if (!searchHistoryList) {
+    searchHistoryList = [ searchHistoryItem ]
+  } else {
+    // 先去掉重复项
+    searchHistoryList = searchHistoryList.filter(searchItem => searchItem.text !== text)
+    searchHistoryList.unshift(searchHistoryItem)
+  }
+  setLocalStorage('searchHistory', searchHistoryList)
+}
+
+export function clearSearchHistory () {
+  setLocalStorage('searchHistory', [])
+}

@@ -89,8 +89,7 @@
       home().then((res) => {
         if (res && res.status === 200) {
           const data = res.data
-          const randomIndex = Math.floor(Math.random() * data.random.length)
-          this.randomBook = data.random[randomIndex]
+          this.randomBook = data.random
           this.bannerSrc = data.banner
           this.guessYouLike = data.guessYouLike
           this.hotRecommend = data.recommend
