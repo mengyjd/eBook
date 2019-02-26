@@ -1,7 +1,13 @@
 import { mapGetters, mapActions } from 'vuex'
 import { themeList, addCss, getReadTimeByMinute } from './book'
-import { getBookmark, getBookShelf, removeLocalStorage, saveBookShelf, saveLocation } from './localStorage'
-import { addShelfList, categoryName, getTranslateCategoryText } from './store'
+import {
+  getBookmark,
+  getBookShelf,
+  removeLocalStorage,
+  saveBookShelf,
+  saveLocation
+} from './localStorage'
+import { addShelfList, categoryName, getTranslateCategoryText, gotoDetail } from './store'
 import { shelf } from '../api/store'
 import { removeLocalForage } from './localforage'
 
@@ -127,12 +133,15 @@ export const storeHomeMixin = {
     getTranslateCategoryTextFromId (id) {
       return getTranslateCategoryText(categoryName[id], this)
     },
-    showDetail (book) {
+    showBookDetail(item) {
+      gotoDetail(item, this)
+    },
+    searchBook(text) {
+      // 跳转到搜索结果页
       this.$router.push({
-        path: '/store/detail',
+        path: '/store/list',
         query: {
-          fileName: book.fileName,
-          categoryText: book.categoryText
+          keywords: text
         }
       })
     }

@@ -7,7 +7,7 @@
     <div class="guess-you-like-book-wrapper">
       <div class="you-like-book-item"
            v-for="(item, index) in youLikeList" :key="index"
-           @click="showDetail(item)"
+           @click="showBookDetail(item)"
       >
         <div class="book-img-wrapper">
           <img class="img" :src="item.cover" alt="">

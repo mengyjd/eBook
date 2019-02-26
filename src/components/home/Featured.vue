@@ -8,7 +8,7 @@
     <div class="featured-books-wrapper">
       <div class="featured-book-item"
            v-for="(book, index) in data" :key="index"
-           @click="showDetail(book)"
+           @click="showBookDetail(book)"
       >
         <div class="book-img-wrapper">
           <img class="img" :src="book.cover" alt="">

@@ -52,7 +52,7 @@
           <div class="category book-info">{{getCategory(randomBook.categoryText)}}</div>
         </div>
         <div class="read-btn"
-             @click.stop="goToDetail(randomBook)"
+             @click.stop="showDetail(randomBook)"
         >{{$t('home.readNow')}}
         </div>
       </div>
@@ -219,12 +219,13 @@
           this.runPointAnimation = true
           this.startFlapCardAnimation()
           this.timeout2 = setTimeout(() => {
-            this.runPointAnimation = false
-          }, 750)
+            this.runPointAnimation = false // 450ms后关闭烟花动画版
+          }, 450)
           this.timeout3 = setTimeout(() => {
+            // 550ms后关闭卡片翻转动画
             this.stopFlapCardAnimation()
             this.startRecommendBookAnimation()
-          }, 2500)
+          }, 550)
         }, 300)
       },
       stopAnimation () {
@@ -251,8 +252,8 @@
         return getTranslateCategoryText(categoryText, this)
       },
       // 显示图书详情
-      goToDetail (randomBook) {
-        this.showDetail(randomBook)
+      showDetail (randomBook) {
+        this.gotoDetail(randomBook)
         this.closeFlapCard()
       }
     }

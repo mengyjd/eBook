@@ -52,7 +52,7 @@
     <div class="tab-wrapper">
       <span class="tab-btn"
             @click="showEbookRead">{{$t('detail.read')}}</span>
-      <span class="tab-btn">{{$t('detail.listen')}}</span>
+      <!--<span class="tab-btn">{{$t('detail.listen')}}</span>-->
       <span class="tab-btn" @click="onAddOrRemoveFromShelf">{{addOrRemoveFromShelf}}</span>
     </div>
   </div>

@@ -56,3 +56,10 @@ export function shelf () {
     url: `${process.env.VUE_APP_BASE_URL}/book/shelf`
   })
 }
+
+export function hotSearch() {
+  return axios({
+    method: 'get',
+    url: `${process.env.VUE_APP_BASE_URL}/book/hotSearch`
+  })
+}

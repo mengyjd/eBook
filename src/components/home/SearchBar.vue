@@ -56,6 +56,7 @@
 <script>
   import { storeHomeMixin } from '../../utils/mixin'
   import HotSearchList from '../home/HotSearchList'
+  import { saveSearchHistory } from '../../utils/localStorage'
 
   export default {
     mixins: [storeHomeMixin],
@@ -89,15 +90,6 @@
       }
     },
     methods: {
-      search() {
-        this.$router.push({
-          path: '/store/list',
-          query: {
-            keywords: this.searchText
-          }
-        })
-        this.searchText = ''
-      },
       showFlapCard() {
         this.setFlapCardVisible(true)
       },
@@ -139,6 +131,13 @@
       },
       showShadow () {
         this.shadowVisible = true
+      },
+      search() {
+        if (this.searchText) {
+          this.searchBook(this.searchText)
+          saveSearchHistory(this.searchText)
+          this.searchText = ''
+        }
       }
     }
   }

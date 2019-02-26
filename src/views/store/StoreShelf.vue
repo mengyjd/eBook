@@ -43,7 +43,7 @@
       }
     },
     watch: {
-      isEditModel(isEdit) {
+      isEditModel (isEdit) {
         this.scrollBottom = isEdit ? 48 : 0
         this.$nextTick(() => {
           this.$refs.scroll.refresh()
