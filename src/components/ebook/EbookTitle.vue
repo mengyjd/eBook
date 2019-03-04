@@ -10,7 +10,7 @@
       </div>
       <div class="right">
         <div class="icon-wrapper">
-          <span class="icon-shelf"></span>
+          <span class="icon-shelf" @click="showShelf"></span>
         </div>
         <div class="icon-wrapper">
           <span class="icon-cart"></span>
@@ -25,6 +25,7 @@
 
 <script>
   import { ebookMixin } from '../../utils/mixin'
+  import { gotoShelf } from '../../utils/store'
 
   export default {
     mixins: [
@@ -33,6 +34,10 @@
     methods: {
       back () {
         this.$router.go(-1)
+        this.setTitleAndMenuVisible(false)
+      },
+      showShelf () {
+        gotoShelf(this)
         this.setTitleAndMenuVisible(false)
       }
     }

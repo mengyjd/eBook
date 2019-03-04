@@ -4,15 +4,13 @@
     <flap-card :randomBook="randomBook"></flap-card>
     <scroll @onScroll="onScroll"
             :top="scrollTop"
-            ref="scroll"
-    >
+            class="test"
+            ref="scroll">
       <div class="banner-wrapper">
         <div class="banner-img" :style="{backgroundImage: `url(${bannerSrc})`}"></div>
       </div>
       <!--猜你喜欢-->
-      <guess-you-like :data="guessYouLike"
-                      @changeYouLike="changeYouLike"
-      ></guess-you-like>
+      <guess-you-like :data="guessYouLike"></guess-you-like>
       <!--热门推荐-->
       <hot-recommend class="block" :data="hotRecommend"></hot-recommend>
       <!--精选-->
@@ -77,27 +75,30 @@
         } else {
           this.scrollTop = 94
         }
-        // this.$refs.scroll.refresh()
       },
-      changeYouLike() {
-        // home().then(res => {
-        //   this.guessYouLike = res.data.guessYouLike
-        // })
+      getHomeData() {
+        home().then((res) => {
+          if (res && res.status === 200) {
+            const data = res.data
+            this.randomBook = data.random
+            this.bannerSrc = data.banner
+            this.guessYouLike = data.guessYouLike
+            this.hotRecommend = data.recommend
+            this.featured = data.featured
+            this.categoryList = data.categoryList
+            this.categories = data.categories
+          } else {
+            this.createSampleToast(res.data.msg)
+          }
+        })
       }
     },
     mounted () {
-      home().then((res) => {
-        if (res && res.status === 200) {
-          const data = res.data
-          this.randomBook = data.random
-          this.bannerSrc = data.banner
-          this.guessYouLike = data.guessYouLike
-          this.hotRecommend = data.recommend
-          this.featured = data.featured
-          this.categoryList = data.categoryList
-          this.categories = data.categories
-        }
-      })
+      this.getHomeData()
+      // 等切换页面的过渡动画完成后再将home滚动到之前的位置
+      setTimeout(() => {
+        this.$refs.scroll.scrollTo(0, this.offsetY)
+      }, 300)
     }
   }
 </script>

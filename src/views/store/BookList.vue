@@ -4,10 +4,12 @@
     <scroll :top="45"
             :bottom="0"
     >
+      <featured :data="list"
+                v-if="!isShowCategoryTitle"></featured>
       <featured :title-text="titleText ? titleText : getCategoryText(key)"
                 v-for="(value, key, index) in list" :key="index"
                 :data="value"
-      ></featured>
+                v-if="isShowCategoryTitle"></featured>
     </scroll>
   </div>
 </template>
@@ -28,7 +30,8 @@
     data () {
       return {
         list: null,
-        titleText: ''
+        titleText: '',
+        isShowCategoryTitle: false // 是否显示书籍所属分类的标题
       }
     },
     computed: {
@@ -37,9 +40,18 @@
           return 0
         }
         let num = 0
-        Object.keys(this.list).forEach(key => {
-          num += this.list[key].length
-        })
+        switch (this.$route.query.type) {
+          case 'categoryRecommend':
+          case 'keywords':
+          case 'categoryBooks':
+            num = this.list.length
+            break
+          case 'allCategoryBooks':
+            Object.keys(this.list).forEach(key => {
+              num += this.list[key].length
+            })
+            break
+        }
         return num
       }
     },
@@ -49,27 +61,58 @@
       },
       getTitleText () {
         return this.$t('home.allBook').replace('$1', this.totalNum)
+      },
+      getListData() {
+        list({
+          type: this.$route.query.type,
+          value: this.$route.query.value
+        }).then(res => {
+          if (res.status === 200 && res.statusText === 'OK') {
+            switch (this.$route.query.type) {
+              case 'categoryRecommend':
+              case 'keywords':
+              case 'categoryBooks':
+                this.isShowCategoryTitle = false
+                this.list = res.data.books
+                break
+              case 'allCategoryBooks':
+                this.isShowCategoryTitle = true
+                this.list = {}
+                res.data.books.forEach(book => {
+                  this.list[book.categoryText] = []
+                })
+                res.data.books.forEach(book => {
+                  this.list[book.categoryText].push(book)
+                })
+                break
+            }
+          } else {
+            this.createSampleToast(res.msg)
+          }
+        })
       }
     },
     created () {
-      if (this.$route.query.categoryText) {
-        this.titleText = getTranslateCategoryText(this.$route.query.categoryText, this)
-      }
-      list().then(res => {
-        this.list = res.data.data
-        const categoryText = this.$route.query.categoryText
-        const keywords = this.$route.query.keywords
-        if (categoryText) {
-          const data = this.list[categoryText]
-          this.list = {}
-          this.list[categoryText] = data
-        } else if (keywords) {
-          Object.keys(this.list).filter(key => {
-            this.list[key] = this.list[key].filter(book => book.fileName.indexOf(keywords) >= 0)
-            return this.list[key].length > 0
-          })
-        }
-      })
+      this.getListData()
+      // if (this.$route.query.categoryText) {
+      //   this.titleText = getTranslateCategoryText(this.$route.query.categoryText, this)
+      // }
+      // list().then(res => {
+      //   this.list = res.data.data
+      //   console.log(this.list)
+      //   const categoryText = this.$route.query.categoryText
+      //   const keywords = this.$route.query.keywords
+      //   if (categoryText) {
+      //     const data = this.list[categoryText]
+      //     this.list = {}
+      //     this.list[categoryText] = data
+      //   } else if (keywords) {
+      //     Object.keys(this.list).filter(key => {
+      //       this.list[key] = this.list[key].filter(book => book.fileName.indexOf(keywords) >= 0)
+      //       return this.list[key].length > 0
+      //     })
+      //   }
+      // })
     }
   }
 </script>

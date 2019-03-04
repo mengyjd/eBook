@@ -26,7 +26,7 @@
 <script>
   import TitleView from './Title'
   import { storeHomeMixin } from '../../utils/mixin'
-  import { categoryName } from '../../utils/store'
+  import { categoryName, gotoList } from '../../utils/store'
 
   export default {
     mixins: [storeHomeMixin],
@@ -38,11 +38,9 @@
     },
     methods: {
       showBookCategory () {
-        this.$router.push({
-          path: '/store/list',
-          query: {
-            categoryText: categoryName[this.data.category]
-          }
+        gotoList(this, {
+          type: 'categoryBooks',
+          value: categoryName[this.data.category]
         })
       }
     }

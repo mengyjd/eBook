@@ -26,6 +26,7 @@
 <script>
   import TitleView from './Title'
   import { storeHomeMixin } from '../../utils/mixin'
+  import { gotoList } from '../../utils/store'
 
   export default {
     mixins: [storeHomeMixin],
@@ -39,7 +40,10 @@
     },
     methods: {
       onclickSeeAll () {
-        // console.log('see all')
+        gotoList(this, {
+          type: 'categoryRecommend',
+          value: 'allHotRecommend'
+        })
       },
       getHaveRead (readers) {
         return this.$t('home.readers').replace('$1', readers)

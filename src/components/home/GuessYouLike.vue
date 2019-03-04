@@ -25,6 +25,7 @@
 <script>
   import TitleView from './Title'
   import { storeHomeMixin } from '../../utils/mixin'
+  import { guessYouLikeList } from '../../api/store'
 
   export default {
     mixins: [storeHomeMixin],
@@ -55,18 +56,16 @@
         return this.$t('home.sameReader').replace('$1', item.result)
       },
       onclickChange () {
-        this.getYouLikeList(this.data)
+        this.getYouLikeList()
       },
-      getYouLikeList (arr) {
-        this.youLikeList = []
-        for (let i = 0; i < this.total; i++) {
-          this.youLikeList.push(arr[this.index])
-          this.index++
-          if (this.index === this.data.length) {
-            this.index = 0
-            this.$emit('changeYouLike')
+      getYouLikeList () {
+        guessYouLikeList().then(result => {
+          if (result.status === 200 && result.statusText === 'OK') {
+            this.youLikeList = result.data.guessYouLikeList
+          } else {
+            this.createSampleToast(result.data.msg)
           }
-        }
+        })
       }
     }
   }

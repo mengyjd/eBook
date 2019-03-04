@@ -20,6 +20,19 @@ export function gotoDetail (book, vue) {
   })
 }
 
+export function gotoShelf (vue) {
+  vue.$router.push({
+    path: '/store/shelf'
+  })
+}
+
+export function gotoList (vue, query) {
+  vue.$router.push({
+    path: '/store/list',
+    query
+  })
+}
+
 export function addShelfList (list) {
   list.push({
     id: -1,

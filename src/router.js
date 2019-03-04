@@ -36,7 +36,7 @@ export default new Router({
         {
           path: 'detail',
           meta: { key: 30 },
-          component: () => import('./views/store/Detail.vue')
+          component: () => import('./views/store/StoreDetail.vue')
         },
         {
           path: 'list',

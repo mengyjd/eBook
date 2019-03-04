@@ -43,10 +43,11 @@ export function detail (fileName) {
   })
 }
 
-export function list () {
+export function list (params) {
   return axios({
     method: 'get',
-    url: `${process.env.VUE_APP_BASE_URL}/book/list`
+    url: `${process.env.VUE_APP_BASE_URL}/book/list`,
+    params
   })
 }
 
@@ -61,5 +62,12 @@ export function hotSearch() {
   return axios({
     method: 'get',
     url: `${process.env.VUE_APP_BASE_URL}/book/hotSearch`
+  })
+}
+
+export function guessYouLikeList () {
+  return axios({
+    method: 'get',
+    url: `${process.env.VUE_APP_BASE_URL}/book/guessYouLikeList`
   })
 }

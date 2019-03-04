@@ -9,12 +9,14 @@
       <span class="text">{{text}}</span>
     </div>
     <div class="icon-wrapper">
-      <span class="icon-shelf"></span>
+      <span class="icon-shelf" @click="showShelf"></span>
     </div>
   </div>
 </template>
 
 <script>
+  import { gotoShelf } from '../../utils/store'
+
   export default {
     props: {
       offsetY: Number,
@@ -36,6 +38,9 @@
     methods: {
       back() {
         this.$router.go(-1)
+      },
+      showShelf() {
+        gotoShelf(this)
       }
     }
   }

@@ -7,7 +7,7 @@ import {
   saveBookShelf,
   saveLocation
 } from './localStorage'
-import { addShelfList, categoryName, getTranslateCategoryText, gotoDetail } from './store'
+import { addShelfList, categoryName, getTranslateCategoryText, gotoDetail, gotoList } from './store'
 import { shelf } from '../api/store'
 import { removeLocalForage } from './localforage'
 
@@ -138,11 +138,9 @@ export const storeHomeMixin = {
     },
     searchBook(text) {
       // 跳转到搜索结果页
-      this.$router.push({
-        path: '/store/list',
-        query: {
-          keywords: text
-        }
+      gotoList(this, {
+        type: 'keywords',
+        value: text
       })
     }
   }

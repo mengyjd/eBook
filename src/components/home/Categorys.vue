@@ -2,7 +2,7 @@
   <div class="categorys-wrapper">
     <title-view :title-text="$t('home.category')"
                 :btn-text="$t('home.seeAll')"
-                @onclickBtn="showAllCategoryBook"
+                @onclickBtn="seeAll"
     ></title-view>
     <div class="category-list">
       <div class="category-item"
@@ -29,7 +29,7 @@
 <script>
   import TitleView from './Title'
   import { storeHomeMixin } from '../../utils/mixin'
-  import { categoryName } from '../../utils/store'
+  import { categoryName, gotoList } from '../../utils/store'
 
   export default {
     mixins: [storeHomeMixin],
@@ -44,16 +44,15 @@
         return this.$t('home.books').replace('$1', num)
       },
       showCategoryBook (categoryId) {
-        this.$router.push({
-          path: '/store/list',
-          query: {
-            categoryText: categoryName[categoryId]
-          }
+        gotoList(this, {
+          type: 'categoryBooks',
+          value: categoryName[categoryId]
         })
       },
-      showAllCategoryBook () {
-        this.$router.push({
-          path: '/store/list'
+      seeAll () {
+        gotoList(this, {
+          type: 'allCategoryBooks',
+          value: 'allCategoryBooks'
         })
       }
     }

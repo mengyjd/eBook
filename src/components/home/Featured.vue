@@ -25,7 +25,7 @@
 
 <script>
   import TitleView from './Title'
-  import { getTranslateCategoryText } from '../../utils/store'
+  import { getTranslateCategoryText, gotoList } from '../../utils/store'
   import { storeHomeMixin } from '../../utils/mixin'
 
   export default {
@@ -46,6 +46,10 @@
     },
     methods: {
       onclickSeeAll () {
+        gotoList(this, {
+          type: 'categoryRecommend',
+          value: 'allFeatured'
+        })
       },
       getCategory (categoryText) {
         return getTranslateCategoryText(categoryText, this)
