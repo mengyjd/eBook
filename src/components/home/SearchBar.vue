@@ -108,6 +108,7 @@
           this.showTitle()
           this.hideShadow()
         }
+        this.setOffsetY(0)
       },
       hideHotSearchPageVisible() {
         this.hotSearchPageVisible = false

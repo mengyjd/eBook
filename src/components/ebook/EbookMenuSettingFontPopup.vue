@@ -52,7 +52,7 @@
         } else {
           this.currentBook.rendition.themes.font(font)
         }
-        saveFontFamily(this.fileName, font)
+        saveFontFamily(font)
       },
       isSelected (item) {
         return this.defaultFontFamily === item.font

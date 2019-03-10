@@ -26,7 +26,7 @@ export function themeList (vue) {
       style: {
         body: {
           color: '#4c5059',
-          background: '#cecece',
+          backgroundColor: '#cecece',
           padding: '40px 20px !important',
           boxSizing: 'border-box'
         }
@@ -38,7 +38,7 @@ export function themeList (vue) {
       style: {
         body: {
           color: '#5c5b56',
-          background: '#c6c2b6',
+          backgroundColor: '#c6c2b6',
           padding: '40px 20px !important',
           boxSizing: 'border-box'
         }
@@ -50,7 +50,7 @@ export function themeList (vue) {
       style: {
         body: {
           color: '#304c42',
-          background: '#a9c1a9',
+          backgroundColor: '#a9c1a9',
           padding: '40px 20px !important',
           boxSizing: 'border-box'
         }
@@ -62,7 +62,7 @@ export function themeList (vue) {
       style: {
         body: {
           color: '#cecece',
-          background: '#000000',
+          backgroundColor: '#000000',
           padding: '40px 20px !important',
           boxSizing: 'border-box'
         }

@@ -45,6 +45,8 @@ const messages = {
     statistics: '统计学'
   },
   shelf: {
+    addToShelfSuccessful: '已加入书架',
+    removeFromShelfSuccessful: '已移出书架',
     title: '书架',
     edit: '编辑',
     cancel: '取消',

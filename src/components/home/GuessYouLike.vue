@@ -6,7 +6,7 @@
     ></title-view>
     <div class="guess-you-like-book-wrapper">
       <div class="you-like-book-item"
-           v-for="(item, index) in youLikeList" :key="index"
+           v-for="(item, index) in data" :key="index"
            @click="showBookDetail(item)"
       >
         <div class="book-img-wrapper">
@@ -25,7 +25,6 @@
 <script>
   import TitleView from './Title'
   import { storeHomeMixin } from '../../utils/mixin'
-  import { guessYouLikeList } from '../../api/store'
 
   export default {
     mixins: [storeHomeMixin],
@@ -38,17 +37,7 @@
     data () {
       return {
         titleText: this.$t('home.guessYouLike'),
-        btnText: this.$t('home.change'),
-        total: 3,
-        index: 0,
-        youLikeList: []
-      }
-    },
-    watch: {
-      data () {
-        if (this.data) {
-          this.getYouLikeList(this.data)
-        }
+        btnText: this.$t('home.change')
       }
     },
     methods: {
@@ -56,16 +45,7 @@
         return this.$t('home.sameReader').replace('$1', item.result)
       },
       onclickChange () {
-        this.getYouLikeList()
-      },
-      getYouLikeList () {
-        guessYouLikeList().then(result => {
-          if (result.status === 200 && result.statusText === 'OK') {
-            this.youLikeList = result.data.guessYouLikeList
-          } else {
-            this.createSampleToast(result.data.msg)
-          }
-        })
+        this.$emit('changeYouLike')
       }
     }
   }

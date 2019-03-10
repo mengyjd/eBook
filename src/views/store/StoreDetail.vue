@@ -191,6 +191,7 @@
           // 如果不在书架中, 添加到书架
           this.data.type = 1
           this.addBooksToShelfList([this.data], this.shelfList)
+          this.createSampleToast(this.$t('shelf.addToShelfSuccessful'))
         }
       }
     },

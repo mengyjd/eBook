@@ -28,9 +28,7 @@
     saveFontFamily,
     getFontSize,
     saveFontSize,
-    getBookTheme,
-    saveBookTheme,
-    getLocation, getBookmark
+    getLocation, getBookmark, getBookTheme, saveBookTheme
   } from '../../utils/localStorage'
   import { getLocalForage } from '../../utils/localforage'
   import { flatten } from '../../utils/book'
@@ -139,11 +137,17 @@
           this.setFontFamilyVisible(false) // 隐藏字体设置界面
         }
       },
+      initBookReadSettings() {
+        this.initTheme()
+        this.initFontFamily()
+        this.initFontSize()
+        this.initGlobalStyle(this.defaultTheme)
+      },
       initTheme () {
-        let themeName = getBookTheme(this.fileName)
+        let themeName = getBookTheme().name
         if (!themeName) {
           themeName = this.themeList[0].name
-          saveBookTheme(this.fileName, 'Default')
+          saveBookTheme('Default')
         }
         this.setDefaultTheme(themeName)
         this.themeList.forEach(theme => {
@@ -155,19 +159,19 @@
         this.rendition.themes.select(themeName)
       },
       initFontFamily () {
-        let font = getFontFamily(this.fileName)
+        let font = getFontFamily()
         if (!font) {
-          saveFontFamily(this.fileName, this.defaultFontFamily)
+          saveFontFamily(this.defaultFontFamily)
         } else {
           this.rendition.themes.font(font)
           this.setDefaultFontFamily(font)
         }
       },
       initFontSize () {
-        let size = getFontSize(this.fileName)
+        let size = getFontSize()
         if (!size) {
           size = this.defaultFontSize
-          saveFontSize(this.fileName, this.defaultFontSize)
+          saveFontSize(this.defaultFontSize)
         }
         this.rendition.themes.fontSize(size + 'px')
         this.setDefaultFontSize(size)
@@ -187,10 +191,7 @@
         }
         // 显示location
         this.display(location, () => {
-          this.initTheme()
-          this.initFontFamily()
-          this.initFontSize()
-          this.initGlobalStyle(this.defaultTheme)
+          this.initBookReadSettings()
           this.bookDisplayed = true
         })
         // 引入nginx服务器上的web字体

@@ -12,10 +12,7 @@
   import { ebookMixin } from '../../utils/mixin'
 
   export default {
-    mixins: [ebookMixin],
-    mounted() {
-      // this.$refs.headerText.style.width = window.innerWidth - 30 + 'px'
-    }
+    mixins: [ebookMixin]
   }
 </script>
 
@@ -32,7 +29,7 @@
     font-size: px2rem(11);
     display: flex;
     align-items: center;
-    background-color: #cecece;
+    background-color: transparent;
     .header-text {
       @include ellipsis;
       line-height: px2rem(18);

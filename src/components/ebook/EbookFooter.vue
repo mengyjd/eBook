@@ -33,7 +33,7 @@
     position: absolute;
     bottom: 0;
     padding: 0 20px;
-    background-color: #cecece;
+    background-color: transparent;
     box-sizing: border-box;
     font-size: px2rem(11);
     display: flex;

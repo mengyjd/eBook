@@ -44,28 +44,49 @@ export function getBookObject (fileName, key) {
   }
 }
 
-export function saveFontFamily (fileName, font) {
-  setBookObject(fileName, 'fontFamily', font)
+export function saveBookReadSettings (key, val) {
+  let readSettings = getBookReadSettings()
+  if (!readSettings) {
+    readSettings = {}
+  }
+  readSettings[key] = val
+  setLocalStorage('readSettings', readSettings)
 }
 
-export function getFontFamily (fileName) {
-  return getBookObject(fileName, 'fontFamily')
+export function getBookReadSettings () {
+  let readSettings = getLocalStorage('readSettings')
+  if (!readSettings) {
+    readSettings = {}
+  }
+  return readSettings
 }
 
-export function saveFontSize (fileName, size) {
-  setBookObject(fileName, 'fontSize', size)
+export function saveFontFamily (font) {
+  saveBookReadSettings('fontFamily', font)
 }
 
-export function getFontSize (fileName) {
-  return getBookObject(fileName, 'fontSize')
+export function getFontFamily () {
+  return getBookReadSettings().fontFamily
 }
 
-export function saveBookTheme (fileName, bookTheme) {
-  setBookObject(fileName, 'bookTheme', bookTheme)
+export function saveFontSize (size) {
+  saveBookReadSettings('fontSize', size)
 }
 
-export function getBookTheme (fileName) {
-  return getBookObject(fileName, 'bookTheme')
+export function getFontSize () {
+  return getBookReadSettings().fontSize
+}
+
+export function saveBookTheme (theme) {
+  saveBookReadSettings('theme', theme)
+}
+
+export function getBookTheme () {
+  let theme = getBookReadSettings().theme
+  if (!theme) {
+    theme = {}
+  }
+  return theme
 }
 
 export function saveLocation (fileName, location) {
@@ -114,4 +135,12 @@ export function saveSearchHistory (text) {
 
 export function clearSearchHistory () {
   setLocalStorage('searchHistory', [])
+}
+
+export function saveHomeData (homeData) {
+  setLocalStorage('homeData', homeData)
+}
+
+export function getLocalHomeData () {
+  return getLocalStorage('homeData')
 }

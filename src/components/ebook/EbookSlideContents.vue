@@ -125,7 +125,7 @@
       displayContent (target, highlight = false) {
         this.hideTitleAndMenu()
         this.display(target)
-        this.hideSearchPage()
+        // this.hideSearchPage()
         if (highlight) {
           this.currentBook.rendition.annotations.highlight(target)
         }
@@ -281,7 +281,7 @@
       box-sizing: border-box;
       .slide-search-item {
         font-size: px2rem(14);
-        line-height: px2rem(17);
+        line-height: 1.3;
         padding: px2rem(15) 0;
         border-bottom: px2rem(1) solid #b8b9bb;
         @include ellipsis2(3, keep-all);
@@ -294,7 +294,7 @@
   /*scoped中的css无法应用于v-html绑定的内容*/
   /*要为v-html添加css需要写在全局的css中*/
   /*搜索文字高亮*/
-  .ebook .ebook-slide-contents .slide-search-list .slide-search-item .content-search-text{
+  .ebook .ebook-slide-contents .slide-search-list .slide-search-item .text-search-text{
     color: #346cb9;
     font-weight: bold;
   }

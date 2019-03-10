@@ -17,7 +17,7 @@
   import EbookHeader from '../../components/ebook/EbookHeader'
   import EbookFooter from '../../components/ebook/EbookFooter'
   import { ebookMixin } from '../../utils/mixin'
-  import { getReadTime, saveReadTime } from '../../utils/localStorage'
+  import { getBookTheme, getReadTime, saveReadTime } from '../../utils/localStorage'
 
   export default {
     mixins: [
@@ -70,6 +70,10 @@
     },
     mounted () {
       this.startLoopReadTime()
+      const theme = getBookTheme()
+      if (theme) {
+        this.$refs.ebook.style.backgroundColor = theme.style.body.backgroundColor
+      }
     },
     beforeDestroy () {
       if (this.readTimeTask) {

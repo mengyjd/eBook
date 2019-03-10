@@ -40,7 +40,7 @@ export default new Router({
         },
         {
           path: 'list',
-          meta: { key: 30 },
+          meta: { key: 40 },
           component: () => import('./views/store/BookList.vue')
         },
         {

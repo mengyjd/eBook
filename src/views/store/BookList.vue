@@ -121,11 +121,8 @@
   @import "../../assets/styles/global";
 
   .list-wrapper {
-    position: absolute;
     width: 100%;
     height: 100%;
-    top: 0;
-    left: 0;
     background-color: #fff;
   }
 </style>

@@ -10,7 +10,7 @@
            :class="{ selected: item.name === defaultTheme }"
       >
         <div class="theme-preview"
-             :style="{backgroundColor: item.style.body.background}"
+             :style="{backgroundColor: item.style.body.backgroundColor}"
              :class="{ selected: item.name === defaultTheme }"
         ></div>
         <span class="preview-text">{{item.alias}}</span>
@@ -30,10 +30,11 @@
     ],
     methods: {
       setTheme(index) {
-        let theme = this.themeList[index].name
-        this.setDefaultTheme(theme)
-        saveBookTheme(this.fileName, theme)
-        this.currentBook.rendition.themes.select(theme)
+        const theme = this.themeList[index]
+        // let themeName = this.themeList[index].name
+        this.setDefaultTheme(theme.name)
+        saveBookTheme(theme)
+        this.currentBook.rendition.themes.select(theme.name)
         removeAllCss()
         this.initGlobalStyle(this.defaultTheme) // 改变全局主题
       }

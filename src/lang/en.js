@@ -45,6 +45,8 @@ const messages = {
     statistics: 'Statistics'
   },
   shelf: {
+    addToShelfSuccessful: 'addToShelfSuccessful',
+    removeFromShelfSuccessful: 'removeFromShelfSuccessful',
     title: 'Book Shelf',
     edit: 'Edit',
     cancel: 'Cancel',

@@ -66,7 +66,7 @@
       setFontSize (fontSize) {
         this.setDefaultFontSize(fontSize)
         this.currentBook.rendition.themes.fontSize(fontSize + 'px')
-        saveFontSize(this.fileName, fontSize) // 将当前书籍的字体大小设置保存到本地
+        saveFontSize(fontSize) // 将当前书籍的字体大小设置保存到本地
       }
     }
   }
