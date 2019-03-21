@@ -71,7 +71,7 @@
     mounted () {
       this.startLoopReadTime()
       const theme = getBookTheme()
-      if (theme) {
+      if (theme && theme.style) {
         this.$refs.ebook.style.backgroundColor = theme.style.body.backgroundColor
       }
     },

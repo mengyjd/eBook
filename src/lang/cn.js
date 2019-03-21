@@ -141,6 +141,12 @@ const messages = {
     minutes: '分钟',
     cancel: '取消',
     paginating: '分页中...'
+  },
+  login: {
+    SignIn: '登录',
+    SignUp: '注册',
+    inputAccount: '请输入帐号',
+    inputPassword: '请输入密码'
   }
 }
 

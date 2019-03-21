@@ -60,7 +60,9 @@
     },
     mounted () {
       this.setCurrentType(1)
-      this.getShelfList()
+      this.getShelfList().then(() => {
+        console.log(this.shelfList)
+      })
       this.initShelfState()
     }
   }

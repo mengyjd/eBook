@@ -167,16 +167,15 @@ export const storeShelfMixin = {
       'setShelfGroup'
     ]),
     // 获取书架页面数据
-    getShelfList () {
+    async getShelfList () {
       let shelfList = getBookShelf()
       if (!shelfList) {
         // 如果本地没有缓存则从网络请求
-        shelf().then(res => {
-          if (res.status === 200 && res.data && res.data.bookList) {
-            shelfList = addShelfList(res.data.bookList)
-            saveBookShelf(shelfList)
-          }
-        })
+        const { status, data } = await shelf()
+        if (status === 200 && data && data.bookList) {
+          shelfList = addShelfList(data.bookList)
+          await saveBookShelf(shelfList)
+        }
       }
       return this.setShelfList(shelfList)
     },

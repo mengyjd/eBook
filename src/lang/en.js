@@ -141,6 +141,12 @@ const messages = {
     minutes: 'minutes',
     cancel: 'Cancel',
     paginating: 'Paginating...'
+  },
+  login: {
+    SignIn: 'sign in',
+    SignUp: 'sign up',
+    inputAccount: 'please input account',
+    inputPassword: 'please input password'
   }
 }
 
