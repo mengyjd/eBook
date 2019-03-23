@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="shelf-title" v-show="shelfTitleVisible"
+    <div class="shelf-title" ref="test" v-show="shelfTitleVisible"
          :class="{'show-shadow': ifShowShadow}">
       <!--中间的'标题'-->
       <div class="shelf-title-text-wrapper">
@@ -8,11 +8,12 @@
         <span class="shelf-sub-title-text"
               v-show="isEditModel">{{selectText}}</span>
       </div>
-      <!--左侧'清除缓存'和'返回'按钮-->
+      <!--左侧'个人中心'和'返回'按钮-->
       <div class="shelf-title-btn-wrapper shelf-title-left">
-        <span class="shelf-title-btn-text"
-              v-show="clearBtnVisible"
-              @click="onClickClearCache">{{ leftText }}</span>
+        <span class="shelf-title-btn-text icon-person2"
+              :class="isLogged ? 'login' : 'login-out'"
+              v-show="userInfoVisible"
+              @click="showUserInfo"></span>
         <span class="icon-back shelf-title-btn-text"
               v-show="backBtnVisible"
               @click="back"></span>
@@ -36,9 +37,8 @@
 
 <script>
   import { storeShelfMixin } from '../../utils/mixin'
-  import { shelf } from '../../api/store'
-  import { addShelfList } from '../../utils/store'
   import { saveBookShelf } from '../../utils/localStorage'
+  import { gotoUserInfo } from '../../utils/routerSkip'
 
   export default {
     mixins: [storeShelfMixin],
@@ -59,6 +59,9 @@
       }
     },
     computed: {
+      isLogged () {
+        return this.$store.state.isLogged
+      },
       selectText () {
         const selectedNum = this.shelfSelected.length
         if (selectedNum === 0) {
@@ -78,7 +81,7 @@
       backBtnVisible () {
         return !this.isEditModel && this.currentType === 2
       },
-      clearBtnVisible () {
+      userInfoVisible () {
         return this.currentType === 1
       },
       editBtnVisible () {
@@ -89,14 +92,8 @@
       }
     },
     methods: {
-      onClickClearCache () {
-        shelf().then(res => {
-          this.setShelfList(addShelfList(res.data.bookList))
-            .then(() => {
-              saveBookShelf(this.shelfList)
-              this.createSampleToast('已清除缓存')
-            })
-        })
+      showUserInfo () {
+        gotoUserInfo(this, this.$store.state.username)
       },
       onClickEdit () {
         // 每当点击编辑或取消时都将选中的图书清空
@@ -195,6 +192,13 @@
 
 <style lang="scss" scoped>
   @import "../../assets/styles/global";
+
+  .login {
+    color: #31a9ff !important;
+  }
+  .login-out {
+    color: #999999 !important;
+  }
 
   .shelf-title {
     position: relative;

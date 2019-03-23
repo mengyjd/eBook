@@ -63,9 +63,10 @@
   import BookInfo from '../../components/detail/BookInfo'
   import Scroll from '../../components/common/Scroll'
   import { detail } from '../../api/store'
-  import { getTranslateCategoryText, gotoEbookRead } from '../../utils/store'
+  import { getTranslateCategoryText } from '../../utils/store'
   import Epub from 'epubjs'
   import { storeShelfMixin } from '../../utils/mixin'
+  import { gotoEbookRead } from '../../utils/routerSkip'
 
   global.ePub = Epub
   export default {

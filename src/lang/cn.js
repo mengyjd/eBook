@@ -146,7 +146,9 @@ const messages = {
     SignIn: '登录',
     SignUp: '注册',
     inputAccount: '请输入帐号',
-    inputPassword: '请输入密码'
+    inputPassword: '请输入密码',
+    confirmPassword: '确认密码',
+    loginOut: '退出登录'
   }
 }
 

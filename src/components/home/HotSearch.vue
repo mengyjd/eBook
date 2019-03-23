@@ -28,8 +28,8 @@
 </template>
 
 <script>
-  import { gotoDetail } from '../../utils/store'
   import { storeHomeMixin } from '../../utils/mixin'
+  import { gotoDetail } from '../../utils/routerSkip'
 
   export default {
     mixins: [storeHomeMixin],

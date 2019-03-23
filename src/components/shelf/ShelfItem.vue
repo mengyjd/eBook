@@ -20,7 +20,7 @@
   import Category from './ShelfItemCategory'
   import Add from './ShelfItemAdd'
   import { storeHomeMixin, storeShelfMixin } from '../../utils/mixin'
-  import { gotoEbookRead, gotoStoreHome } from '../../utils/store'
+  import { gotoEbookRead, gotoStoreHome } from '../../utils/routerSkip'
 
   export default {
     mixins: [storeHomeMixin, storeShelfMixin],

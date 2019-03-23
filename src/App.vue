@@ -5,6 +5,9 @@
 </template>
 
 <script>
+  import { checkLogin } from './api/account'
+  import { cloudSync } from './api/cloudSync'
+
   document.addEventListener('DOMContentLoaded', () => {
     const html = document.querySelector('html')
     let fontSize = window.innerWidth / 10
@@ -12,6 +15,23 @@
     html.style.fontSize = fontSize + 'px'
   })
   export default {
+    methods: {
+      // 进入网站时先验证用户是否已登录
+      login() {
+        checkLogin().then(({ status, data }) => {
+          console.log(data)
+          if (status === 200 && data.error_code === 0) {
+            this.$store.commit('SET_IS_LOGGED', true)
+            this.$store.commit('SET_USERNAME', data.username)
+          } else {
+            this.$store.commit('SET_IS_LOGGED', false)
+          }
+        })
+      }
+    },
+    created() {
+      this.login()
+    }
   }
 </script>
 

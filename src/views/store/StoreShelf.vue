@@ -2,8 +2,7 @@
   <div class="shelf-wrapper">
     <shelf-title
       :offsetY="offsetY"
-      :title="$t('shelf.title')"
-      :left-text="$t('shelf.clearCache')"/>
+      :title="$t('shelf.title')"/>
     <scroll
       :top="0"
       :bottom="scrollBottom"
@@ -60,9 +59,7 @@
     },
     mounted () {
       this.setCurrentType(1)
-      this.getShelfList().then(() => {
-        console.log(this.shelfList)
-      })
+      this.getShelfList()
       this.initShelfState()
     }
   }

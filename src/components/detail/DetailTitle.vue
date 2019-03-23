@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import { gotoShelf } from '../../utils/store'
+  import { gotoShelf, gotoBack } from '../../utils/routerSkip'
 
   export default {
     props: {
@@ -37,7 +37,7 @@
     },
     methods: {
       back() {
-        this.$router.go(-1)
+        gotoBack(this)
       },
       showShelf() {
         gotoShelf(this)

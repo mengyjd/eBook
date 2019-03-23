@@ -42,7 +42,7 @@
     },
     methods: {
       getReason (item) {
-        return this.$t('home.sameReader').replace('$1', item.result)
+        return this.$t('home.readers').replace('$1', item.result)
       },
       onclickChange () {
         this.$emit('changeYouLike')

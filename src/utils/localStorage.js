@@ -1,4 +1,5 @@
 import Storage from 'web-storage-cache'
+// import { cloudSync } from '../api/cloudSync'
 
 const localStorage = new Storage()
 
@@ -20,6 +21,7 @@ export function clearLocalStorage () {
 
 export function saveBookShelf (shelfList) {
   setLocalStorage('shelf', shelfList)
+  // cloudSync('shelfList')
 }
 
 export function getBookShelf () {
@@ -51,6 +53,7 @@ export function saveBookReadSettings (key, val) {
   }
   readSettings[key] = val
   setLocalStorage('readSettings', readSettings)
+  // cloudSync('settings')
 }
 
 export function getBookReadSettings () {
@@ -77,20 +80,21 @@ export function getFontSize () {
   return getBookReadSettings().fontSize
 }
 
-export function saveBookTheme (theme) {
-  saveBookReadSettings('theme', theme)
+export function saveBookTheme (themeName) {
+  saveBookReadSettings('theme', themeName)
 }
 
 export function getBookTheme () {
   let theme = getBookReadSettings().theme
   if (!theme) {
-    theme = {}
+    theme = ''
   }
   return theme
 }
 
 export function saveLocation (fileName, location) {
   setBookObject(fileName, 'location', location)
+  // cloudSync('progress', fileName)
 }
 
 export function getLocation (fileName) {
@@ -103,6 +107,7 @@ export function getReadTime (fileName) {
 
 export function saveReadTime (fileName, readTime) {
   setBookObject(fileName, 'readTime', readTime)
+  // cloudSync('readTime', fileName)
 }
 
 export function getBookmark (fileName) {
@@ -143,4 +148,12 @@ export function saveHomeData (homeData) {
 
 export function getLocalHomeData () {
   return getLocalStorage('homeData')
+}
+
+export function saveToken (token) {
+  setLocalStorage('token', token)
+}
+
+export function getToken () {
+  return getLocalStorage('token')
 }

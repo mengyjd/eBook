@@ -7,9 +7,10 @@ import {
   saveBookShelf,
   saveLocation
 } from './localStorage'
-import { addShelfList, categoryName, getTranslateCategoryText, gotoDetail, gotoList } from './store'
+import { addShelfList, categoryName, getTranslateCategoryText } from './store'
 import { shelf } from '../api/store'
 import { removeLocalForage } from './localforage'
+import { gotoDetail, gotoList } from './routerSkip'
 
 export const ebookMixin = {
   computed: {
@@ -177,6 +178,7 @@ export const storeShelfMixin = {
           await saveBookShelf(shelfList)
         }
       }
+      console.log(shelfList)
       return this.setShelfList(shelfList)
     },
     // 获取分组页面的数据
@@ -269,3 +271,5 @@ export const storeShelfMixin = {
     }
   }
 }
+
+

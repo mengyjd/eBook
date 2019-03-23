@@ -30,11 +30,10 @@
     ],
     methods: {
       setTheme(index) {
-        const theme = this.themeList[index]
-        // let themeName = this.themeList[index].name
-        this.setDefaultTheme(theme.name)
-        saveBookTheme(theme)
-        this.currentBook.rendition.themes.select(theme.name)
+        const themeName = this.themeList[index].name
+        this.setDefaultTheme(themeName)
+        saveBookTheme(themeName)
+        this.currentBook.rendition.themes.select(themeName)
         removeAllCss()
         this.initGlobalStyle(this.defaultTheme) // 改变全局主题
       }

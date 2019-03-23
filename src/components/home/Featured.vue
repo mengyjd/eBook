@@ -25,8 +25,9 @@
 
 <script>
   import TitleView from './Title'
-  import { getTranslateCategoryText, gotoList } from '../../utils/store'
+  import { getTranslateCategoryText } from '../../utils/store'
   import { storeHomeMixin } from '../../utils/mixin'
+  import { gotoList } from '../../utils/routerSkip'
 
   export default {
     mixins: [storeHomeMixin],

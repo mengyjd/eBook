@@ -25,7 +25,7 @@
 
 <script>
   import { ebookMixin } from '../../utils/mixin'
-  import { gotoShelf } from '../../utils/store'
+  import { gotoBack, gotoShelf } from '../../utils/routerSkip'
 
   export default {
     mixins: [
@@ -33,7 +33,7 @@
     ],
     methods: {
       back () {
-        this.$router.go(-1)
+        gotoBack(this)
         this.setTitleAndMenuVisible(false)
       },
       showShelf () {

@@ -144,7 +144,7 @@
         this.initGlobalStyle(this.defaultTheme)
       },
       initTheme () {
-        let themeName = getBookTheme().name
+        let themeName = getBookTheme()
         if (!themeName) {
           themeName = this.themeList[0].name
           saveBookTheme('Default')

@@ -18,6 +18,33 @@ export const FONT_FAMILY = [
   { font: 'Tangerine' }
 ]
 
+export const themeConfig = {
+  Default: {
+    color: '#4c5059',
+    backgroundColor: '#cecece',
+    padding: '40px 20px !important',
+    boxSizing: 'border-box'
+  },
+  Grace: {
+    color: '#5c5b56',
+    backgroundColor: '#c6c2b6',
+    padding: '40px 20px !important',
+    boxSizing: 'border-box'
+  },
+  Eye: {
+    color: '#304c42',
+    backgroundColor: '#a9c1a9',
+    padding: '40px 20px !important',
+    boxSizing: 'border-box'
+  },
+  Night: {
+    color: '#cecece',
+    backgroundColor: '#000000',
+    padding: '40px 20px !important',
+    boxSizing: 'border-box'
+  }
+}
+
 export function themeList (vue) {
   return [
     {

@@ -146,7 +146,9 @@ const messages = {
     SignIn: 'sign in',
     SignUp: 'sign up',
     inputAccount: 'please input account',
-    inputPassword: 'please input password'
+    inputPassword: 'please input password',
+    confirmPassword: 'confirm password',
+    loginOut: 'login out'
   }
 }
 

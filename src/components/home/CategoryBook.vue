@@ -26,7 +26,8 @@
 <script>
   import TitleView from './Title'
   import { storeHomeMixin } from '../../utils/mixin'
-  import { categoryName, gotoList } from '../../utils/store'
+  import { categoryName } from '../../utils/store'
+  import { gotoList } from '../../utils/routerSkip'
 
   export default {
     mixins: [storeHomeMixin],

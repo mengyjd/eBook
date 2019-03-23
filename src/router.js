@@ -52,8 +52,26 @@ export default new Router({
       ]
     },
     {
-      path: '/login',
-      component: () => import('./views/login/index')
+      path: '/user',
+      component: () => import('./views/user/index.vue'),
+      redirect: '/login',
+      children: [
+        {
+          path: '/login',
+          component: () => import('./views/user/login.vue')
+        },
+        {
+          path: '/register',
+          component: () => import('./views/user/register.vue')
+        },
+        {
+          path: ':username',
+          meta: {
+            requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+          },
+          component: () => import('./views/user/userInfo.vue')
+        }
+      ]
     }
   ]
 })
