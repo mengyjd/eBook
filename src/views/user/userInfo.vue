@@ -3,7 +3,7 @@
     <span class="icon-back_cycle" @click="showBack"></span>
     <div class="username">{{ decodeURIComponent($store.state.username) }}</div>
     <div class="content">
-      <div class="info">累计阅读500分钟</div>
+      <div class="info">累计阅读{{ userInfo.allReadTime }}分钟</div>
     </div>
     <div class="footer"
          @mousedown="onMousedown"
@@ -18,13 +18,18 @@
 </template>
 
 <script>
-  // import { getUserInfo } from '../../api/account'
-  import { deToken } from '../../utils/utils'
+  import { deToken, flattenShelfList } from '../../utils/utils'
   import { gotoLogin, gotoShelf } from '../../utils/routerSkip'
+  import { getBookShelf } from '../../utils/localStorage'
+  import { removeShelfItemAdd } from '../../utils/store'
 
   export default {
-    created() {
-      // getUserInfo(encodeURIComponent(this.$store.state.username))
+    data () {
+      return {
+        userInfo: {
+          allReadTime: 0
+        }
+      }
     },
     methods: {
       // 退出登录
@@ -33,6 +38,22 @@
         this.$store.commit('SET_IS_LOGGED', false)
         this.$store.commit('SET_USERNAME', '')
         gotoLogin(this)
+      },
+      getUserInfo() {
+        this.userInfo.allReadTime = this.getAllReadTime()
+      },
+      // 获取用户的累计阅读时间,单位分钟
+      getAllReadTime() {
+        let allReadTime = 0
+        const shelfList = removeShelfItemAdd(getBookShelf())
+        const flattenShelf = flattenShelfList(shelfList)
+        console.log(flattenShelf)
+        flattenShelf.forEach(book => {
+          if (book.readTime) {
+            allReadTime += parseInt(book.readTime)
+          }
+        })
+        return (allReadTime / 60).toFixed(1)
       },
       showBack() {
         gotoShelf(this)
@@ -49,6 +70,9 @@
       ontouchend() {
         this.$refs.footer.style.backgroundColor = '#f56c6c'
       }
+    },
+    mounted() {
+      this.getUserInfo()
     }
   }
 </script>

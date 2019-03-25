@@ -29,13 +29,3 @@ export function checkLogin() {
     url: `${process.env.VUE_APP_BASE_URL}/check-login`
   })
 }
-
-export function getUserInfo (username) {
-  return axios({
-    method: 'post',
-    url: `${process.env.VUE_APP_BASE_URL}/user-info`,
-    data: {
-      username
-    }
-  })
-}
