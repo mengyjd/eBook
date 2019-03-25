@@ -160,9 +160,12 @@
             return book
           })).then(() => {
             this.moveOutGroup(() => {
-              this.addBooksToShelfList(this.shelfSelected, this.shelfList, () => {
+              this.addBooksToShelfList(this.shelfSelected, this.shelfList).then(() => {
                 this.deleteGroupBooksComplete()
               })
+              // this.addBooksToShelfList(this.shelfSelected, this.shelfList, () => {
+              //   this.deleteGroupBooksComplete()
+              // })
             })
           })
         } else {

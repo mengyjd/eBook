@@ -1,5 +1,6 @@
 <template>
   <ebook-dialog ref="dialog" :title="title">
+    <!--移动书籍窗口-->
     <div class="dialog-list-wrapper" v-if="!isNewGroup">
       <div
         class="dialog-list-item"
@@ -14,6 +15,7 @@
         </div>
       </div>
     </div>
+    <!--新建分组窗口-->
     <div class="dialog-new-group-wrapper" v-else>
       <span class="group-name">{{ $t('shelf.groupName') }}</span>
       <div class="dialog-input-wrapper">
@@ -47,6 +49,7 @@
   import EbookDialog from '../common/Dialog'
   import { storeShelfMixin } from '../../utils/mixin'
   import { saveBookShelf } from '../../utils/localStorage'
+  import { appendShelfItemAdd, removeShelfItemAdd } from '../../utils/store'
 
   export default {
     name: 'shelfDialog',
@@ -120,10 +123,14 @@
           // 将选中的书籍从当前分组中删除
           this.moveOutGroup(() => {
             // 将选中的书籍添加到书架中
-            this.addBooksToShelfList(this.shelfSelected, this.shelfList, () => {
+            this.addBooksToShelfList(this.shelfSelected, this.shelfList).then(() => {
               this.onComplete()
               this.createSampleToast(this.$t('shelf.moveBookOutSuccess')) // 弹出操作成功的提示信息
             })
+            // this.addBooksToShelfList(this.shelfSelected, this.shelfList, () => {
+            //   this.onComplete()
+            //   this.createSampleToast(this.$t('shelf.moveBookOutSuccess')) // 弹出操作成功的提示信息
+            // })
           })
         } else {
           // 点击分组项
@@ -133,8 +140,18 @@
       moveToGroup (group) {
         this.setShelfList(this.shelfList.filter(book => {
           if (book.itemList) {
-            // 移动分组中的图书
-            book.itemList = book.itemList.filter(subBook => this.shelfSelected.indexOf(subBook) < 0)
+            // 如果移动分组中的图书
+            book.itemList = book.itemList.filter(subBook => {
+              if (subBook.selected) {
+                subBook.groupName = group.title
+              }
+              return this.shelfSelected.indexOf(subBook) < 0
+            })
+          } else if (book.type === 1) {
+            // 移动的图书没有分组
+          }
+          if (book.selected) {
+            book.groupName = group.title
           }
           return this.shelfSelected.indexOf(book) < 0
         }))
@@ -147,7 +164,7 @@
             this.onComplete()
           })
       },
-      // 创建性分组
+      // 创建新分组
       createNewGroup () {
         // 点击确定时,如果input没有输入内容,则什么也不做
         if (!this.inputGroupName) {
@@ -168,12 +185,11 @@
           id: this.inputGroupName,
           title: this.inputGroupName,
           type: 2,
-          selected: false,
           itemList: []
         }
-        let shelfList = this.removeShelfItemAdd(this.shelfList)
+        let shelfList = removeShelfItemAdd(this.shelfList)
         shelfList.push(group)
-        this.appendShelfItemAdd(shelfList)
+        shelfList = appendShelfItemAdd(shelfList)
         this.setShelfList(shelfList).then(() => {
           this.moveToGroup(group)
         })

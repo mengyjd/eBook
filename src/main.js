@@ -28,8 +28,7 @@ Axios.interceptors.request.use(
   error => {
     // 对请求错误做些什么
     return Promise.reject(error)
-  }
-)
+  })
 
 // http response 拦截器
 Axios.interceptors.response.use(
@@ -48,8 +47,7 @@ Axios.interceptors.response.use(
       // }
     }
     return Promise.reject(error.response.data)
-  }
-)
+  })
 
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) { // 判断该路由是否需要登录权限

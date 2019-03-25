@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import { getUserInfo } from '../../api/account'
+  // import { getUserInfo } from '../../api/account'
   import { deToken } from '../../utils/utils'
   import { gotoLogin, gotoShelf } from '../../utils/routerSkip'
 
@@ -30,8 +30,9 @@
       // 退出登录
       loginOut() {
         deToken(this) // 清空token
-        gotoLogin(this)
         this.$store.commit('SET_IS_LOGGED', false)
+        this.$store.commit('SET_USERNAME', '')
+        gotoLogin(this)
       },
       showBack() {
         gotoShelf(this)

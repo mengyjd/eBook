@@ -1,5 +1,8 @@
 import Storage from 'web-storage-cache'
-// import { cloudSync } from '../api/cloudSync'
+import { syncSettings, syncShelf } from '../api/user'
+import { appendShelfItemAdd, mapShelfList, removeShelfItemAdd } from './store'
+import { flattenShelfList, spreadShelfList } from './utils'
+import store from '../store/index'
 
 const localStorage = new Storage()
 
@@ -19,13 +22,16 @@ export function clearLocalStorage () {
   return localStorage.clear()
 }
 
-export function saveBookShelf (shelfList) {
+export function saveBookShelf (shelfList, isNotSave) {
   setLocalStorage('shelf', shelfList)
-  // cloudSync('shelfList')
+  // 只有在数据需要保存，并且用户为登录状态才同步数据
+  if (!isNotSave && store.state.isLogged) {
+    syncShelf(removeShelfItemAdd(getBookShelf()))
+  }
 }
 
 export function getBookShelf () {
-  return getLocalStorage('shelf')
+  return getLocalStorage('shelf') || []
 }
 
 export function setBookObject (fileName, key, value) {
@@ -46,18 +52,39 @@ export function getBookObject (fileName, key) {
   }
 }
 
+/**
+ * 保存所有的主题设置
+ * @param {Object} readSettings 主题设置对象{theme: options, fontFamily: options, fontSize: options}
+ */
+export function saveAllReadSettings (readSettings) {
+  setLocalStorage('readSettings', readSettings)
+}
+
+/**
+ * 获取所有主题设置
+ * @returns {Object} 返回主题设置对象{theme: options, fontFamily: options, fontSize: options}
+ */
+export function getAllReadSettings () {
+  return getLocalStorage('readSettings')
+}
+
+// 保存单个主题设置
 export function saveBookReadSettings (key, val) {
   let readSettings = getBookReadSettings()
   if (!readSettings) {
     readSettings = {}
   }
   readSettings[key] = val
-  setLocalStorage('readSettings', readSettings)
-  // cloudSync('settings')
+  saveAllReadSettings(readSettings)
+  // 只有用户为登录状态才同步数据
+  if (store.state.isLogged) {
+    syncSettings(readSettings)
+  }
 }
 
+// 获取单个主题设置
 export function getBookReadSettings () {
-  let readSettings = getLocalStorage('readSettings')
+  let readSettings = getAllReadSettings()
   if (!readSettings) {
     readSettings = {}
   }
@@ -92,30 +119,94 @@ export function getBookTheme () {
   return theme
 }
 
+// function saveReadInfo (fileName, bookInfo) {
+//   let readInfo = getReadInfo()
+//   readInfo[fileName] = bookInfo
+//   setLocalStorage('readInfo', readInfo)
+// }
+
+// export function getReadInfo () {
+//   return getLocalStorage('readInfo') || {}
+// }
+
+// function saveBookInfo (fileName, key, val) {
+//   let bookInfo = getBookInfo(fileName)
+//   bookInfo[key] = val
+//   saveReadInfo(fileName, bookInfo)
+// }
+
+// function getBookInfo (fileName) {
+//   return getReadInfo()[fileName] || {}
+// }
+
+// 将书籍的阅读信息保存到ShelfList中
+// 阅读信息包含[readTime, bookmarks, location]
+function saveBookInfoToShelfList (fileName, key, val) {
+  if (fileName.match(/\/(.*)/)) {
+    fileName = fileName.match(/\/(.*)/)[1]
+  }
+  const newShelfList = mapShelfList(getBookShelf(), (book) => {
+    if (book.fileName === fileName) {
+      book[key] = val
+    }
+  })
+  if (key === 'location') {
+    // location改变时不同步数据
+    saveBookShelf(newShelfList, true)
+  } else {
+    // 在书签时或者每隔30秒同步数据
+    saveBookShelf(newShelfList, false)
+  }
+}
+
+/**
+ * 获取书籍阅读信息
+ * @param fileName String
+ * @returns {Object}
+ */
+function getBookInfoFromShelfList (fileName) {
+  if (fileName.match(/\/(.*)/)) {
+    fileName = fileName.match(/\/(.*)/)[1]
+  }
+  let bookInfo
+  mapShelfList(getBookShelf(), (book) => {
+    if (book.fileName === fileName) {
+      bookInfo = book
+    }
+  })
+  return bookInfo || {}
+}
+
+export function removeBookInfo (fileName) {
+  let flattenShelf = flattenShelfList(removeShelfItemAdd(getBookShelf()))
+  const filterShelf = flattenShelf.filter(book => {
+    return book.fileName !== fileName
+  })
+  saveBookShelf(appendShelfItemAdd(spreadShelfList(filterShelf)))
+}
+
 export function saveLocation (fileName, location) {
-  setBookObject(fileName, 'location', location)
-  // cloudSync('progress', fileName)
+  saveBookInfoToShelfList(fileName, 'location', location)
 }
 
 export function getLocation (fileName) {
-  return getBookObject(fileName, 'location')
+  return getBookInfoFromShelfList(fileName).location || ''
 }
 
 export function getReadTime (fileName) {
-  return getBookObject(fileName, 'readTime')
+  return getBookInfoFromShelfList(fileName).readTime || 0
 }
 
 export function saveReadTime (fileName, readTime) {
-  setBookObject(fileName, 'readTime', readTime)
-  // cloudSync('readTime', fileName)
+  saveBookInfoToShelfList(fileName, 'readTime', readTime)
 }
 
 export function getBookmark (fileName) {
-  return getBookObject(fileName, 'bookmarks')
+  return getBookInfoFromShelfList(fileName).bookmarks || []
 }
 
 export function saveBookmark (fileName, bookmark) {
-  setBookObject(fileName, 'bookmarks', bookmark)
+  saveBookInfoToShelfList(fileName, 'bookmarks', bookmark)
 }
 
 export function getSearchHistory () {

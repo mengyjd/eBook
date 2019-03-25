@@ -67,6 +67,7 @@
   import Epub from 'epubjs'
   import { storeShelfMixin } from '../../utils/mixin'
   import { gotoEbookRead } from '../../utils/routerSkip'
+  import { saveBookShelf } from '../../utils/localStorage'
 
   global.ePub = Epub
   export default {
@@ -184,16 +185,17 @@
         return [].concat(...shelfList)
       },
       // 加入或移出书架
-      onAddOrRemoveFromShelf() {
+      async onAddOrRemoveFromShelf() {
         if (this.isInBookShelf) {
           // 如果已经在书架中, 从书架中移除
-          this.removeSelectedBook([this.data])
+          await this.removeSelectedBook([this.data])
         } else {
           // 如果不在书架中, 添加到书架
           this.data.type = 1
-          this.addBooksToShelfList([this.data], this.shelfList)
+          await this.addBooksToShelfList([this.data], this.shelfList)
           this.createSampleToast(this.$t('shelf.addToShelfSuccessful'))
         }
+        saveBookShelf(this.shelfList)
       }
     },
     mounted () {

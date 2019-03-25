@@ -1,13 +1,17 @@
-export function addShelfList (list) {
-  list.push({
+// 为书架增加添加按钮
+export function appendShelfItemAdd (list) {
+  const listBack = [].concat(list)
+  listBack.push({
     id: -1,
     type: 3
   })
-  return list
+  return listBack
 }
 
-export function removeShelf (list) {
-  list.filter(item => item.type !== 3)
+// 删除书架中的添加按钮
+export function removeShelfItemAdd (list) {
+  if (!list || list.length === 0) return []
+  return list.filter(item => item.type !== 3)
 }
 
 // 随机推荐功能中卡片翻转动画的css属性
@@ -93,4 +97,33 @@ export const categoryName = {
 export function getTranslateCategoryText (text, vue) {
     text = text.substring(0, 1).toLowerCase() + text.substring(1)
   return vue.$t(`category.${text}`)
+}
+
+// 遍历书架，对书架中每一个书籍执行调函数，然后返回新的数组
+export function mapShelfList (shelfList, cb) {
+  if (!shelfList || shelfList.length === 0) {
+    return []
+  }
+  return shelfList.map((book, index) => {
+    if (book.type === 1) {
+      if (cb) cb(book, index)
+    } else if (book.type === 2) {
+      mapShelfList(book.itemList, cb)
+    }
+    return book
+  })
+}
+
+export function filterShelfList(shelfList, cb) {
+  return shelfList.filter(book => {
+    if (book.type === 1) {
+      if (cb) {
+        return cb(book)
+      }
+    } else if (book.type === 2) {
+      filterShelfList(shelfList.itemList, cb)
+    } else {
+      return book
+    }
+  })
 }
