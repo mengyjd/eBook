@@ -19,7 +19,7 @@
 <script>
   import { storeShelfMixin } from '../../utils/mixin'
   import { saveBookShelf } from '../../utils/localStorage'
-  import { download } from '../../api/store'
+  import { download, test } from '../../api/store'
 
   export default {
     mixins: [storeShelfMixin],
@@ -88,6 +88,7 @@
       getLabel (tab) {
         return this.createClassAndLabel(tab, 'label', 'label2')
       },
+      // 显示是否开启私密阅读Popup
       showPrivate () {
         this.popupMenu = this.createPopup({
           title: this.isPrivate
@@ -108,6 +109,7 @@
           ]
         }).show()
       },
+      // 显示是否开启缓存阅读Popup
       showCache () {
         this.popupMenu = this.createPopup({
           title: this.isCache
@@ -131,9 +133,11 @@
           ]
         }).show()
       },
+      // 显示是移动分组Dialog
       showShelfDialog () {
         this.createShelfDialog().show()
       },
+      // 显示是否移出书架Popup
       showRemoveShelfBook () {
         this.popupMenu = this.createPopup({
           title: this.shelfSelected.length === 1
@@ -151,6 +155,7 @@
           ]
         }).show()
       },
+      // 开启私密阅读
       openPrivate () {
         this.createSampleToast(this.$t('shelf.setPrivateSuccess'))
         this.shelfSelected.forEach(book => {
@@ -158,6 +163,7 @@
         })
         this.onComplete()
       },
+      // 关闭私密阅读
       closePrivate () {
         this.createSampleToast(this.$t('shelf.closePrivateSuccess'))
         this.shelfSelected.forEach(book => {
@@ -165,12 +171,14 @@
         })
         this.onComplete()
       },
+      // 开启缓存
       async openCache () {
         // 点击开启离线时将popup隐藏
-        this.onComplete()
         await this.downloadSelectedBook()
         this.createSampleToast(this.$t('shelf.setDownloadSuccess'))
+        this.onComplete()
       },
+      // 点击确认移出书架按钮
       confirmDelete() {
         this.removeSelectedBook(this.shelfSelected)
         this.setShelfSelected([])
@@ -185,6 +193,7 @@
         this.setIsEditModel(false) // 退出编辑状态
         saveBookShelf(this.shelfList) // 将书架中的书籍数组保存到本地
       },
+      // 点击底部tab栏的按钮
       onClickTab (index) {
         // 如果点击tab时没有选中书籍, 则什么也不做
         if (this.shelfSelected.length === 0) {
@@ -207,6 +216,7 @@
             break
         }
       },
+      // 下载选中的电子书
       async downloadSelectedBook () {
         // 遍历选中的书籍
         for (let i = 0; i < this.shelfSelected.length; i++) {

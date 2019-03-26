@@ -6,7 +6,7 @@
                 v-if="data && data.length > 0"
     ></title-view>
     <div class="featured-books-wrapper">
-      <div class="featured-book-item"
+      <div class="featured-book-item point"
            v-for="(book, index) in data" :key="index"
            @click="showBookDetail(book)"
       >

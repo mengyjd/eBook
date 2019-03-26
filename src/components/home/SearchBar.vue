@@ -12,7 +12,7 @@
           <div class="icon-text-wrapper icon-wrapper">
             <span class="icon-text title">{{$t('home.title')}}</span>
           </div>
-          <div class="icon-shake-wrapper icon-wrapper"
+          <div class="icon-shake-wrapper point icon-wrapper"
                @click="showFlapCard"
           >
             <span class="icon-shake icon"></span>
@@ -20,7 +20,7 @@
         </div>
       </transition>
       <!--返回按钮-->
-      <div class="icon-back-wrapper icon-wrapper"
+      <div class="icon-back-wrapper icon-wrapper point"
            :class="{'hide-title': !titleVisible}"
            @click="onBack"
       >

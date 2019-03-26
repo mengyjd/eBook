@@ -12,7 +12,8 @@ export default new Vuex.Store({
   state: {
     token: '',
     isLogged: false,
-    username: ''
+    username: '',
+    isGetHomeFromServer: true // 是否从服务端请求home页面的数据
   },
   mutations,
   modules: {

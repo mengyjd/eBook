@@ -127,10 +127,6 @@
               this.onComplete()
               this.createSampleToast(this.$t('shelf.moveBookOutSuccess')) // 弹出操作成功的提示信息
             })
-            // this.addBooksToShelfList(this.shelfSelected, this.shelfList, () => {
-            //   this.onComplete()
-            //   this.createSampleToast(this.$t('shelf.moveBookOutSuccess')) // 弹出操作成功的提示信息
-            // })
           })
         } else {
           // 点击分组项
@@ -194,6 +190,7 @@
           this.moveToGroup(group)
         })
       },
+      // 新建分组时判断分组名是否重复
       isDuplicateGroupName () {
         return !this.groupCategoryList.every(
           group => group.title !== this.inputGroupName

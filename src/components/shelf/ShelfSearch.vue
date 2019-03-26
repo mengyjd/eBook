@@ -1,9 +1,8 @@
 <template>
   <div class="shelf-search-wrapper"
-       :class="{'search-top': ifInputClicked, 'show-shadow': ifShowShadow && ifInputClicked}"
-  >
-    <transition name="fade">
-      <div class="shelf-search" :class="{'search-top': ifInputClicked}">
+       :class="{'search-top': ifInputClicked, 'show-shadow': ifShowShadow && ifInputClicked}">
+    <!--<transition name="fade">-->
+      <div class="shelf-search">
         <div class="search-wrapper">
           <div class="icon-wrapper">
             <span class="icon-search icon"></span>
@@ -12,6 +11,7 @@
             <input type="text" class="input" :placeholder="$t('shelf.search')"
                    @click="onInputClick"
                    v-model="searchText"
+                   @keyup.enter.exact="searchShelf"
             >
           </div>
           <div class="clear-search-text-wrapper"
@@ -33,19 +33,19 @@
         >{{$t('shelf.cancel')}}</span>
         </div>
       </div>
-    </transition>
+    <!--</transition>-->
     <transition name="title-move">
-      <div class="shelf-search-tab-wrapper"
-           v-show="ifInputClicked"
-      >
-        <div class="tab-item"
-             v-for="(tab, index) in tabs" :key="index"
-             :class="{'selected': tab.selected}"
-             @click="onClickTab(tab)"
-        >
-          <span class="tab-text">{{tab.text}}</span>
-        </div>
-      </div>
+      <!--<div class="shelf-search-tab-wrapper"-->
+           <!--v-show="ifInputClicked"-->
+      <!--&gt;-->
+        <!--<div class="tab-item"-->
+             <!--v-for="(tab, index) in tabs" :key="index"-->
+             <!--:class="{'selected': tab.selected}"-->
+             <!--@click="onClickTab(tab)"-->
+        <!--&gt;-->
+          <!--<span class="tab-text">{{tab.text}}</span>-->
+        <!--</div>-->
+      <!--</div>-->
     </transition>
   </div>
 </template>
@@ -111,7 +111,7 @@
       },
       onInputClick () {
         this.ifInputClicked = true
-        this.setShelfTitleVisible(false)
+        // this.setShelfTitleVisible(false)
       },
       onClickCancel () {
         this.ifInputClicked = false
@@ -122,6 +122,9 @@
       moveSearch () {
         this.setShelfTitleVisible(false)
         this.$refs.search.style.top = 0
+      },
+      searchShelf() {
+        // todo 搜索书架
       }
     }
   }
@@ -135,7 +138,7 @@
     width: 100%;
     height: px2rem(94);
     box-sizing: border-box;
-    font-size: px2rem(14);
+    font-size: 15px;
     background-color: #fff;
     z-index: 200;
     &.search-top {
@@ -183,7 +186,7 @@
 
             &::-webkit-input-placeholder {
               color: #ccc;
-              font-size: px2rem(14);
+              font-size: 14px;
             }
           }
         }
@@ -211,7 +214,7 @@
         box-sizing: border-box;
 
         .cancel-btn-text {
-          font-size: px2rem(14);
+          font-size: 14px;
           color: $color-blue;
         }
       }
@@ -227,7 +230,7 @@
       display: flex;
       justify-content: space-around;
       align-items: center;
-      font-size: px2rem(12);
+      font-size: 12px;
       color: #999;
 
       .tab-item {

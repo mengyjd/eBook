@@ -6,7 +6,7 @@
                   @onclickBtn="showBookCategory"
       ></title-view>
       <div class="category-books">
-        <div class="book-item"
+        <div class="book-item point"
              v-for="(book, index) in data.list" :key="index"
              @click="showBookDetail(book)"
         >

@@ -2,14 +2,14 @@
   <div class="title"
        :class="{'shadow': shadowVisible}"
   >
-    <div class="icon-wrapper" @click="back">
+    <div class="icon-wrapper point" @click="back">
       <span class="icon-back"></span>
     </div>
     <div class="text-wrapper">
       <span class="text">{{text}}</span>
     </div>
     <div class="icon-wrapper">
-      <span class="icon-shelf" @click="showShelf"></span>
+      <span class="icon-shelf point" @click="showShelf"></span>
     </div>
   </div>
 </template>

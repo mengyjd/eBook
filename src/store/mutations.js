@@ -10,5 +10,8 @@ export default {
   },
   SET_USERNAME: (state, username) => {
     state.username = username
+  },
+  SET_IS_FROM_SERVER: (state, isGetHomeFromServer) => {
+    state.isGetHomeFromServer = isGetHomeFromServer
   }
 }

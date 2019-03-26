@@ -94,25 +94,6 @@
     },
     created () {
       this.getListData()
-      // if (this.$route.query.categoryText) {
-      //   this.titleText = getTranslateCategoryText(this.$route.query.categoryText, this)
-      // }
-      // list().then(res => {
-      //   this.list = res.data.data
-      //   console.log(this.list)
-      //   const categoryText = this.$route.query.categoryText
-      //   const keywords = this.$route.query.keywords
-      //   if (categoryText) {
-      //     const data = this.list[categoryText]
-      //     this.list = {}
-      //     this.list[categoryText] = data
-      //   } else if (keywords) {
-      //     Object.keys(this.list).filter(key => {
-      //       this.list[key] = this.list[key].filter(book => book.fileName.indexOf(keywords) >= 0)
-      //       return this.list[key].length > 0
-      //     })
-      //   }
-      // })
     }
   }
 </script>

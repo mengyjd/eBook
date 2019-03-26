@@ -7,7 +7,7 @@
           使用手机打开本网站获取更好的体验
         </span>
         <img src="./assets/images/ebookWebSite.png" alt="">
-        <span class="close-btn icon-close"
+        <span class="close-btn point icon-close"
               @click="closeWarringPopup"></span>
       </div>
     </div>
@@ -16,6 +16,8 @@
 
 <script>
   import { checkLogin } from './api/account'
+  import { home } from './api/store'
+  import { saveHomeData } from './utils/localStorage'
 
   document.addEventListener('DOMContentLoaded', () => {
     const html = document.querySelector('html')
@@ -42,6 +44,21 @@
           if (cb) cb()
         })
       },
+      async getHomeDataFromServer () {
+        const { status, data } = await home()
+        if (status === 200 && data) {
+          // 如果数据获取成功
+          const homeData = {}
+          homeData.randomBook = data.random
+          homeData.bannerSrc = data.banner
+          homeData.guessYouLike = data.guessYouLike
+          homeData.hotRecommend = data.recommend
+          homeData.featured = data.featured
+          homeData.categoryList = data.categoryList
+          homeData.categories = data.categories
+          saveHomeData(homeData) // 将数据保存到本地
+        }
+      },
       // 判断用户是移动端还是pc端
       isPC () {
         const userAgentInfo = navigator.userAgent
@@ -64,6 +81,7 @@
     },
     created () {
       this.login()
+      // this.getHomeDataFromServer()
     },
     mounted () {
       this.warringPopupVisible = this.isPC()

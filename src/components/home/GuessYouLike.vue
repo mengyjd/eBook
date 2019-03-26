@@ -5,7 +5,7 @@
                 @onclickBtn="onclickChange"
     ></title-view>
     <div class="guess-you-like-book-wrapper">
-      <div class="you-like-book-item"
+      <div class="you-like-book-item point"
            v-for="(item, index) in data" :key="index"
            @click="showBookDetail(item)"
       >

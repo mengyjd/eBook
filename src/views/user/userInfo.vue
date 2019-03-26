@@ -47,7 +47,6 @@
         let allReadTime = 0
         const shelfList = removeShelfItemAdd(getBookShelf())
         const flattenShelf = flattenShelfList(shelfList)
-        console.log(flattenShelf)
         flattenShelf.forEach(book => {
           if (book.readTime) {
             allReadTime += parseInt(book.readTime)

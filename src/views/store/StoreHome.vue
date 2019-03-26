@@ -73,7 +73,7 @@
     },
     methods: {
       // 改变猜你喜欢的数据
-      changeYouLike() {
+      changeYouLike () {
         guessYouLikeList().then(result => {
           if (result.status === 200 && result.statusText === 'OK') {
             this.homeData.guessYouLike = result.data.guessYouLikeList
@@ -108,22 +108,32 @@
         }).then(() => {
           saveHomeData(this.homeData) // 将数据保存到本地
           this.scrollToRecent() // 首页数据加载完成后滚动到之前的位置
+          this.$store.commit('SET_IS_FROM_SERVER', false)
         })
       },
-      scrollToRecent() {
+      scrollToRecent () {
         this.$nextTick(() => {
           this.$refs.scroll.scrollTo(0, this.offsetY)
         })
       }
     },
     created () {
-      const homeData = getLocalHomeData() // 获取本地数据
-      if (!homeData) {
+      if (this.$store.state.isGetHomeFromServer) {
+        console.log('从网络获取')
         this.getHomeDataFromServer() // 如果本地数据不存在，则从网络获取
       } else {
-        this.homeData = homeData // 如果本地数据存在，将数据给vue对象
+        console.log('从本地获取')
+        this.homeData = getLocalHomeData()
         this.scrollToRecent()
       }
+      // const homeData = getLocalHomeData() // 获取本地数据
+      // console.log('从本地获取', homeData)
+      // if (!homeData) {
+      //   console.log('从网络获取')
+      // } else {
+      //   this.homeData = homeData // 如果本地数据存在，将数据给vue对象
+      //   this.scrollToRecent()
+      // }
     }
   }
 </script>
@@ -135,6 +145,15 @@
     width: 100%;
     height: 100%;
     background-color: #fff;
+  }
+
+  .loading {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: red;
   }
 
   .banner-wrapper {

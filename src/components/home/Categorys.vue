@@ -5,7 +5,7 @@
                 @onclickBtn="seeAll"
     ></title-view>
     <div class="category-list">
-      <div class="category-item"
+      <div class="category-item point"
            v-for="(book, index) in data" :key="index"
            @click="showCategoryBook(book.category)"
       >

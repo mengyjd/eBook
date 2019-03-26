@@ -5,19 +5,18 @@
     >
       <div class="left">
       <span class="icon-back"
-            @click="back"
-      ></span>
+            @click="back"></span>
       </div>
       <div class="right">
         <div class="icon-wrapper">
           <span class="icon-shelf" @click="showShelf"></span>
         </div>
-        <div class="icon-wrapper">
-          <span class="icon-cart"></span>
-        </div>
-        <div class="icon-wrapper">
-          <span class="icon-more"></span>
-        </div>
+        <!--<div class="icon-wrapper">-->
+          <!--<span class="icon-cart"></span>-->
+        <!--</div>-->
+        <!--<div class="icon-wrapper">-->
+          <!--<span class="icon-more"></span>-->
+        <!--</div>-->
       </div>
     </div>
   </transition>

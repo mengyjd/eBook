@@ -1,7 +1,7 @@
 <template>
   <div class="title-wrapper">
     <div class="title-text">{{titleText}}</div>
-    <div class="btn-text" @click="onclickBtn">{{btnText}}</div>
+    <div class="btn-text point" @click="onclickBtn">{{btnText}}</div>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="shelf-item"
+  <div class="shelf-item point"
        :class="{'shelf-item-shadow': book.type !== 3}"
        @click="onItemClick"
   >

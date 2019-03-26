@@ -32,7 +32,7 @@
         <div class="title-big">{{$t('detail.navigation')}}</div>
         <div class="loading-text" v-if="!menuList.length">{{$t('book.loading')}}</div>
         <div class="content">
-          <div class="menu-item"
+          <div class="menu-item point"
                v-for="(item, index) in menuList" :key="index"
           >
             <div class="text" @click="toBook(item)">{{item.label}}</div>
@@ -50,10 +50,10 @@
       </div>
     </scroll>
     <div class="tab-wrapper">
-      <span class="tab-btn"
+      <span class="tab-btn point"
             @click="showEbookRead">{{$t('detail.read')}}</span>
       <!--<span class="tab-btn">{{$t('detail.listen')}}</span>-->
-      <span class="tab-btn" @click="onAddOrRemoveFromShelf">{{addOrRemoveFromShelf}}</span>
+      <span class="tab-btn point" @click="onAddOrRemoveFromShelf">{{addOrRemoveFromShelf}}</span>
     </div>
   </div>
 </template>

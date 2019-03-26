@@ -64,8 +64,10 @@
 
       .title {
         font-size: px2rem(12);
+        line-height: 1.3;
         color: #999;
         height: px2rem(45);
+        text-align: center;
       }
 
       .popup-btn {
