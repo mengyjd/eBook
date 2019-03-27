@@ -57,7 +57,7 @@
             gotoShelf(this) // 跳转到书架页
           } else {
             // 登录失败,清除token
-            deToken()
+            deToken(this)
           }
           this.createSampleToast(data.msg)
         } else {
