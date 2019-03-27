@@ -119,10 +119,8 @@
     },
     created () {
       if (this.$store.state.isGetHomeFromServer) {
-        console.log('从网络获取')
         this.getHomeDataFromServer() // 如果本地数据不存在，则从网络获取
       } else {
-        console.log('从本地获取')
         this.homeData = getLocalHomeData()
         this.scrollToRecent()
       }

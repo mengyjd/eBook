@@ -20,8 +20,10 @@
   import DetailTitle from '../../components/detail/DetailTitle'
   import Scroll from '../../components/common/Scroll'
   import { getTranslateCategoryText } from '../../utils/store'
+  import { storeShelfMixin } from '../../utils/mixin'
 
   export default {
+    mixins: [storeShelfMixin],
     components: {
       Scroll,
       Featured,
@@ -44,6 +46,7 @@
           case 'categoryRecommend':
           case 'keywords':
           case 'categoryBooks':
+          case 'searchShelf':
             num = this.list.length
             break
           case 'allCategoryBooks':
@@ -63,6 +66,12 @@
         return this.$t('home.allBook').replace('$1', this.totalNum)
       },
       getListData() {
+        // 如果是搜索书架中的图书，则使用vuex中的数据
+        if (this.$route.query.type === 'searchShelf') {
+          this.isShowCategoryTitle = false
+          this.list = this.searchShelfList
+          return
+        }
         list({
           type: this.$route.query.type,
           value: this.$route.query.value

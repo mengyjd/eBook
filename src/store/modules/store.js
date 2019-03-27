@@ -7,9 +7,13 @@ const store = {
     shelfSelected: [], // 书架选中的图书列表
     shelfTitleVisible: true,
     currentType: 1, // 1:书架页面, 2:分组页面,
-    shelfGroup: null // 书架分组页面的数据
+    shelfGroup: null, // 书架分组页面的数据,
+    searchShelfList: [] // 在书架中搜索的结果列表
   },
   mutations: {
+    'SET_SEARCH_SHELF_LIST': (state, searchShelfList) => {
+      state.searchShelfList = searchShelfList
+    },
     'SET_SHELF_GROUP': (state, shelfGroup) => {
       state.shelfGroup = shelfGroup
     },

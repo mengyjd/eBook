@@ -154,7 +154,8 @@ export const storeShelfMixin = {
       'shelfSelected',
       'shelfTitleVisible',
       'currentType',
-      'shelfGroup'
+      'shelfGroup',
+      'searchShelfList'
     ])
   },
   methods: {
@@ -164,7 +165,8 @@ export const storeShelfMixin = {
       'setShelfSelected',
       'setShelfTitleVisible',
       'setCurrentType',
-      'setShelfGroup'
+      'setShelfGroup',
+      'setSearchShelfList'
     ]),
     // 获取书架页面数据
     async getShelfList () {

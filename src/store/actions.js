@@ -79,6 +79,9 @@ const actions = {
   },
   setShelfGroup: ({ commit }, shelfGroup) => {
     return commit('SET_SHELF_GROUP', shelfGroup)
+  },
+  setSearchShelfList: ({ commit }, searchShelfList) => {
+    return commit('SET_SEARCH_SHELF_LIST', searchShelfList)
   }
 }
 

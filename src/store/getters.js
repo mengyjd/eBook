@@ -25,7 +25,8 @@ const book = {
   shelfSelected: state => state.store.shelfSelected,
   shelfTitleVisible: state => state.store.shelfTitleVisible,
   currentType: state => state.store.currentType,
-  shelfGroup: state => state.store.shelfGroup
+  shelfGroup: state => state.store.shelfGroup,
+  searchShelfList: state => state.store.searchShelfList
 }
 
 export default book

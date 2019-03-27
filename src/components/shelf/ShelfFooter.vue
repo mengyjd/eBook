@@ -19,7 +19,7 @@
 <script>
   import { storeShelfMixin } from '../../utils/mixin'
   import { saveBookShelf } from '../../utils/localStorage'
-  import { download, test } from '../../api/store'
+  import { download } from '../../api/store'
 
   export default {
     mixins: [storeShelfMixin],

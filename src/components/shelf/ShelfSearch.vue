@@ -53,6 +53,9 @@
 <script>
   import { setLocalStorage } from '../../utils/localStorage'
   import { storeShelfMixin } from '../../utils/mixin'
+  import { removeShelfItemAdd } from '../../utils/store'
+  import { flattenShelfList } from '../../utils/utils'
+  import { gotoList } from '../../utils/routerSkip'
 
   export default {
     mixins: [storeShelfMixin],
@@ -123,8 +126,16 @@
         this.setShelfTitleVisible(false)
         this.$refs.search.style.top = 0
       },
+      // 搜索书架
       searchShelf() {
-        // todo 搜索书架
+        const shelfList = flattenShelfList(removeShelfItemAdd(this.shelfList))
+        const searchList = shelfList.filter(book => {
+          return book.title.toLowerCase().indexOf(this.searchText.toLowerCase()) !== -1
+        })
+        this.setSearchShelfList(searchList)
+        gotoList(this, {
+          type: 'searchShelf'
+        })
       }
     }
   }
