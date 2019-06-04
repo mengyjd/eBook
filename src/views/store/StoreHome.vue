@@ -4,7 +4,6 @@
     <flap-card :randomBook="homeData.randomBook"></flap-card>
     <scroll @onScroll="onScroll"
             :top="scrollTop"
-            class="test"
             ref="scroll">
       <div class="banner-wrapper">
         <div class="banner-img" :style="{backgroundImage: `url(${homeData.bannerSrc})`}"></div>

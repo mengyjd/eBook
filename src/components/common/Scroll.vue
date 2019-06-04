@@ -26,6 +26,14 @@
         default: false
       }
     },
+    watch: {
+      top() {
+        this.refresh()
+      },
+      bottom() {
+        this.refresh()
+      }
+    },
     methods: {
       handleScroll(e) {
         const offsetY = e.target.scrollTop || window.pageYOffset || document.body.scrollTop
@@ -37,6 +45,8 @@
       refresh() {
         if (this.$refs.scrollWrapper) {
           this.$refs.scrollWrapper.style.height = window.innerHeight - realPx(this.top) - realPx(this.bottom) + 'px'
+          console.log(this.$refs.scrollWrapper.style.height, window.innerHeight, this.top, this.bottom)
+          console.log(realPx(this.top), realPx(this.bottom))
           this.$refs.scrollWrapper.addEventListener('scroll', this.handleScroll)
         }
       }
