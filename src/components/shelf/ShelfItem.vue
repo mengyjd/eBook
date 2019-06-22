@@ -1,8 +1,6 @@
 <template>
-  <div class="shelf-item point"
-       :class="{'shelf-item-shadow': book.type !== 3}"
-       @click="onItemClick"
-  >
+  <div class="shelf-item point shelf-item-shadow"
+       @click="onItemClick">
     <component :is="temp"
                :data="book"
                :class="{opacity: book.type === 2 && isEditModel}"

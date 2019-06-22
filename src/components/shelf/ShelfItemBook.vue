@@ -1,6 +1,6 @@
 <template>
   <div class="shelf-item-book" ref="itemBook">
-    <img :src="data.cover" class="cover">
+    <img :src="data.cover" class="cover responsive-book-box">
     <div class="book-name">{{ data.title }}</div>
     <transition name="fade">
       <div class="icon-private-wrapper" v-show="data.private">
@@ -21,18 +21,16 @@
 
 <style lang="scss" scoped>
   @import "../../assets/styles/global";
+  @import "../../assets/styles/responsive";
 
   .shelf-item-book {
     position: relative;
-    width: 100%;
     height: 100%;
 
-    .cover {
-      width: 100%;
-      height: 100%;
-    }
-
     .book-name {
+      line-height: 15px;
+      font-size: 13px;
+      font-weight: bold;
       @include ellipsis2(2, break-all)
     }
 
@@ -55,5 +53,9 @@
       color: #fff;
       font-size: px2rem(12);
     }
+  }
+
+  .shelf-item-shadow {
+    box-shadow: px2rem(2) px2rem(2) px2rem(6) px2rem(2) rgba(200, 200, 200, .4);
   }
 </style>

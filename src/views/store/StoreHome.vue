@@ -12,12 +12,12 @@
       <guess-you-like :data="homeData.guessYouLike"
                       @changeYouLike="changeYouLike"></guess-you-like>
       <!--热门推荐-->
-      <hot-recommend class="block" :data="homeData.hotRecommend"></hot-recommend>
+      <hot-recommend :data="homeData.hotRecommend"></hot-recommend>
       <!--精选-->
-      <featured class="block"
-                :data="homeData.featured"
-                :titleText="$t('home.featured')"
-                :btn-text="$t('home.seeAll')"
+      <featured
+        :data="homeData.featured"
+        :titleText="$t('home.featured')"
+        :btn-text="$t('home.seeAll')"
       ></featured>
       <!--分类推荐-->
       <div class="block"

@@ -74,20 +74,8 @@
       box-sizing: border-box;
 
       .category-item {
-        width: 50%;
-        padding-bottom: px2rem(10);
+        padding: px2rem(10);
         box-sizing: border-box;
-
-        &:nth-child(even) {
-          padding-right: px2rem(10);
-          padding-left: px2rem(5);
-        }
-
-        &:nth-child(odd) {
-          padding-left: px2rem(10);
-          padding-right: px2rem(5);
-        }
-
         .item-wrapper {
           height: px2rem(100);
           background-color: #eeeeee;
@@ -135,6 +123,26 @@
           }
         }
       }
+    }
+  }
+
+  /* Extra small devices (phones, 400px and down) */
+  @media only screen and (max-width: 400px) {
+    .category-item {
+      width: 100%;
+    }
+  }
+
+  /* Extra small devices (phones, 400px and up) */
+  @media only screen and (min-width: 400px) {
+    .category-item {
+      width: 50%;
+    }
+  }
+
+  @media only screen and (min-width: 992px) {
+    .category-item {
+      width: 32%;
     }
   }
 </style>

@@ -5,9 +5,12 @@
       tag="div"
       id="shelf-list">
       <div v-for="item in data" :key="item.id"
-           class="shelf-list-item-wrapper">
-        <shelf-item :book="item" :style="{ height: shelfHeight }"></shelf-item>
+           class="shelf-list-item-wrapper responsive-book-box">
+        <shelf-item :book="item"></shelf-item>
       </div>
+      <div class="shelf-list-item-wrapper responsive-book-box empty"
+           v-for="(item, index) in emptyDiv"
+           :key="index"></div>
     </transition-group>
   </div>
 </template>
@@ -21,11 +24,16 @@
     props: {
       data: Array
     },
-    computed: {
-      shelfHeight () {
-        return ((window.innerWidth - 110) / 3) / (250 / 350) + 'px'
+    data () {
+      return {
+        emptyDiv: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
       }
     },
+    // computed: {
+    //   shelfHeight () {
+    //     return ((window.innerWidth - 110) / 3) / (250 / 350) + 'px'
+    //   }
+    // },
     components: {
       ShelfItem
     }
@@ -34,29 +42,30 @@
 
 <style lang="scss" scoped>
   @import "../../assets/styles/global";
+  @import "../../assets/styles/responsive";
 
   .shelf-list {
     width: 100%;
-    padding: 0 px2rem(10);
+    padding: 0 15px;
     box-sizing: border-box;
 
     #shelf-list {
       display: flex;
       flex-wrap: wrap;
+      justify-content: space-around;
 
       .shelf-list-item-wrapper {
-        width: 33.33%;
-        font-size: px2rem(13);
-        font-weight: bold;
-        line-height: px2rem(16);
-        margin-bottom: px2rem(25);
-        padding: px2rem(15);
-        box-sizing: border-box;
+        padding: 10px 10px 40px 10px;
         transition: all .5s;
+
         &.list-leave-active {
           display: none;
         }
       }
     }
+  }
+
+  .empty {
+    height: 0;
   }
 </style>

@@ -45,8 +45,6 @@
       refresh() {
         if (this.$refs.scrollWrapper) {
           this.$refs.scrollWrapper.style.height = window.innerHeight - realPx(this.top) - realPx(this.bottom) + 'px'
-          console.log(this.$refs.scrollWrapper.style.height, window.innerHeight, this.top, this.bottom)
-          console.log(realPx(this.top), realPx(this.bottom))
           this.$refs.scrollWrapper.addEventListener('scroll', this.handleScroll)
         }
       }

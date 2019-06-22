@@ -1,5 +1,5 @@
 <template>
-  <div class="shelf-item-add">
+  <div class="shelf-item-add responsive-book-box">
     <span class="icon-add"></span>
   </div>
 </template>
@@ -10,10 +10,9 @@
 
 <style lang="scss" scoped>
   @import "../../assets/styles/global";
+  @import "../../assets/styles/responsive";
 
   .shelf-item-add {
-    width: 100%;
-    height: 100%;
     border: 1px solid #ccc;
     box-sizing: border-box;
     @include center;

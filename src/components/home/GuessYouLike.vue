@@ -74,8 +74,6 @@
     box-sizing: border-box;
 
     .book-img-wrapper {
-      flex: 0 0 20%;
-
       .img {
         width: px2rem(70);
       }

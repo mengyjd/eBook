@@ -6,11 +6,11 @@
       <input type="text"
              class="user-info"
              v-model="loginInfo.username"
-             :placeholder="$t('login.inputAccount')">
+             placeholder="tom">
       <input type="password"
              class="user-info"
              v-model="loginInfo.password"
-             :placeholder="$t('login.inputPassword')">
+             placeholder="123">
       <div class="btn" @click="handleLogin">{{ $t('login.SignIn') }}</div>
     </login>
   </div>

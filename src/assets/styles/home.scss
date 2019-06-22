@@ -11,13 +11,14 @@
   color: #000;
 }
 .title-medium {
-  font-size: px2rem(16);
+  font-size: 14px;
   @include ellipsis();
   color: #444;
 }
 
 .title-small {
-  font-size: px2rem(12);
+  font-size: 12px;
+  line-height: 14px;
   @include ellipsis();
   color: #999;
 }

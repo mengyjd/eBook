@@ -5,8 +5,8 @@
                   :btn-text="$t('home.seeAll')"
                   @onclickBtn="showBookCategory"
       ></title-view>
-      <div class="category-books">
-        <div class="book-item point"
+      <div class="category-books wrapper-height">
+        <div class="book-item point responsive-book-box"
              v-for="(book, index) in data.list" :key="index"
              @click="showBookDetail(book)"
         >
@@ -51,24 +51,27 @@
 <style lang="scss" scoped>
   @import "../../assets/styles/global";
   @import "../../assets/styles/home";
+  @import "../../assets/styles/responsive";
 
   .category-book-wrapper {
     margin-top: px2rem(-10);
 
     .category-book {
       .category-books {
+        width: 100%;
         padding: 0 px2rem(10);
         box-sizing: border-box;
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
+        overflow: hidden;
       }
     }
   }
 
   .book-item {
-    margin-bottom: px2rem(10);
     text-align: center;
-    width: 22%;
+    margin: 0 px2rem(10) px2rem(40) px2rem(10);
 
     .book-img-wrapper {
       width: 100%;

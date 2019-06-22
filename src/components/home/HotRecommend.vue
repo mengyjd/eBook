@@ -5,8 +5,8 @@
                   :btn-text="$t('home.seeAll')"
                   @onclickBtn="onclickSeeAll"
       ></title-view>
-      <div class="recommend-books">
-        <div class="book-item point"
+      <div class="recommend-books wrapper-height">
+        <div class="book-item point responsive-book-box"
              v-for="(book, index) in data" :key="index"
              @click="showBookDetail(book)"
         >
@@ -55,19 +55,23 @@
 <style lang="scss" scoped>
   @import "../../assets/styles/global";
   @import "../../assets/styles/home";
+  @import "../../assets/styles/responsive";
 
   .recommend-book-wrapper {
     .recommend-books {
+      width: 100%;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
-      padding: 0 px2rem(20);
+      padding: 0 px2rem(5);
       box-sizing: border-box;
+      overflow: hidden;
     }
   }
 
   .book-item {
     text-align: center;
-    width: 28%;
+    margin: 0 px2rem(10) px2rem(40) px2rem(10);
 
     .book-img-wrapper {
       width: 100%;

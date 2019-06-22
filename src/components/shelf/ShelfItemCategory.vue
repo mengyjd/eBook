@@ -28,15 +28,15 @@
     width: 100%;
     height: 100%;
     position: relative;
+    font-size: 0;
     .books {
       width: 100%;
       height: 100%;
-      padding: 5px 2px;
       box-sizing: border-box;
       overflow: hidden;
       img {
         width: 33.3%;
-        padding: 0 2px;
+        padding: 3px 2px;
         box-sizing: border-box;
       }
     }

@@ -1,16 +1,6 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <div class="two-dimension-code-wrapper" v-if="warringPopupVisible">
-      <div class="two-dimension-code">
-        <span class="warring-text">
-          使用手机打开本网站获取更好的体验
-        </span>
-        <img src="./assets/images/ebookWebSite.png" alt="">
-        <span class="close-btn point icon-close"
-              @click="closeWarringPopup"></span>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -58,33 +48,11 @@
           homeData.categories = data.categories
           saveHomeData(homeData) // 将数据保存到本地
         }
-      },
-      // 判断用户是移动端还是pc端
-      isPC () {
-        const userAgentInfo = navigator.userAgent
-        const Agents = [
-          'Android', 'iPhone',
-          'SymbianOS', 'Windows Phone',
-          'iPad', 'iPod']
-        let flag = true
-        for (let v = 0; v < Agents.length; v++) {
-          if (userAgentInfo.indexOf(Agents[v]) > 0) {
-            flag = false
-            break
-          }
-        }
-        return flag
-      },
-      closeWarringPopup () {
-        this.warringPopupVisible = false
       }
     },
     created () {
       this.login()
       // this.getHomeDataFromServer()
-    },
-    mounted () {
-      this.warringPopupVisible = this.isPC()
     }
   }
 </script>
