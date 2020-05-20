@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "analyzer": "use_analyzer=true npm run build"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -30,6 +31,7 @@
     "mockjs": "^1.0.1-beta3",
     "node-sass": "^4.10.0",
     "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.5.17"
+    "vue-template-compiler": "^2.5.17",
+    "webpack-bundle-analyzer": "^3.6.0"
   }
 }

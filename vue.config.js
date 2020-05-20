@@ -1,4 +1,9 @@
 module.exports = {
+  chainWebpack: config => {
+    config
+      .plugin('webpack-bundle-analyzer')
+      .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+  },
   publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
   devServer: {
     port: 8091
