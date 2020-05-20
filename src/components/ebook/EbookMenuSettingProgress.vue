@@ -4,7 +4,7 @@
          v-show="titleAndMenuVisible && menuSettingVisible === 2"
     >
       <span class="read-time">{{ getReadTimeText() }}</span>
-      <div class="read-progress-wrapper">
+      <div class="read-progress-wrapper point">
         <span class="icon-back"
               @click="prevSection"
         ></span>

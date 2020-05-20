@@ -4,12 +4,12 @@
          v-show="titleAndMenuVisible"
     >
       <div class="left">
-      <span class="icon-back"
+      <span class="icon-back point"
             @click="back"></span>
       </div>
       <div class="right">
         <div class="icon-wrapper">
-          <span class="icon-shelf" @click="showShelf"></span>
+          <span class="icon-shelf point" @click="showShelf"></span>
         </div>
         <!--<div class="icon-wrapper">-->
           <!--<span class="icon-cart"></span>-->

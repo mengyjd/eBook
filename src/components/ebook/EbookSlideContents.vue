@@ -52,7 +52,7 @@
             ref="scroll"
             v-show="!searchVisible"
     >
-      <div class="slide-content-list-item"
+      <div class="slide-content-list-item point"
            :class="{selected: section === index}"
            v-for="(item, index) in navigation"
            :key="index"

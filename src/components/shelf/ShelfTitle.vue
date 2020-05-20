@@ -10,11 +10,11 @@
       </div>
       <!--左侧'个人中心'和'返回'按钮-->
       <div class="shelf-title-btn-wrapper shelf-title-left">
-        <span class="shelf-title-btn-text icon-person2"
+        <span class="shelf-title-btn-text point icon-person2"
               :class="isLogged ? 'login' : 'login-out'"
               v-show="userInfoVisible"
               @click="showUserInfo"></span>
-        <span class="icon-back shelf-title-btn-text"
+        <span class="icon-back point shelf-title-btn-text"
               v-show="backBtnVisible"
               @click="back"></span>
       </div>
@@ -22,7 +22,7 @@
       <div class="shelf-title-btn-wrapper shelf-title-right"
            v-show="editBtnVisible"
            @click="onClickEdit">
-        <span class="shelf-title-btn-text">{{ rightText }}</span>
+        <span class="shelf-title-btn-text point">{{ rightText }}</span>
       </div>
       <!--'修改分组'按钮,分组中无图书时在右侧,有图书时在左侧-->
       <div class="shelf-title-btn-wrapper"

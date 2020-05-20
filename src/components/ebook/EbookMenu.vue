@@ -7,21 +7,21 @@
            v-show="titleAndMenuVisible"
       >
         <div class="icon-wrapper">
-        <span class="icon-menu"
+        <span class="icon-menu point"
               @click="showSetting(1)"
         ></span>
         </div>
         <div class="icon-wrapper">
-        <span class="icon-progress"
+        <span class="icon-progress point"
               @click="showSetting(2)"
         ></span>
         </div>
         <div class="icon-wrapper">
-        <span class="icon-bright"
+        <span class="icon-bright point"
               @click="showSetting(3)"
         ></span>
         </div>
-        <div class="icon-wrapper">
+        <div class="icon-wrapper point">
         <span class="icon-A"
               @click="showSetting(4)"
         ></span>

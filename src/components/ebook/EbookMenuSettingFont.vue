@@ -34,7 +34,7 @@
       </div>
 
       <div class="setting-font-family">
-        <div class="setting-font-family-wrapper"
+        <div class="setting-font-family-wrapper point"
              @click="showFontFamilyPopup"
         >
           <span class="setting-font-family-text">{{ defaultFontFamily }}</span>

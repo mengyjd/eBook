@@ -20,7 +20,7 @@
             <span class="icon-close-circle-fill icon"></span>
           </div>
         </div>
-        <div class="icon-local-wrapper"
+        <div class="icon-local-wrapper point"
              v-if="!ifInputClicked"
              @click="switchLang"
         >

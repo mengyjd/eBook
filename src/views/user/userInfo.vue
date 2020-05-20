@@ -1,6 +1,6 @@
 <template>
   <div class="user-info">
-    <span class="icon-back_cycle" @click="showBack"></span>
+    <span class="icon-back_cycle point" @click="showBack"></span>
     <div class="username">{{ decodeURIComponent($store.state.username) }}</div>
     <div class="content">
       <div class="info">累计阅读{{ userInfo.allReadTime }}分钟</div>
@@ -11,7 +11,7 @@
          @touchstart="ontouchstart"
          @touchend="ontouchend"
          ref="footer">
-      <div class="login-out"
+      <div class="login-out point"
            @click="loginOut">{{ $t('login.loginOut') }}</div>
     </div>
   </div>
