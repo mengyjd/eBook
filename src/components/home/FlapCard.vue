@@ -253,7 +253,7 @@
       },
       // 显示图书详情
       showDetail (randomBook) {
-        this.gotoDetail(randomBook)
+        this.showBookDetail(randomBook)
         this.closeFlapCard()
       }
     }
