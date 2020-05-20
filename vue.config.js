@@ -10,7 +10,6 @@ module.exports = {
   devServer: {
     port: 8091
   },
-  productionSourceMap: isDev ? true : false,
   configureWebpack: {
     performance: {
       hints: 'warning',
