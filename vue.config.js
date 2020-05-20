@@ -1,3 +1,5 @@
+let isDev = process.env.NODE_ENV === 'production' ? false : true
+
 module.exports = {
   chainWebpack: config => {
     config
@@ -8,6 +10,7 @@ module.exports = {
   devServer: {
     port: 8091
   },
+  productionSourceMap: isDev ? true : false,
   configureWebpack: {
     performance: {
       hints: 'warning',
