@@ -3,7 +3,6 @@ import { syncSettings, syncShelf } from '../api/user'
 import { appendShelfItemAdd, mapShelfList, removeShelfItemAdd } from './store'
 import { flattenShelfList, spreadShelfList } from './utils'
 import store from '../store/index'
-
 const localStorage = new Storage()
 
 export function setLocalStorage (key, value) {

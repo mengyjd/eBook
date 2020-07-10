@@ -9,6 +9,9 @@ import './assets/styles/global.scss'
 import './utils/boots'
 import './utils/create-api'
 import { getToken } from './utils/localStorage'
+import VueLazyload from 'vue-lazyload'
+
+Vue.use(VueLazyload)
 
 Axios.defaults.headers.common['Authentication-Token'] = store.state.token
 
