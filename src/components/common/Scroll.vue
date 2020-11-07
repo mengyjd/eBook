@@ -9,8 +9,7 @@
 </template>
 
 <script>
-  import { realPx } from '../../utils/utils'
-  import { debounce } from "../../utils/utils";
+  import { realPx, debounce } from '../../utils/utils'
 
   export default {
     props: {
