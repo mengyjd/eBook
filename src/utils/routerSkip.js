@@ -17,6 +17,10 @@ export function gotoDetail (book, vue) {
       fileName: book.fileName,
       categoryText: book.categoryText
     }
+  }).then((router) => {
+    console.log('complete', router)
+  }).catch((err) => {
+    console.log('err', err)
   })
 }
 

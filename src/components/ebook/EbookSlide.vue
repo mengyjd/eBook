@@ -14,11 +14,11 @@
               <component :is="currentTab === 1 ? content : bookmark"></component>
             </div>
             <div class="content-page-tab">
-              <div class="content-page-tab-item"
+              <div class="content-page-tab-item point"
                    :class="{'selected': currentTab === 1}"
                    @click="selectTab(1)"
               >{{$t('book.navigation')}}</div>
-              <div class="content-page-tab-item"
+              <div class="content-page-tab-item point"
                    :class="{'selected': currentTab === 2}"
                    @click="selectTab(2)"
               >{{$t('book.bookmark')}}</div>

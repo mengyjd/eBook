@@ -5,7 +5,7 @@
     >
 
       <div class="ebook-popup-title">
-        <div class="ebook-popup-title-icon"
+        <div class="ebook-popup-title-icon point"
              @click="hideFontFamily"
         >
           <span class="icon-down2"></span>
@@ -14,7 +14,7 @@
       </div>
 
       <div class="ebook-popup-list-wrapper">
-        <div class="ebook-popup-item"
+        <div class="ebook-popup-item point"
              v-for="(item, index) in fontFamilyList"
              :key="index"
              :class="{ selected: isSelected(item) }"

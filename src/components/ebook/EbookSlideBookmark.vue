@@ -8,7 +8,7 @@
               :top="48"
               :bottom="48"
       >
-        <div class="bookmark-item"
+        <div class="bookmark-item point"
              v-for="(bookmark, index) in bookmarks"
              :key="index"
              @click="displayBookmark(bookmark.cfi)"

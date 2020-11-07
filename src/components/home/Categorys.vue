@@ -16,8 +16,8 @@
           </div>
           <div class="img-wrapper">
             <div class="img-group">
-              <img class="img-front" :src="book.img1" alt="">
-              <img class="img-back" :src="book.img2" alt="">
+              <img class="img-front" v-lazy="book.img1" alt="">
+              <img class="img-back" v-lazy="book.img2" alt="">
             </div>
           </div>
         </div>

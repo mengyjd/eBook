@@ -3,7 +3,7 @@
     <div class="setting-theme-wrapper"
          v-show="titleAndMenuVisible && menuSettingVisible === 3"
     >
-      <div class="setting-theme-item"
+      <div class="setting-theme-item point"
            v-for="(item, index) in themeList"
            :key="index"
            @click="setTheme(index)"

@@ -2,7 +2,7 @@
   <div class="hot-search">
     <div class="title">
       <span class="label">{{label}}</span>
-      <span class="btn" @click="onClickBtn">{{btnText}}</span>
+      <span class="btn point" @click="onClickBtn">{{btnText}}</span>
     </div>
     <div class="content-wrapper">
       <div class="search-content"
