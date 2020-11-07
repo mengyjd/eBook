@@ -9,12 +9,6 @@
   import { home } from './api/store'
   import { saveHomeData } from './utils/localStorage'
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const html = document.querySelector('html')
-    let fontSize = window.innerWidth / 10
-    fontSize = fontSize > 50 ? 50 : fontSize
-    html.style.fontSize = fontSize + 'px'
-  })
   export default {
     data () {
       return {
@@ -48,11 +42,26 @@
           homeData.categories = data.categories
           saveHomeData(homeData) // 将数据保存到本地
         }
+      },
+      initRem() {
+        const html = document.querySelector('html')
+        let fontSize = window.innerWidth / 10
+        fontSize = fontSize > 50 ? 50 : fontSize
+        html.style.fontSize = fontSize + 'px'
       }
     },
     created () {
       this.login()
+      document.addEventListener('DOMContentLoaded', () => {
+        this.initRem()
+      })
+      window.addEventListener('resize', () => {
+        this.initRem()
+      })
       // this.getHomeDataFromServer()
+    },
+    mounted() {
+
     }
   }
 </script>

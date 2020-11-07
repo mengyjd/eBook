@@ -10,6 +10,7 @@
 
 <script>
   import { realPx } from '../../utils/utils'
+  import { debounce } from "../../utils/utils";
 
   export default {
     props: {
@@ -51,6 +52,9 @@
     },
     mounted() {
       this.refresh()
+      window.addEventListener('resize', debounce(() => {
+        this.refresh()
+      }, 100))
     }
   }
 </script>
