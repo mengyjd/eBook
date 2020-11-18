@@ -61,17 +61,22 @@
     .recommend-books {
       width: 100%;
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       justify-content: space-between;
-      padding: 0 px2rem(5);
+      padding: 0 px2rem(10);
       box-sizing: border-box;
-      overflow: hidden;
+      overflow-y: hidden;
+      overflow-x: scroll;
+      @include hiddenScrollbar;
     }
   }
 
   .book-item {
     text-align: center;
-    margin: 0 px2rem(10) px2rem(40) px2rem(10);
+    margin: 0 10px 40px 10px;
+    &:first-child {
+      margin-left: 0;
+    }
 
     .book-img-wrapper {
       width: 100%;

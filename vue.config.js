@@ -1,6 +1,7 @@
 let isDev = process.env.NODE_ENV === 'production' ? false : true
 
 module.exports = {
+  productionSourceMap: false,
   chainWebpack: config => {
     config
       .plugin('webpack-bundle-analyzer')

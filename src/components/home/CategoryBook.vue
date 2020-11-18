@@ -14,8 +14,8 @@
             <img class="img" v-lazy="book.cover" alt="">
           </div>
           <div class="book-content">
-            <div class="book-info title-medium">{{book.title}}</div>
-            <div class="book-info title-small">{{book.author}}</div>
+            <p class="book-info title-medium">{{book.title}}</p>
+            <p class="book-info title-small">{{book.author}}</p>
           </div>
         </div>
       </div>
@@ -57,31 +57,42 @@
     margin-top: px2rem(-10);
 
     .category-book {
+      padding: 0 px2rem(10);
       .category-books {
+        overflow-y: hidden;
+        overflow-x: scroll;
+        @include hiddenScrollbar;
         width: 100%;
-        padding: 0 px2rem(10);
         box-sizing: border-box;
         display: flex;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         justify-content: space-between;
-        overflow: hidden;
       }
     }
   }
 
   .book-item {
     text-align: center;
-    margin: 0 px2rem(10) px2rem(40) px2rem(10);
+    margin: 0 10px;
+    height: 160px;
+    &:first-child {
+      margin-left: 0;
+    }
 
     .book-img-wrapper {
       width: 100%;
+      height: 125px;
 
       .img {
         width: 100%;
+        height: 100%;
       }
     }
 
     .book-content {
+      .book-info {
+        line-height: 18px;
+      }
       .title-medium {
         font-weight: bold;
       }

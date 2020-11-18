@@ -59,9 +59,6 @@
         this.initRem()
       })
       // this.getHomeDataFromServer()
-    },
-    mounted() {
-
     }
   }
 </script>

@@ -9,8 +9,7 @@
         <shelf-item :book="item"></shelf-item>
       </div>
       <div class="shelf-list-item-wrapper responsive-book-box empty"
-           v-for="(item, index) in emptyDiv"
-           :key="index"></div>
+           v-for="n in 9" :key="'empty' + n"/>
     </transition-group>
   </div>
 </template>
@@ -23,11 +22,6 @@
     mixins: [storeShelfMixin],
     props: {
       data: Array
-    },
-    data () {
-      return {
-        emptyDiv: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-      }
     },
     // computed: {
     //   shelfHeight () {

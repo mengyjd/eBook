@@ -6,7 +6,7 @@
     ></title-view>
     <div class="category-list">
       <div class="category-item point"
-           v-for="(book, index) in data" :key="index"
+           v-for="book in data" :key="book.img1"
            @click="showCategoryBook(book.category)"
       >
         <div class="item-wrapper">
@@ -22,6 +22,7 @@
           </div>
         </div>
       </div>
+      <div class="category-item empty" v-for="n in 3" :key="'empty' + n"></div>
     </div>
   </div>
 </template>
@@ -122,6 +123,11 @@
             }
           }
         }
+      }
+      .empty {
+        height: 0;
+        padding: 0;
+        margin: 0
       }
     }
   }
