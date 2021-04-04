@@ -27,12 +27,6 @@
       tabs () {
         return [
           {
-            index: 1,
-            label: this.$t('shelf.private'),
-            label2: this.$t('shelf.noPrivate'),
-            icon: 'icon-private',
-            icon2: 'icon-private-see'
-          }, {
             index: 2,
             label: this.$t('shelf.download'),
             label2: this.$t('shelf.delete'),
@@ -226,7 +220,8 @@
               .then(book => {
                 book.cache = true // 下载成功时将cache改为true
                 saveBookShelf(this.shelfList) // 更新书籍状态
-              }).catch(() => {
+              }).catch((e) => {
+                console.log('下载电子书出错', e)
                 // 当下载出错时弹出提示
                 this.createSampleToast(this.$t('shelf.setDownloadError'))
               })
@@ -281,7 +276,7 @@
       display: flex;
 
       .shelf-footer-tab {
-        width: 25%;
+        width: 33%;
         height: 100%;
         @include columnCenter;
         opacity: .5;

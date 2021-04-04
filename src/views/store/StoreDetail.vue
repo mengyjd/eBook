@@ -27,27 +27,6 @@
           </div>
         </div>
       </div>
-      <!--目录-->
-      <div class="menu-wrapper">
-        <div class="title-big">{{$t('detail.navigation')}}</div>
-        <div class="loading-text" v-if="!menuList.length">{{$t('book.loading')}}</div>
-        <div class="content">
-          <div class="menu-item point"
-               v-for="(item, index) in menuList" :key="index"
-          >
-            <div class="text" @click="toBook(item)">{{item.label}}</div>
-          </div>
-        </div>
-      </div>
-      <!--试读-->
-      <div class="preview-wrapper">
-        <div class="title-big preview-title">{{$t('detail.trial')}}</div>
-        <div class="loading-text preview-loading" v-if="!menuList.length">{{$t('book.loading')}}</div>
-        <div class="preview"
-             id="preview"
-             ref="preview"
-        ></div>
-      </div>
     </scroll>
     <div class="tab-wrapper">
       <span class="tab-btn point"
@@ -117,62 +96,11 @@
             if (res.status === 200 && res.data.error_code === 0 && res.data.data) {
               const data = res.data.data
               this.data = data
-              let rootFile = data.rootFile
-              if (rootFile.startsWith('/')) {
-                rootFile = rootFile.substring(1, rootFile.length)
-              }
-              this.opf = `${process.env.VUE_APP_EPUB_OPF_URL}/${data.categoryText}/${fileName}/${rootFile}`
-              this.parseBook(this.opf)
             } else {
               this.createSampleToast(res.data.msg)
             }
           })
         }
-      },
-      parseBook (blob) {
-        this.book = new Epub(blob)
-        this.book.loaded.metadata.then(metadata => {
-          this.metadata = metadata
-        })
-        this.book.loaded.navigation.then(nav => {
-          this.navigation = nav
-          this.menuList = nav.toc
-          if (this.navigation.toc && this.navigation.toc.length > 1) {
-            this.display(this.navigation.toc[1].href)
-              // .then(section => {
-              //   const reg = new RegExp('<.+?>', 'g')
-              //   const text = section.output.replace(reg, '').replace(/\s\s/g, '')
-              //   this.desc = text.substring(0, 100)
-              // })
-          }
-        })
-      },
-      display (location) {
-        if (this.$refs.preview) {
-          if (!this.rendition) {
-            this.rendition = this.book.renderTo('preview', {
-              width: window.innerWidth > 640 ? 640 : window.innerWidth,
-              height: window.innerHeight
-            })
-          }
-          if (!location) {
-            return this.rendition.display()
-          } else {
-            return this.rendition.display(location)
-          }
-        }
-      },
-      // 点击目录时跳转到对应章节
-      toBook (item) {
-        const fileName = this.$route.query.fileName
-        const category = this.$route.query.categoryText
-        this.$router.push({
-          path: `/ebook/${category}|${fileName}`,
-          query: {
-            href: item.href
-          }
-        })
-        // this.currentBook.rendition.display(target)
       },
       flatten (arr) {
         const shelfList = arr.map(book => {
