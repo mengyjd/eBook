@@ -148,7 +148,7 @@ function saveBookInfoToShelfList (fileName, key, val) {
   })
   if (key === 'location') {
     // location改变时不同步数据
-    saveBookShelf(newShelfList, true)
+    saveBookShelf(newShelfList, false)
   } else {
     // 在书签时或者每隔30秒同步数据
     saveBookShelf(newShelfList, false)
