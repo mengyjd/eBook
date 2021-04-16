@@ -73,9 +73,9 @@
       <div class="slide-search-item"
            v-for="(item, index) in searchList"
            :key="index"
-           v-html="item.excerpt"
-           @click="displayContent(item.cfi, true)"
-      ></div>
+           @click="displayContent(item.cfi, true)">
+        <p v-html="item.excerpt" class="text-wrapper"></p>
+      </div>
     </scroll>
   </div>
 </template>
@@ -280,11 +280,13 @@
       padding: 0 px2rem(15);
       box-sizing: border-box;
       .slide-search-item {
-        font-size: px2rem(14);
-        line-height: 1.3;
-        padding: px2rem(15) 0;
+        padding: 15px 0;
         border-bottom: px2rem(1) solid #b8b9bb;
-        @include ellipsis2(3, keep-all);
+        .text-wrapper {
+          font-size: px2rem(14);
+          line-height: 1.3;
+          @include ellipsis2(3, keep-all);
+        }
       }
     }
   }
