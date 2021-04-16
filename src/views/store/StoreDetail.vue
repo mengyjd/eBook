@@ -83,7 +83,6 @@
         const bookId = this.$route.query.id
         if (bookId) {
           detail(bookId).then(res => {
-            console.log('detail res=', res)
             if (res.status === 200 && res.data.error_code === 0 && res.data.data) {
               const data = res.data.data
               this.data = data

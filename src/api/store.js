@@ -10,7 +10,7 @@ export function download (book, onProgress, onSuccess, onError) {
     onDownloadProgress: progressEvent => {
       if (onProgress) onProgress(progressEvent)
     }
-  }).get(`${book.categoryText}/${book.fileName}.epub`)
+  }).get(book.epub)
     .then(res => {
       const blob = new Blob([res.data])
       // 将电子书存储到indexDB中

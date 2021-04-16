@@ -14,13 +14,11 @@
       }
     },
     beforeRouteUpdate(to, from, next) {
-      console.log(to, from)
       if (to.meta.key > from.meta.key) {
         this.slideDirection = 'slide-left'
       } else {
         this.slideDirection = 'slide-right'
       }
-      console.log('next')
       next()
     }
   }

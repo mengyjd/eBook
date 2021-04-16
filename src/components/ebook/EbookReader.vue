@@ -239,8 +239,6 @@
         }
       },
       initEpub (url) {
-        console.log('initEpub')
-        console.log(Epub, new Epub(), url)
         this.book = new Epub(url)
         this.setCurrentBook(this.book)
         this.initRendition()
@@ -293,7 +291,6 @@
     mounted () {
       const fileName = this.$route.query.fileName
       const epubUrl = this.$route.query.epubUrl
-      console.log(this.$route.query)
       // 从indexDB中获取blob类型的离线电子书
       getLocalForage(fileName, book => {
         if (book) {

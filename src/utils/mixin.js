@@ -256,7 +256,7 @@ export const storeShelfMixin = {
           () => {
             book.cache = false
             // saveBookShelf(this.shelfList)
-            this.createSampleToast(this.$t('shelf.removeFromShelfSuccessful'))
+            this.createSampleToast(this.$t('shelf.removeDownloadSuccess'))
           },
           () => {
             this.createSampleToast('删除失败')
