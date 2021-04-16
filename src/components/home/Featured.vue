@@ -8,15 +8,15 @@
     <div class="featured-books-wrapper">
       <div class="featured-book-item point"
            v-for="(book, index) in data" :key="index"
-           @click="showBookDetail(book)"
+           @click="showBookDetail(book.id)"
       >
         <div class="book-img-wrapper">
-          <img class="img" v-lazy="book.cover" alt="">
+          <img class="img" :src="book.cover" alt="">
         </div>
         <div class="book-info-wrapper">
           <div class="book-info title-big">{{book.title}}</div>
           <div class="book-info title-medium">{{book.author}}</div>
-          <div class="book-info title-small">{{getCategory(book.categoryText)}}</div>
+          <div class="book-info title-small">{{book.categoryText}}</div>
         </div>
       </div>
     </div>
@@ -25,7 +25,6 @@
 
 <script>
   import TitleView from './Title'
-  import { getTranslateCategoryText } from '../../utils/store'
   import { storeHomeMixin } from '../../utils/mixin'
   import { gotoList } from '../../utils/routerSkip'
 
@@ -51,9 +50,6 @@
           type: 'categoryRecommend',
           value: 'allFeatured'
         })
-      },
-      getCategory (categoryText) {
-        return getTranslateCategoryText(categoryText, this)
       }
     }
   }
@@ -80,7 +76,8 @@
         }
         .book-img-wrapper {
           .img {
-            width: px2rem(60);
+            width: px2rem(70);
+            height: px2rem(100);
           }
         }
 

@@ -1,17 +1,17 @@
 <template>
   <div class="category-book-wrapper">
     <div class="category-book">
-      <title-view :title-text="getTranslateCategoryTextFromId(data.category)"
+      <title-view :title-text="data.categoryText"
                   :btn-text="$t('home.seeAll')"
                   @onclickBtn="showBookCategory"
       ></title-view>
       <div class="category-books wrapper-height">
         <div class="book-item point responsive-book-box"
              v-for="(book, index) in data.list" :key="index"
-             @click="showBookDetail(book)"
+             @click="showBookDetail(book.id)"
         >
           <div class="book-img-wrapper">
-            <img class="img" v-lazy="book.cover" alt="">
+            <img class="img" :src="book.cover" alt="">
           </div>
           <div class="book-content">
             <p class="book-info title-medium">{{book.title}}</p>
@@ -26,7 +26,6 @@
 <script>
   import TitleView from './Title'
   import { storeHomeMixin } from '../../utils/mixin'
-  import { categoryName } from '../../utils/store'
   import { gotoList } from '../../utils/routerSkip'
 
   export default {
@@ -41,7 +40,7 @@
       showBookCategory () {
         gotoList(this, {
           type: 'categoryBooks',
-          value: categoryName[this.data.category]
+          value: this.data.categoryText
         })
       }
     }

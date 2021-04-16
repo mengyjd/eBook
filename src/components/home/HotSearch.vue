@@ -61,7 +61,7 @@
       clickSearchItem (item) {
         if (item.type === 'book') {
           // 如果点击的搜索类型为书籍，直接跳转到书籍详情页
-          gotoDetail(item, this)
+          gotoDetail(item.id, this)
         } else {
           // 如果点击的类型是文字，则直接用该文字进行搜索
           this.searchBook(item.text)

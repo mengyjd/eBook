@@ -6,7 +6,7 @@
     >
       <featured :data="list"
                 v-if="!isShowCategoryTitle"></featured>
-      <featured :title-text="titleText ? titleText : getCategoryText(key)"
+      <featured :title-text="titleText ? titleText : 'getCategoryText(key)'"
                 v-for="(value, key, index) in list" :key="index"
                 :data="value"
                 v-if="isShowCategoryTitle"></featured>
@@ -19,7 +19,6 @@
   import Featured from '../../components/home/Featured'
   import DetailTitle from '../../components/detail/DetailTitle'
   import Scroll from '../../components/common/Scroll'
-  import { getTranslateCategoryText } from '../../utils/store'
   import { storeShelfMixin } from '../../utils/mixin'
 
   export default {
@@ -59,9 +58,6 @@
       }
     },
     methods: {
-      getCategoryText (key) {
-        return `${getTranslateCategoryText(key, this)}(${this.list[key].length})`
-      },
       getTitleText () {
         return this.$t('home.allBook').replace('$1', this.totalNum)
       },

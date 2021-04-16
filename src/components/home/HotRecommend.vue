@@ -8,10 +8,10 @@
       <div class="recommend-books wrapper-height">
         <div class="book-item point responsive-book-box"
              v-for="(book, index) in data" :key="index"
-             @click="showBookDetail(book)"
+             @click="showBookDetail(book.id)"
         >
           <div class="book-img-wrapper">
-            <img class="img" v-lazy="book.cover" alt="">
+            <img class="img" :src="book.cover" alt="">
           </div>
           <div class="book-content">
             <div class="book-info title-medium">{{book.title}}</div>
@@ -77,18 +77,23 @@
     &:first-child {
       margin-left: 0;
     }
+    &:last-child {
+      padding-right: px2rem(10);
+    }
 
     .book-img-wrapper {
-      width: 100%;
+      width: px2rem(70);
 
       .img {
-        width: 100%;
+        width: px2rem(70);
+        height: px2rem(100);
       }
     }
 
     .book-content {
       .title-medium {
         font-weight: bold;
+        margin-bottom: 5px;
       }
     }
   }

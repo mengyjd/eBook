@@ -1,7 +1,7 @@
 const messages = {
   home: {
     title: '书城',
-    hint: '计算机科学和软件工程',
+    hint: '解忧杂货店',
     guessYouLike: '猜你喜欢',
     change: '换一批',
     clear: '清空',
@@ -15,7 +15,7 @@ const messages = {
     readers: '$1人同时在读',
     featured: '精选',
     category: '分类',
-    books: '$1本书',
+    books: '共$1本书',
     readNow: '立即阅读',
     allBook: '共 $1 本图书',
     searchPeoples: '$1万人搜索'

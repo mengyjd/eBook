@@ -8,7 +8,6 @@
       <book-info :cover="data ? data.cover : ''"
                  :fileName="data ? data.title : '-'"
                  :author="data ? data.author : '-'"
-                 :desc="desc"
       ></book-info>
       <div class="book-copyright">
         <div class="title-big">{{$t('detail.copyright')}}</div>
@@ -16,14 +15,10 @@
           <div class="content-label">
             <span class="label">{{$t('detail.publisher')}}</span>
             <span class="label">{{$t('detail.category')}}</span>
-            <span class="label">{{$t('detail.lang')}}</span>
-            <span class="label">{{$t('detail.ISBN')}}</span>
           </div>
           <div class="content-label right">
-            <span class="text">{{data ? data.publisher : '-'}}</span>
-            <span class="text">{{data ? getCategory(data.categoryText) : '-'}}</span>
-            <span class="text">{{data ? data.language : '-'}}</span>
-            <span class="text">{{metadata ? metadata.identifier : '-'}}</span>
+            <span class="text">{{data ? data.publisherText : '-'}}</span>
+            <span class="text">{{data ? data.categoryText : '-'}}</span>
           </div>
         </div>
       </div>
@@ -42,7 +37,6 @@
   import BookInfo from '../../components/detail/BookInfo'
   import Scroll from '../../components/common/Scroll'
   import { detail } from '../../api/store'
-  import { getTranslateCategoryText } from '../../utils/store'
   import Epub from 'epubjs'
   import { storeShelfMixin } from '../../utils/mixin'
   import { gotoEbookRead } from '../../utils/routerSkip'
@@ -59,7 +53,6 @@
     data () {
       return {
         bookInfoOffsetY: 0,
-        desc: '',
         data: null,
         menuList: [],
         metadata: null
@@ -69,7 +62,7 @@
       isInBookShelf () {
         if (this.data && this.shelfList) {
           const flatShelfList = this.flatten(this.shelfList)
-          const book = flatShelfList.filter(book => book.fileName === this.data.fileName)
+          const book = flatShelfList.filter(book => book.id === this.data.id)
           return book && book.length > 0
         } else {
           return false
@@ -83,16 +76,14 @@
       showEbookRead () {
         gotoEbookRead(this.data, this)
       },
-      getCategory (categoryText) {
-        return getTranslateCategoryText(categoryText, this)
-      },
       onScroll (offsetY) {
         this.bookInfoOffsetY = offsetY
       },
       init () {
-        const fileName = this.$route.query.fileName
-        if (fileName) {
-          detail(fileName).then(res => {
+        const bookId = this.$route.query.id
+        if (bookId) {
+          detail(bookId).then(res => {
+            console.log('detail res=', res)
             if (res.status === 200 && res.data.error_code === 0 && res.data.data) {
               const data = res.data.data
               this.data = data

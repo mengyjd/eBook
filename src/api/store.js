@@ -33,12 +33,12 @@ export function home () {
   })
 }
 
-export function detail (fileName) {
+export function detail (id) {
   return axios({
     method: 'get',
     url: `${process.env.VUE_APP_BASE_URL}/book/detail`,
     params: {
-      fileName: fileName
+      id
     }
   })
 }

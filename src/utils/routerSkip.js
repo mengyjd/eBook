@@ -6,21 +6,20 @@ export function gotoStoreHome (vue) {
 
 export function gotoEbookRead (book, vue) {
   vue.$router.push({
-    path: `/ebook/${book.categoryText}|${book.fileName}`
+    path: `/ebook/${book.categoryText}|${book.title}`,
+    query: {
+      fileName: book.id,
+      epubUrl: book.epub
+    }
   })
 }
 
-export function gotoDetail (book, vue) {
+export function gotoDetail (id, vue) {
   vue.$router.push({
     path: '/store/detail',
     query: {
-      fileName: book.fileName,
-      categoryText: book.categoryText
+      id
     }
-  }).then((router) => {
-    console.log('complete', router)
-  }).catch((err) => {
-    console.log('err', err)
   })
 }
 

@@ -141,9 +141,6 @@ export function getBookTheme () {
 // 将书籍的阅读信息保存到ShelfList中
 // 阅读信息包含[readTime, bookmarks, location]
 function saveBookInfoToShelfList (fileName, key, val) {
-  if (fileName.match(/\/(.*)/)) {
-    fileName = fileName.match(/\/(.*)/)[1]
-  }
   const newShelfList = mapShelfList(getBookShelf(), (book) => {
     if (book.fileName === fileName) {
       book[key] = val
@@ -164,9 +161,6 @@ function saveBookInfoToShelfList (fileName, key, val) {
  * @returns {Object}
  */
 function getBookInfoFromShelfList (fileName) {
-  if (fileName.match(/\/(.*)/)) {
-    fileName = fileName.match(/\/(.*)/)[1]
-  }
   let bookInfo
   mapShelfList(getBookShelf(), (book) => {
     if (book.fileName === fileName) {

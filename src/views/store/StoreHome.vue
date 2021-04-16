@@ -19,12 +19,6 @@
         :titleText="$t('home.featured')"
         :btn-text="$t('home.seeAll')"
       ></featured>
-      <!--分类推荐-->
-      <div class="block"
-           v-for="(data, index) in homeData.categoryList" :key="index"
-      >
-        <category-book :data="data"></category-book>
-      </div>
       <!--分类-->
       <categorys class="block" :data="homeData.categories"></categorys>
     </scroll>
@@ -40,7 +34,6 @@
   import GuessYouLike from '../../components/home/GuessYouLike'
   import HotRecommend from '../../components/home/HotRecommend'
   import Featured from '../../components/home/Featured'
-  import CategoryBook from '../../components/home/CategoryBook'
   import Categorys from '../../components/home/Categorys'
   import { getLocalHomeData, saveHomeData } from '../../utils/localStorage'
 
@@ -53,8 +46,7 @@
       FlapCard,
       SearchBar,
       Scroll,
-      Featured,
-      CategoryBook
+      Featured
     },
     data () {
       return {

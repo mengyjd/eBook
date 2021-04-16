@@ -6,11 +6,11 @@
     ></title-view>
     <div class="guess-you-like-book-wrapper">
       <div class="you-like-book-item point"
-           v-for="(item, index) in data" :key="index"
-           @click="showBookDetail(item)"
+           v-for="item in data" :key="item.id"
+           @click="showBookDetail(item.id)"
       >
         <div class="book-img-wrapper">
-          <img class="img" v-lazy="item.cover" alt="">
+          <img class="img" :src="item.cover" alt="">
         </div>
         <div class="book-info-wrapper">
           <div class="book-info title-big">{{item.title}}</div>
@@ -76,6 +76,7 @@
     .book-img-wrapper {
       .img {
         width: px2rem(70);
+        height: px2rem(100);
       }
     }
 

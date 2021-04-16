@@ -67,37 +67,6 @@ export const flapCardList = [
     rotateDegree: 0
   }
 ]
-// 根据分类id获取分类名称
-export const categoryName = {
-  1: 'ComputerScience',
-  2: 'SocialSciences',
-  3: 'Economics',
-  4: 'Education',
-  5: 'Engineering',
-  6: 'Environment',
-  7: 'Geography',
-  8: 'History',
-  9: 'Laws',
-  10: 'LifeSciences',
-  11: 'Literature',
-  12: 'Biomedicine',
-  13: 'BusinessandManagement',
-  14: 'EarthSciences',
-  15: 'MaterialsScience',
-  16: 'Mathematics',
-  17: 'MedicineAndPublicHealth',
-  18: 'Philosophy',
-  19: 'Physics',
-  20: 'PoliticalScienceAndInternationalRelations',
-  21: 'Psychology',
-  22: 'Statistics'
-}
-
-// 将分类名称根据语言翻译
-export function getTranslateCategoryText (text, vue) {
-    text = text.substring(0, 1).toLowerCase() + text.substring(1)
-  return vue.$t(`category.${text}`)
-}
 
 // 遍历书架，对书架中每一个书籍执行调函数，然后返回新的数组
 export function mapShelfList (shelfList, cb) {

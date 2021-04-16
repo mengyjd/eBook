@@ -239,6 +239,8 @@
         }
       },
       initEpub (url) {
+        console.log('initEpub')
+        console.log(Epub, new Epub(), url)
         this.book = new Epub(url)
         this.setCurrentBook(this.book)
         this.initRendition()
@@ -289,21 +291,21 @@
       }
     },
     mounted () {
-      const books = this.$route.params.fileName.split('|')
-      const fileName = books[1]
+      const fileName = this.$route.query.fileName
+      const epubUrl = this.$route.query.epubUrl
+      console.log(this.$route.query)
       // 从indexDB中获取blob类型的离线电子书
       getLocalForage(fileName, book => {
         if (book) {
-          this.setFileName(books.join('/'))
+          this.setFileName(fileName)
             .then(() => {
               this.initEpub(book)
             })
         } else {
-          this.setFileName(books.join('/'))
+          this.setFileName(fileName)
             .then(() => {
               // 获取在线电子书
-              const url = process.env.VUE_APP_EPUB_URL + '/' + this.fileName + '.epub'
-              this.initEpub(url)
+              this.initEpub(epubUrl)
             })
         }
       })

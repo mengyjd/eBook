@@ -1,23 +1,21 @@
 <template>
   <div class="categorys-wrapper">
     <title-view :title-text="$t('home.category')"
-                :btn-text="$t('home.seeAll')"
-                @onclickBtn="seeAll"
+                btn-text=""
     ></title-view>
     <div class="category-list">
       <div class="category-item point"
-           v-for="book in data" :key="book.img1"
-           @click="showCategoryBook(book.category)"
+           v-for="category in data" :key="category.id"
+           @click="showCategoryBook(category.id)"
       >
         <div class="item-wrapper">
           <div class="text-wrapper">
-            <div class="category-info title-medium">{{getTranslateCategoryTextFromId(book.category)}}</div>
-            <div class="category-info title-small">{{getBookNum(book.num)}}</div>
+            <div class="category-info title-medium">{{category.text}}</div>
+            <div class="category-info title-small">{{getBookNum(category.counts)}}</div>
           </div>
           <div class="img-wrapper">
             <div class="img-group">
-              <img class="img-front" v-lazy="book.img1" alt="">
-              <img class="img-back" v-lazy="book.img2" alt="">
+              <img class="img-front" :src="category.img1" alt="图片">
             </div>
           </div>
         </div>
@@ -29,9 +27,8 @@
 
 <script>
   import TitleView from './Title'
-  import { storeHomeMixin } from '../../utils/mixin'
-  import { categoryName } from '../../utils/store'
-  import { gotoList } from '../../utils/routerSkip'
+  import { storeHomeMixin } from '@/utils/mixin'
+  import { gotoList } from '@/utils/routerSkip'
 
   export default {
     mixins: [storeHomeMixin],
@@ -48,13 +45,7 @@
       showCategoryBook (categoryId) {
         gotoList(this, {
           type: 'categoryBooks',
-          value: categoryName[categoryId]
-        })
-      },
-      seeAll () {
-        gotoList(this, {
-          type: 'allCategoryBooks',
-          value: 'allCategoryBooks'
+          value: categoryId
         })
       }
     }

@@ -6,7 +6,7 @@ import {
   saveBookShelf,
   saveLocation
 } from './localStorage'
-import { appendShelfItemAdd, categoryName, getTranslateCategoryText, removeShelfItemAdd } from './store'
+import { appendShelfItemAdd, removeShelfItemAdd } from './store'
 import { shelf } from '../api/store'
 import { removeLocalForage } from './localforage'
 import { gotoDetail, gotoList } from './routerSkip'
@@ -134,9 +134,6 @@ export const storeHomeMixin = {
       'setHotSearchPageOffsetY',
       'setFlapCardVisible'
     ]),
-    getTranslateCategoryTextFromId (id) {
-      return getTranslateCategoryText(categoryName[id], this)
-    },
     showBookDetail(item) {
       gotoDetail(item, this)
     },

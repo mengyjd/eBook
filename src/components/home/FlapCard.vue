@@ -49,10 +49,10 @@
         <div class="book-content">
           <div class="title book-info">{{randomBook.title}}</div>
           <div class="author book-info">{{randomBook.author}}</div>
-          <div class="category book-info">{{getCategory(randomBook.categoryText)}}</div>
+          <div class="category book-info">{{randomBook.categoryText}}</div>
         </div>
         <div class="read-btn"
-             @click.stop="showDetail(randomBook)"
+             @click.stop="showDetail(randomBook.id)"
         >{{$t('home.readNow')}}
         </div>
       </div>
@@ -62,7 +62,7 @@
 
 <script>
   import { storeHomeMixin } from '../../utils/mixin'
-  import { flapCardList, getTranslateCategoryText } from '../../utils/store'
+  import { flapCardList } from '../../utils/store'
 
   export default {
     mixins: [storeHomeMixin],
@@ -246,10 +246,6 @@
         if (this.timeout3) {
           clearTimeout(this.timeout3)
         }
-      },
-      // 获取翻译后的分类名称
-      getCategory (categoryText) {
-        return getTranslateCategoryText(categoryText, this)
       },
       // 显示图书详情
       showDetail (randomBook) {
