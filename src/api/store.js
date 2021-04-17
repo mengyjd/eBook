@@ -3,7 +3,6 @@ import { setLocalForage } from '../utils/localforage'
 
 export function download (book, onProgress, onSuccess, onError) {
   return axios.create({
-    baseURL: process.env.VUE_APP_EPUB_URL,
     method: 'get',
     responseType: 'blob',
     timeout: 1800 * 1000,

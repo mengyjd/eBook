@@ -1,4 +1,4 @@
-let isDev = process.env.NODE_ENV === 'production' ? false : true
+const isDev = process.env.NODE_ENV !== 'production'
 
 module.exports = {
   productionSourceMap: false,
