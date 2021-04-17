@@ -100,6 +100,7 @@ const messages = {
     downloadFirst: '请先缓存图书'
   },
   detail: {
+    author: '作者',
     copyright: '版权',
     navigation: '目录',
     publisher: '出版社',

@@ -100,6 +100,7 @@ const messages = {
     downloadFirst: 'Please download book first'
   },
   detail: {
+    author: 'author',
     copyright: 'Copyright',
     navigation: 'Table of Contents',
     publisher: 'Publisher',

@@ -7,16 +7,17 @@
     >
       <book-info :cover="data ? data.cover : ''"
                  :fileName="data ? data.title : '-'"
-                 :author="data ? data.author : '-'"
       ></book-info>
       <div class="book-copyright">
         <div class="title-big">{{$t('detail.copyright')}}</div>
         <div class="content">
           <div class="content-label">
+            <span class="label">{{$t('detail.author')}}</span>
             <span class="label">{{$t('detail.publisher')}}</span>
             <span class="label">{{$t('detail.category')}}</span>
           </div>
           <div class="content-label right">
+            <span class="text">{{data ? data.author : '-'}}</span>
             <span class="text">{{data ? data.publisherText : '-'}}</span>
             <span class="text">{{data ? data.categoryText : '-'}}</span>
           </div>
@@ -26,7 +27,6 @@
     <div class="tab-wrapper">
       <span class="tab-btn point"
             @click="showEbookRead">{{$t('detail.read')}}</span>
-      <!--<span class="tab-btn">{{$t('detail.listen')}}</span>-->
       <span class="tab-btn point" @click="onAddOrRemoveFromShelf">{{addOrRemoveFromShelf}}</span>
     </div>
   </div>
@@ -132,6 +132,7 @@
     font-size: px2rem(24);
     font-weight: bold;
     margin-bottom: px2rem(20);
+    color: #666666;
   }
 
   .detail-wrapper {
